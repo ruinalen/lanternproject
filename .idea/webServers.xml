@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="0d11e801-5e2d-4ec5-9f81-080e496f2089" name="lanternproject" url="http://223.195.109.38/lanternproject">
+        <fileTransfer host="223.195.109.38" port="22" rootFolder="/var/www/html/lanternproject" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
