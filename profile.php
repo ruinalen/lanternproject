@@ -229,7 +229,40 @@ echo("");
                     <div class="dashboard-list-box margin-top-0">
                         <h4 class="gray">Profile Details</h4>
                         <div class="dashboard-list-box-static">
-                            <form method="post" class="profile" enctype="multipart/form-data" action="./profilephoto.php">
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+
+                                    $("#profilephoto").submit( function(e){
+                                        e.preventDefault();
+
+                                        var datas, xhr;
+
+                                        datas = new FormData();
+                                        datas.append( 'service_image', $( '#service_image' )[0].files[0] );
+
+                                        $.ajax({
+                                            url: './profile_img/', //업로드할 url
+                                            contentType: 'multipart/form-data',
+                                            type: 'POST',
+                                            data: datas,
+                                            dataType: 'json',
+                                            mimeType: 'multipart/form-data',
+                                            success: function (data) {
+                                                alert( data.url );
+                                            },
+                                            error : function (jqXHR, textStatus, errorThrown) {
+                                                alert('ERRORS: ' + textStatus);
+                                            },
+                                            cache: false,
+                                            contentType: false,
+                                            processData: false
+                                        });
+                                    });
+
+                                });
+
+                            </script>
+                            <form id="profilephoto" method="post" class="profile" enctype="multipart/form-data" action="./profilephoto.php">
 
                             <!-- Avatar -->
                             <div class="edit-profile-photo">
@@ -237,12 +270,13 @@ echo("");
                                 <div class="change-photo-btn">
                                     <div class="photoUpload">
                                         <span><i class="fa fa-upload"></i> Upload Photo</span>
-                                        <input type="file" class="upload" />
+                                        <input id="service_image" name="service_image"  type="file" class="upload" />
                                     </div>
                                 </div>
                             </div>
                             <button class="button margin-top-15">PROFILE UPLOAD</button>
                             </form>
+
                             <form method="post" class="profile" action="./profileupdate.php">
                             <!-- Details -->
                             <div class="my-profile">
