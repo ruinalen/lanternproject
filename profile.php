@@ -229,6 +229,29 @@ echo("");
                     <div class="dashboard-list-box margin-top-0">
                         <h4 class="gray">Profile Details</h4>
                         <div class="dashboard-list-box-static">
+                            <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+                            <script type="text/javascript">
+                                $(function() {
+                                    $("#service_image").on('change', function(){
+                                        readURL(this);
+                                    });
+                                });
+
+                                function readURL(input) {
+                                    if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
+
+                                        reader.onload = function (e) {
+                                            $('#profile_img_area').attr('src', e.target.result);
+                                        }
+
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
+                                }
+
+
+                            </script>
+
                             <script type="text/javascript">
                                 $(document).ready(function() {
 
@@ -247,9 +270,7 @@ echo("");
                                             data: datas,
                                             dataType: 'json',
                                             mimeType: 'multipart/form-data',
-                                            success: function (data) {
-                                                alert( data.url );
-                                            },
+
                                             error : function (jqXHR, textStatus, errorThrown) {
                                                 alert('ERRORS: ' + textStatus);
                                             },
@@ -266,16 +287,24 @@ echo("");
 
                             <!-- Avatar -->
                             <div class="edit-profile-photo">
-                                <img src="./profile_img/<?php echo $_SESSION[user_sid]?>.png" alt="">
+                                <img id="profile_img_area" src="./profile_img/<?php echo $_SESSION[user_sid]?>.png" alt="">
                                 <div class="change-photo-btn">
                                     <div class="photoUpload">
-                                        <span><i class="fa fa-upload"></i> Upload Photo</span>
+                                        <span><i class="fa fa-upload"></i> SELECT PHOTO</span>
                                         <input id="service_image" name="service_image"  type="file" class="upload" />
                                     </div>
                                 </div>
                             </div>
-                            <button class="button margin-top-15">PROFILE UPLOAD</button>
+
+                                <button type="submit" class="button margin-top-15">PROFILE PHOTO UPLOAD</button>
+
                             </form>
+                            <button onclick="refreshPage()" class="button margin-top-15 cancel-button">CANCEL</button>
+                            <script>
+                                function refreshPage(){
+                                    window.location.reload();
+                                }
+                            </script>
 
                             <form method="post" class="profile" action="./profileupdate.php">
                             <!-- Details -->
