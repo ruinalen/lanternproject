@@ -266,7 +266,7 @@ echo("");
 
                             <!-- Avatar -->
                             <div class="edit-profile-photo">
-                                <img src="images/user-avatar.jpg" alt="">
+                                <img src="./profile_img/<?php echo $_SESSION[user_sid]?>.png" alt="">
                                 <div class="change-photo-btn">
                                     <div class="photoUpload">
                                         <span><i class="fa fa-upload"></i> Upload Photo</span>
