@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: SuhKyung
@@ -9,7 +8,7 @@
 
 session_start();
 $_SESSION[user_sid];
-$path = "./profile/";
+$path = "/var/profile_img/";
 
 $valid_formats = array("jpg", "png", "gif", "bmp","jpeg");
 $data   = array();
@@ -30,7 +29,7 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
             {
                 $actual_image_name = $_SESSION[user_sid].".png";
                 $tmp = $_FILES['service_image']['tmp_name'];
-                if(move_uploaded_file($tmp, $path."/".$actual_image_name))
+                if(move_uploaded_file($tmp, $path.$actual_image_name))
                 {
                     $data['success'] = true;
                      $data['url']  = "http://223.195.109.38/lanternproject/profile/".$actual_image_name;

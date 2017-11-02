@@ -241,7 +241,7 @@ echo("");
                                         datas.append( 'service_image', $( '#service_image' )[0].files[0] );
 
                                         $.ajax({
-                                            url: './profile_img/', //업로드할 url
+                                            url: './profilephoto.php', //업로드할 url
                                             contentType: 'multipart/form-data',
                                             type: 'POST',
                                             data: datas,
