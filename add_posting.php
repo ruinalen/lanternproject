@@ -1,10 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: SuhKyung
- * Date: 2017-11-02
- * Time: 오후 8:28
- */?>
+session_start();
+if($_SESSION['user_sid'] == NULL){
+    echo("<script> document.location.href='http://223.195.109.38/lanternproject/index.php';</script>");
+}
+$conn = mysqli_connect('localhost','lantern','lantern','lantern');
+$query1 = "SELECT * FROM `member` WHERE `sid` ='$_SESSION[user_sid]'";
+$result = mysqli_query($conn, $query1);
+$user = mysqli_fetch_assoc($result);?>
 <!DOCTYPE html>
 <head>
 
@@ -233,8 +235,8 @@
                             <!-- Title -->
                             <div class="row with-forms">
                                 <div class="col-md-12">
-                                    <h5>Listing Title <i class="tip" data-tip-content="Name of your business"></i></h5>
-                                    <input class="search-field" type="text" value=""/>
+                                    <h5>About the Lantern<i class="tip" data-tip-content="Please introduce yourself to travelers"></i></h5>
+                                    <textarea name="intro" id="intro" cols="30" rows="8"><?php echo $user['intro']?></textarea>
                                 </div>
                             </div>
 
@@ -243,7 +245,7 @@
 
                                 <!-- Status -->
                                 <div class="col-md-6">
-                                    <h5>Category</h5>
+                                    <h5>Language</h5>
                                     <select class="chosen-select-no-single" >
                                         <option label="blank">Select Category</option>
                                         <option>Eat & Drink</option>
@@ -646,7 +648,6 @@
                                             </tr>
                                         </table>
                                         <a href="#" class="button add-pricing-list-item">Add Item</a>
-                                        <a href="#" class="button add-pricing-submenu">Add Category</a>
                                     </div>
                                 </div>
 

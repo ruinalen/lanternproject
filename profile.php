@@ -36,124 +36,7 @@ echo("");
     <header id="header-container" class="fixed fullwidth dashboard">
 
         <!-- Header -->
-        <div id="header" class="not-sticky">
-            <div class="container">
-
-                <!-- Left Side Content -->
-                <div class="left-side">
-
-                    <!-- Logo -->
-                    <div id="logo">
-                        <a href="index.php"><img src="images/logo00.png" alt=""></a>
-                        <a href="index.php" class="dashboard-logo"><img src="images/logo2.png" alt=""></a>
-                    </div>
-
-                    <!-- Mobile Navigation -->
-                    <div class="menu-responsive">
-                        <i class="fa fa-reorder menu-trigger"></i>
-                    </div>
-
-                    <!-- Main Navigation -->
-                    <nav id="navigation" class="style-1">
-                        <ul id="responsive">
-
-                            <li><a href="#">Home</a>
-                                <ul>
-                                    <li><a href="index.php">Home 1</a></li>
-                                    <li><a href="index-2.html">Home 2</a></li>
-                                    <li><a href="index-3.html">Home 3</a></li>
-                                    <li><a href="index-4.html">Home 4</a></li>
-                                </ul>
-                            </li>
-
-                            <li><a href="#">Listings</a>
-                                <ul>
-                                    <li><a href="#">List Layout</a>
-                                        <ul>
-                                            <li><a href="listings-list-with-sidebar.html">With Sidebar</a></li>
-                                            <li><a href="listings-list-full-width.html">Full Width</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Grid Layout</a>
-                                        <ul>
-                                            <li><a href="listings-grid-with-sidebar-1.html">With Sidebar 1</a></li>
-                                            <li><a href="listings-grid-with-sidebar-2.html">With Sidebar 2</a></li>
-                                            <li><a href="listings-grid-full-width.html">Full Width</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Half Screen Map</a>
-                                        <ul>
-                                            <li><a href="listings-half-screen-map-list.html">List Layout</a></li>
-                                            <li><a href="listings-half-screen-map-grid-1.html">Grid Layout 1</a></li>
-                                            <li><a href="listings-half-screen-map-grid-2.html">Grid Layout 2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="listings-single-page.html">Single Listing</a></li>
-                                </ul>
-                            </li>
-
-                            <li><a class="current" href="#">User Panel</a>
-                                <ul>
-                                    <li><a href="dashboard.html">Dashboard</a></li>
-                                    <li><a href="dashboard-messages.html">Messages</a></li>
-                                    <li><a href="dashboard-my-listings.html">My Listings</a></li>
-                                    <li><a href="dashboard-reviews.html">Reviews</a></li>
-                                    <li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
-                                    <li><a href="dashboard-add-listing.html">Add Listing</a></li>
-                                    <li><a href="dashboard-my-profile.html">My Profile</a></li>
-                                    <li><a href="dashboard-invoice.html">Invoice</a></li>
-                                </ul>
-                            </li>
-
-                            <li><a href="#">Pages</a>
-                                <ul>
-                                    <li><a href="pages-blog.html">Blog</a>
-                                        <ul>
-                                            <li><a href="pages-blog.html">Blog</a></li>
-                                            <li><a href="pages-blog-post.html">Blog Post</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="pages-contact.html">Contact</a></li>
-                                    <li><a href="pages-elements.html">Elements</a></li>
-                                    <li><a href="pages-pricing-tables.html">Pricing Tables</a></li>
-                                    <li><a href="pages-typography.html">Typography</a></li>
-                                    <li><a href="pages-404.html">404 Page</a></li>
-                                    <li><a href="pages-icons.html">Icons</a></li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                    </nav>
-                    <div class="clearfix"></div>
-                    <!-- Main Navigation / End -->
-
-                </div>
-                <!-- Left Side Content / End -->
-
-                <!-- Right Side Content / End -->
-                <div class="right-side">
-                    <!-- Header Widget -->
-                    <div class="header-widget">
-
-                        <!-- User Menu -->
-                        <div class="user-menu">
-                            <div class="user-name"><span><img src="images/dashboard-avatar.jpg" alt=""></span><?php echo $user['email']?></div>
-                            <ul>
-                                <li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
-                                <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages</a></li>
-                                <li><a href="dashboard-my-profile.html"><i class="sl sl-icon-user"></i> My Profile</a></li>
-                                <li><a href="index.php"><i class="sl sl-icon-power"></i> Logout</a></li>
-                            </ul>
-                        </div>
-
-                        <a href="dashboard-add-listing.html" class="button border with-icon">Add Listing <i class="sl sl-icon-plus"></i></a>
-                    </div>
-                    <!-- Header Widget / End -->
-                </div>
-                <!-- Right Side Content / End -->
-
-            </div>
-        </div>
+<?php include 'header.php';?>
         <!-- Header / End -->
 
     </header>
@@ -319,27 +202,11 @@ echo("");
                                 <label>Phone Number</label>
                                 <input value="" type="text" name="phone_num" id="phone_num" >
 
-                                <label>Which Country You Live</label>
-                                <input value="" type="text" name="region" id="region" >
-
                                 <label>School / Work</label>
                                 <input value="" type="text" name="career" id="career" >
 
                                 <label>Describe Yourself</label>
                                 <textarea name="intro" id="intro" cols="30" rows="10"></textarea>
-
-                                <script>
-                                    function nullCheck(info){
-                                        if(info==="NULL" || info==="null" || info==="" || !info)
-                                            return " ";
-                                        else
-                                            return info;
-                                    }
-                                    document.getElementById('phone_num').value = nullCheck("<?php echo $user['phone_num']?>");
-                                    document.getElementById('region').value = nullCheck("<?php echo $user['region']?>");
-                                    document.getElementById('career').value = nullCheck("<?php echo $user['career']?>");
-                                    document.getElementById('intro').value = nullCheck("<?php echo $user['intro']?>");
-                                </script>
 
 <!--                                <label><i class="fa fa-twitter"></i> Twitter</label>-->
 <!--                                <input placeholder="https://www.twitter.com/" type="text">-->
@@ -357,22 +224,40 @@ echo("");
                     </div>
                 </div>
 
-                <!-- Change Password -->
+                <!-- Change Country and Languages -->
                 <div class="col-lg-6 col-md-12">
                     <div class="dashboard-list-box margin-top-0">
-                        <h4 class="gray">Change Password</h4>
+                        <h4 class="gray">Nationality & Languages</h4>
                         <div class="dashboard-list-box-static">
 
                             <!-- Change Password -->
                             <div class="my-profile">
-                                <label class="margin-top-0">Current Password</label>
-                                <input type="password">
 
-                                <label>New Password</label>
-                                <input type="password">
+                                <label>Which Country You Live</label>
+                                <input value="" type="text" name="region" id="region" >
 
-                                <label>Confirm New Password</label>
-                                <input type="password">
+                                <label>Languages</label>
+                                <div class="switcher-content">
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table id="pricing-list-container">
+                                                <tr class="pricing-list-item pattern">
+                                                    <td>
+                                                        <div class="fm-move"><i class="sl sl-icon-cursor-move"></i></div>
+                                                        <div class="fm-input pricing-name"><input type="text" placeholder="Tisdfsdfsdfsdftle" /></div>
+                                                        <div class="fm-input pricing-ingredients"><input type="text" placeholder="Description" /></div>
+                                                        <div class="fm-input pricing-price"><input type="text" placeholder="Price" data-unit="USD" /></div>
+                                                        <div class="fm-close"><a class="delete" href="#"><i class="fa fa-remove"></i></a></div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <a href="#" class="button add-pricing-list-item">Add Item</a>
+                                            <a href="#" class="button add-pricing-submenu">Add Category</a>
+                                        </div>
+                                    </div>
+
+                                </div>
 
                                 <button class="button margin-top-15">Change Password</button>
                             </div>
@@ -380,6 +265,44 @@ echo("");
                         </div>
                     </div>
                 </div>
+
+                <script>
+                    function nullCheck(info){
+                        if(info==="NULL" || info==="null" || info==="" || !info)
+                            return " ";
+                        else
+                            return info;
+                    }
+                    document.getElementById('phone_num').value = nullCheck("<?php echo $user['phone_num']?>");
+                    document.getElementById('region').value = nullCheck("<?php echo $user['region']?>");
+                    document.getElementById('career').value = nullCheck("<?php echo $user['career']?>");
+                    document.getElementById('intro').value = nullCheck("<?php echo $user['intro']?>");
+                </script>
+
+
+                                <!-- Change Password -->
+<!--                <div class="col-lg-6 col-md-12">-->
+<!--                    <div class="dashboard-list-box margin-top-0">-->
+<!--                        <h4 class="gray">Change Password</h4>-->
+<!--                        <div class="dashboard-list-box-static">-->
+<!---->
+<!--                            <!-- Change Password -->-->
+<!--                            <div class="my-profile">-->
+<!--                                <label class="margin-top-0">Current Password</label>-->
+<!--                                <input type="password">-->
+<!---->
+<!--                                <label>New Password</label>-->
+<!--                                <input type="password">-->
+<!---->
+<!--                                <label>Confirm New Password</label>-->
+<!--                                <input type="password">-->
+<!---->
+<!--                                <button class="button margin-top-15">Change Password</button>-->
+<!--                            </div>-->
+<!---->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
 
                 <!-- Copyrights -->
