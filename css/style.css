@@ -247,7 +247,14 @@ img.footer-logo { max-height: 38px; width: auto; }
 .header-widget-hide {
 	display: none;
 }
-
+.profile_img_circle{
+	width: 38px;
+	height: 38px;
+	border: solid 3px transparent;
+	border-radius: 25px;
+	background-size: cover;
+	background-position: 50% 50%;
+}
 .header-widget .button,
 .header-widget .button.border {
 	margin-right: 0;
@@ -725,7 +732,11 @@ body #navigation ul ul {
 	margin-left: 25px;
 }
 
-.user-menu .user-name { transition: 0.2s; }
+.user-menu .user-name {
+	transition: 0.2s;
+	margin-left: 5px;
+
+}
  
 .user-menu .user-name:after {
 	content: "\f107";

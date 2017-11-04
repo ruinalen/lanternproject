@@ -7,7 +7,7 @@ $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 $query1 = "SELECT * FROM `member` WHERE `sid` ='$_SESSION[user_sid]'";
 $result = mysqli_query($conn, $query1);
 $user = mysqli_fetch_assoc($result);
-echo("");
+print_r($row);
 ?>
 <!DOCTYPE html>
 <head>
@@ -37,7 +37,7 @@ echo("");
     <header id="header-container" class="fixed fullwidth dashboard">
 
         <!-- Header -->
-<?php include 'header.php';?>
+<?php include 'header-dashboard.php';?>
         <!-- Header / End -->
 
     </header>
@@ -180,7 +180,7 @@ echo("");
                                 </div>
                             </div>
 
-                                <button type="submit" class="button margin-top-15">PROFILE PHOTO UPLOAD</button>
+                                <button  class="button margin-top-15">PROFILE PHOTO UPLOAD</button>
 
                             </form>
                             <button onclick="refreshPage()" class="button margin-top-15 cancel-button">CANCEL</button>
@@ -227,7 +227,7 @@ echo("");
                                 <form method="post" class="profile" action="./profileupdate2.php">
 
                                 <label>Describe Yourself</label>
-                                <textarea name="intro" id="intro" cols="30" rows="10"></textarea>
+                                <textarea name="intro" id="intro" cols="30" rows="10" value=""></textarea>
 
                                 <label>Which Country You Live</label>
                                 <select name="country" class="aachosen-select-no-single" id="regionSelect">
@@ -755,8 +755,7 @@ echo("");
 
                                                         <div class="fm-input pricing-ingredients">
                                                             <select name="lang_f3" class="chosen-select-no-single" id="langf3Select">
-                                                                <option value="0">Select Fluency</option>
-                                                                <option value="1">1(Poor)</option>
+                                                                <option selected value="1">1(Poor)</option>
                                                                 <option value="2">2</option>
                                                                 <option value="3">3</option>
                                                                 <option value="4">4</option>
@@ -791,16 +790,16 @@ echo("");
                 </div>
 
                 <script>
-                    function nullCheck(info){
-                        if(info==="NULL" || info==="null" || info==="" || !info)
-                            return " ";
-                        else
-                            return info;
-                    }
-                    document.getElementById('phone_num').value = nullCheck("<?php echo $user['phone_num']?>");
-                    document.getElementById('region').value = nullCheck("<?php echo $user['region']?>");
-                    document.getElementById('career').value = nullCheck("<?php echo $user['career']?>");
-                    document.getElementById('intro').value = nullCheck("<?php echo $user['intro']?>");
+
+
+                    document.getElementById('career').value = "<?php echo $user['career']?>";
+                    document.getElementById('phone_num').value = "<?php echo $user['phone_num']?>";
+
+
+
+                    document.getElementById('intro').value = "<?php echo $user['intro']?>";
+                    document.getElementById('region').value = "<?php echo $user['region']?>";
+
                 </script>
 
 

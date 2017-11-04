@@ -2,7 +2,6 @@
 session_start();
 ?>
 <!-- Header -->
-
 <div id="header">
     <div class="container">
 
@@ -11,7 +10,7 @@ session_start();
 
             <!-- Logo -->
             <div id="logo">
-                <a href="index.php"><img src="images/logo00.png" alt=""></a>
+                 <a href="index.php" class="dashboard-logo"><img src="images/logo2.png" alt=""></a>
 
             </div>
 
