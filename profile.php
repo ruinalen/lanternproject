@@ -790,15 +790,21 @@ print_r($row);
                 </div>
 
                 <script>
+                    function nullCheck(info){
+                        if(info==="NULL" || info==="null" || info==="" || !info)
+                            return " ";
+                        else
+                            document.write(info);
+                            return info;
+                    }
 
 
-                    document.getElementById('career').value = "<?php echo $user['career']?>";
-                    document.getElementById('phone_num').value = "<?php echo $user['phone_num']?>";
+                    document.getElementById('phone_num').value = nullCheck("<?php echo $user['phone_num']?>");
 
+                    document.getElementById('career').value = nullCheck("<?php echo $user['career']?>");
+                    document.getElementById('intro').value = nullCheck("<?php echo $user['intro']?>");
 
-
-                    document.getElementById('intro').value = "<?php echo $user['intro']?>";
-                    document.getElementById('region').value = "<?php echo $user['region']?>";
+                    document.getElementById('region').value = nullCheck("<?php echo $user['region']?>");
 
                 </script>
 
