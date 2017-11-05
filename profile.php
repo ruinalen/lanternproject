@@ -755,7 +755,8 @@ print_r($row);
 
                                                         <div class="fm-input pricing-ingredients">
                                                             <select name="lang_f3" class="chosen-select-no-single" id="langf3Select">
-                                                                <option selected value="1">1(Poor)</option>
+                                                                <option value="0">Select Fluency</option>
+                                                                <option value="1">1(Poor)</option>
                                                                 <option value="2">2</option>
                                                                 <option value="3">3</option>
                                                                 <option value="4">4</option>
