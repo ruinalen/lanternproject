@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: donghyunkim
- * Date: 2017. 10. 28.
- * Time: PM 9:50
- */
 
 
     $conn = mysqli_connect('localhost','lantern','lantern','lantern');
@@ -36,7 +30,7 @@
     }
     echo "
             <script type='text/javascript'>
-                location.href='http://223.195.109.38/lanternproject/index.php';
+                //location.href='http://223.195.109.38/lanternproject/index.php';
             </script>
             ";
 
