@@ -33,6 +33,7 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
                 {
                     $data['success'] = true;
                      $data['url']  = "http://223.195.109.38/lanternproject/profile/".$actual_image_name;
+
                     //$data['url']  = "http://223.195.109.38/lanternproject/uploads/1";
                 }
                 else
@@ -53,3 +54,8 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
 }
 
 echo json_encode($data);
+echo "
+        <script type='text/javascript'>
+            location.href='http://223.195.109.38/lanternproject/profile.php';
+        </script>
+        ";

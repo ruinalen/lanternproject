@@ -155,9 +155,6 @@ print_r($row);
                                             dataType: 'json',
                                             mimeType: 'multipart/form-data',
 
-                                            error : function (jqXHR, textStatus, errorThrown) {
-                                                alert('ERRORS: ' + textStatus);
-                                            },
                                             cache: false,
                                             contentType: false,
                                             processData: false
@@ -171,7 +168,15 @@ print_r($row);
 
                             <!-- Avatar -->
                             <div class="edit-profile-photo">
-                                <img id="profile_img_area" src="./profile_img/<?php echo $_SESSION[user_sid]?>.png" alt="">
+                                <?php
+                                if(@file('http://223.195.109.38/lanternproject/profile_img/'.$_SESSION[user_sid].'.png')){
+                                    echo '<img id="profile_img_area" src="./profile_img/'.$_SESSION[user_sid].'.png" alt="">';
+                                }
+                                else{
+                                    $default = "default";
+                                    echo '<img id="profile_img_area" src="/lanternproject/profile_img/'.$default.'.png" alt="">';
+                                }
+                                ?>
                                 <div class="change-photo-btn">
                                     <div class="photoUpload">
                                         <span><i class="fa fa-upload"></i> SELECT PHOTO</span>
@@ -180,7 +185,7 @@ print_r($row);
                                 </div>
                             </div>
 
-                                <button  class="button margin-top-15">PROFILE PHOTO UPLOAD</button>
+                                <button onclick="document.getElementById('profilephoto').submit()" class="button margin-top-15">PROFILE PHOTO UPLOAD</button>
 
                             </form>
                             <button onclick="refreshPage()" class="button margin-top-15 cancel-button">CANCEL</button>
@@ -208,7 +213,7 @@ print_r($row);
 
                             </div>
 
-                            <button class="button margin-top-15">Save Changes</button>
+                            <button class="button margin-top-15" >Save Changes</button>
                             </form>
                         </div>
                     </div>
