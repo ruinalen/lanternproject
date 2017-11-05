@@ -104,7 +104,7 @@ $user = mysqli_fetch_assoc($result);?>
 
             <div class="row">
                 <div class="col-lg-12">
-
+                    <form action="add_posting???" method="post" id="add-posting-form">
                     <div id="add-listing">
 
                         <!-- Section -->
@@ -191,9 +191,10 @@ $user = mysqli_fetch_assoc($result);?>
                         <!-- Section / End -->
 
 
-                        <a href="#" class="button preview">Preview <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="#" class="button preview" onclick="document.getElementById('add-posting-form').submit()>Preview <i class="fa fa-arrow-circle-right"></i></a>
 
                     </div>
+                    </form>
                 </div>
 
                 <!-- Copyrights -->
