@@ -1,11 +1,5 @@
 <?php
 session_start();
-/**
- * Created by PhpStorm.
- * User: SuhKyung
- * Date: 2017-11-04
- * Time: 오후 3:28
- */
 
 $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 
@@ -45,7 +39,7 @@ if(isset( $_SESSION['user_sid'])) {
 
 //$sid = $_SESSION['user_sid'];
 
-echo $lang2.$lang_f2.$lang3.$lang_f3;
+echo $sid.$region.$lang1.$lang_f1.$lang2.$lang_f2.$lang3.$lang_f3;
 
 
 $sql = "UPDATE member SET intro = '$intro', region = '$region', lang1 = '$lang1', lang_f1 = $lang_f1, lang2 = '$lang2', lang_f2 = $lang_f2, lang3 = '$lang3', lang_f3 = $lang_f3 where sid=$sid";

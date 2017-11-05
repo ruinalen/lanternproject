@@ -104,7 +104,7 @@ $user = mysqli_fetch_assoc($result);?>
 
             <div class="row">
                 <div class="col-lg-12">
-                    <form action="add_posting???" method="post" id="add-posting-form">
+                    <form action="insert_posting.php" method="post" id="add-posting-form">
                     <div id="add-listing">
 
                         <!-- Section -->
@@ -138,12 +138,6 @@ $user = mysqli_fetch_assoc($result);?>
                                         <option>Fitness</option>
                                         <option>Events</option>
                                     </select>
-                                </div>
-
-                                <!-- Type -->
-                                <div class="col-md-6">
-                                    <h5>Keywords <i class="tip" data-tip-content="Maximum of 15 keywords related with your business"></i></h5>
-                                    <input type="text" placeholder="Keywords should be separated by commas">
                                 </div>
 
                             </div>
