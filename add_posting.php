@@ -191,7 +191,7 @@ $user = mysqli_fetch_assoc($result);?>
                         <!-- Section / End -->
 
 
-                        <a href="#" class="button preview" onclick="document.getElementById('add-posting-form').submit()>Preview <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="#" class="button preview" onclick="document.getElementById('add-posting-form').submit()" >Preview <i class="fa fa-arrow-circle-right"></i></a>
 
                     </div>
                     </form>
