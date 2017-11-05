@@ -794,7 +794,6 @@ print_r($row);
                         if(info==="NULL" || info==="null" || info==="" || !info)
                             return " ";
                         else
-                            document.write(info);
                             return info;
                     }
 

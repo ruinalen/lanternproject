@@ -20,8 +20,8 @@
     $row = mysqli_fetch_assoc($result);
     if(!$row){
         echo "없졍";
-        $query = "INSERT INTO `lantern`.`member` (`sid`, `email`, `passwd`, `name_first`, `name_last`, `region`, `lang`, `phone_num`, `lantern_offset`, `auth_offset`)
-              VALUES (NULL,'$email', '$password1','$name_first','$name_last', '$details->country', 'NULL', 'NULL', '0', '0')";
+        $query = "INSERT INTO `lantern`.`member` (`sid`, `email`, `passwd`, `name_first`, `name_last`, `region`, `phone_num`, `lantern_offset`, `auth_offset`)
+              VALUES (NULL,'$email', '$password1','$name_first','$name_last', '$details->country', 'NULL', '0', '0')";
         echo $query;
         $data = mysqli_query($conn, $query);
         echo $data;
