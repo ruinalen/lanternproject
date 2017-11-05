@@ -66,7 +66,7 @@ session_start();
                             <li><a href="dashboard-my-listings.html">My Listings</a></li>
                             <li><a href="dashboard-reviews.html">Reviews</a></li>
                             <li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
-                            <li><a href="dashboard-add-listing.html">Add Listing</a></li>
+                            <li><a href="add_posting.php">Add Listing</a></li>
                             <li><a href="profile.php">My Profile</a></li>
                             <li><a href="dashboard-invoice.html">Invoice</a></li>
                         </ul>
@@ -102,7 +102,7 @@ session_start();
         <div class="right-side">
             <div class="header-widget" id="header-widget-nlogged">
                 <a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim"><i class="sl sl-icon-login"></i> Sign In</a>
-                <a href="dashboard-add-listing.html" class="button border with-icon">Add Listing <i class="sl sl-icon-plus"></i></a>
+                <a href="add_posting.php" class="button border with-icon">Add Post <i class="sl sl-icon-plus"></i></a>
             </div>
 
             <div class="header-widget" id="header-widget-logged">
@@ -119,7 +119,7 @@ session_start();
                     </ul>
                 </div>
 
-                <a href="dashboard-add-listing.html" class="button border with-icon">Add Listing <i class="sl sl-icon-plus"></i></a>
+                <a href="add_posting.php" class="button border with-icon">Add Post <i class="sl sl-icon-plus"></i></a>
             </div>
             <script>
                 function loginhead(){
