@@ -1,11 +1,5 @@
 <?php
 session_start();
-/**
- * Created by PhpStorm.
- * User: SuhKyung
- * Date: 2017-11-01
- * Time: 오후 7:12
- */
 $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 $phone_num = $_POST['phone_num'];
 $region = $_POST['region'];

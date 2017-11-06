@@ -18,7 +18,13 @@
               VALUES (NULL,'$email', '$password1','$name_first','$name_last', '$details->country', 'NULL', '0', '0')";
         echo $query;
         $data = mysqli_query($conn, $query);
-        echo $data;
+
+        echo "
+            <script type='text/javascript'>
+                alert('가입 완료');
+                location.href='http://223.195.109.38/lanternproject/index.php';
+            </script>
+            ";
 
     }
     else{
@@ -28,11 +34,4 @@
         </script>
         ";
     }
-    echo "
-            <script type='text/javascript'>
-                //location.href='http://223.195.109.38/lanternproject/index.php';
-            </script>
-            ";
 
-
-?>

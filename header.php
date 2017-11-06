@@ -188,14 +188,14 @@ session_start();
                             <p class="form-row form-row-wide">
                                 <label for="email">Email:
                                     <i class="im im-icon-Male"></i>
-                                    <input type="text" class="input-text" name="email" id="email" value="" />
+                                    <input type="text" class="input-text" name="email" id="email" value="" autocomplete="off"/>
                                 </label>
                             </p>
 
                             <p class="form-row form-row-wide">
                                 <label for="password">Password:
                                     <i class="im im-icon-Lock-2"></i>
-                                    <input class="input-text" type="password" name="password" id="password"/>
+                                    <input class="input-text" type="password" name="password" id="password" autocomplete="off"/>
                                 </label>
                                 <span class="lost_password">
 										<a href="#" >Lost Your Password?</a>
@@ -222,8 +222,8 @@ session_start();
                                 <label for="username2"> First name / Last name:
                                     <br>
                                     <i class="im im-icon-Male"></i>
-                                    <input type="text" class="input-text-half" name="name_first" id="username1" value=""  style="float: left; margin-right: 1%;"/>
-                                    <input type="text" class="input-text-half" name="name_last" id="username2" value=""  />
+                                    <input type="text" class="input-text-half" name="name_first" id="username1" value=""  style="float: left; margin-right: 1%;" autocomplete="off"/>
+                                    <input type="text" class="input-text-half" name="name_last" id="username2" value=""  autocomplete="off"/>
                                 </label>
                             </p>
 
@@ -231,21 +231,21 @@ session_start();
                             <p class="form-row form-row-wide">
                                 <label for="email2">Email Address:
                                     <i class="im im-icon-Mail"></i>
-                                    <input type="text" class="input-text" name="email" id="email2" value="" />
+                                    <input type="text" class="input-text" name="email" id="email2" value="" autocomplete="off"/>
                                 </label>
                             </p>
 
                             <p class="form-row form-row-wide">
                                 <label for="password1">Password:
                                     <i class="im im-icon-Lock-2"></i>
-                                    <input class="input-text" type="password" name="password1" id="password1"/>
+                                    <input class="input-text" type="password" name="password1" id="password1" autocomplete="off"/>
                                 </label>
                             </p>
 
                             <p class="form-row form-row-wide">
                                 <label for="password2">Repeat Password:
                                     <i class="im im-icon-Lock-2"></i>
-                                    <input class="input-text" type="password" name="password2" id="password2"/>
+                                    <input class="input-text" type="password" name="password2" id="password2" autocomplete="off"/>
                                 </label>
                             </p>
 

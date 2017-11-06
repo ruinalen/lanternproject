@@ -41,17 +41,6 @@ if(isset($_POST['lang_f3'])) {
 if(isset( $_SESSION['user_sid'])) {
     $sid =  $_SESSION['user_sid'];
 }
-//$region = $_POST['country'];
-//$lang1 = $_POST['lang1'];
-//$lang_f1 = $_POST['lang_f1'];
-//$lang2 = $_POST['lang2'];
-//$lang_f2 = $_POST['lang_f2'];
-//$lang3 = $_POST['lang3'];
-//$lang_f3 = $_POST['lang_f3'];
-
-//$sid = $_SESSION['user_sid'];
-
-echo $sid.$region.$lang1.$lang_f1.$lang2.$lang_f2.$lang3.$lang_f3;
 
 
 $sql = "UPDATE member SET intro = '$intro', region = '$region', lang1 = '$lang1', lang_f1 = $lang_f1, lang2 = '$lang2', lang_f2 = $lang_f2, lang3 = '$lang3', lang_f3 = '$lang_f3' WHERE `sid` = $sid";

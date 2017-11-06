@@ -64,7 +64,7 @@ if ($conn->query($sql1) === TRUE) {
     echo "
         <script type='text/javascript'>
             alert('다시 시도 하세요');
-            //location.href='http://223.195.109.38/lanternproject/index.php';
+            location.href='http://223.195.109.38/lanternproject/index.php';
         </script>
         ";
 }
