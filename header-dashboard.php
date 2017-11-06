@@ -109,7 +109,18 @@ session_start();
                 <!-- User Menu -->
                 <div class="user-menu">
                     <div class="user-name"><?php echo $_SESSION['user_name_first']?><span>
-                            <div class="profile_img_circle" style='background-image: url("./profile_img/<?php echo $_SESSION['user_sid']?>.png")'></div></span></div>
+                            <?php
+                            if(@file('http://223.195.109.38/lanternproject/profile_img/'.$_SESSION[user_sid].'.png')){$result = $_SESSION[user_sid];}
+
+                            else $result = "default";
+                            ?>
+
+
+                            <div class="profile_img_circle" style='background-image: url("./profile_img/<?php echo $result?>.png")'></div>
+
+
+
+                        </span></div>
                     <ul>
                         <li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
                         <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages</a></li>
