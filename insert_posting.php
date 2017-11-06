@@ -5,8 +5,10 @@ $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 
 $intro = $_POST['intro'];
 
-if(isset($_POST['country'])) {
-    $region = $_POST['country'];
+if(isset($_POST['accommodation'])) {
+    $accommodation = $_POST['accommodation'];
+}else{
+    $accommodation = 0;
 }
 if(isset($_POST['lang1'])) {
     $lang1 = $_POST['lang1'];
@@ -41,27 +43,20 @@ if(isset($_POST['lang_f3'])) {
 if(isset( $_SESSION['user_sid'])) {
     $sid =  $_SESSION['user_sid'];
 }
-//$region = $_POST['country'];
-//$lang1 = $_POST['lang1'];
-//$lang_f1 = $_POST['lang_f1'];
-//$lang2 = $_POST['lang2'];
-//$lang_f2 = $_POST['lang_f2'];
-//$lang3 = $_POST['lang3'];
-//$lang_f3 = $_POST['lang_f3'];
 
-//$sid = $_SESSION['user_sid'];
-
-echo $sid.$region.$lang1.$lang_f1.$lang2.$lang_f2.$lang3.$lang_f3;
-
-
-$sql = "UPDATE member SET intro = '$intro', region = '$region', lang1 = '$lang1', lang_f1 = $lang_f1, lang2 = '$lang2', lang_f2 = $lang_f2, lang3 = '$lang3', lang_f3 = '$lang_f3' WHERE `sid` = $sid";
-echo $sql;
-if ($conn->query($sql) === TRUE) {
+$sql1 = "UPDATE `lantern`.`member` SET lantern_offset=1, intro = '$intro', lang1 = '$lang1', lang_f1 = $lang_f1, lang2 = '$lang2', lang_f2 = $lang_f2, lang3 = '$lang3', lang_f3 = '$lang_f3' WHERE `sid` = $sid";
+if ($conn->query($sql1) === TRUE) {
     echo "Record updated successfully";
+    $sql2 = "INSERT INTO `lantern`.`posting` (`pid`, `lantern_sid`, `registration_date`, `accommodation`)
+              VALUES (NULL,'$sid', NOW(),'$accommodation')";
+    $data = mysqli_query($conn, $sql2);
+    echo $data;
+
+
     echo "
         <script type='text/javascript'>
-            alert('수정 완료');
-            location.href='http://223.195.109.38/lanternproject/profile.php';
+            alert('등록 완료');
+            location.href='http://223.195.109.38/lanternproject/index.php';
         </script>
         ";
 } else {
@@ -69,9 +64,8 @@ if ($conn->query($sql) === TRUE) {
     echo "
         <script type='text/javascript'>
             alert('다시 시도 하세요');
-            location.href='http://223.195.109.38/lanternproject/index.php';
+            //location.href='http://223.195.109.38/lanternproject/index.php';
         </script>
         ";
 }
-
 
