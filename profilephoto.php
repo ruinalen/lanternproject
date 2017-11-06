@@ -52,10 +52,10 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
     else
         $data['error'] = "Please select image..!";
 }
-//
-//echo json_encode($data);
-//echo "
-//        <script type='text/javascript'>
-//            location.href='http://223.195.109.38/lanternproject/profile.php';
-//        </script>
-//        ";
+
+echo json_encode($data);
+echo "
+        <script type='text/javascript'>
+            location.href='http://223.195.109.38/lanternproject/profile.php';
+        </script>
+        ";

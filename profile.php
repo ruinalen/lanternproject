@@ -164,7 +164,7 @@ print_r($row);
                                 });
 
                             </script>
-                            <form id="profilephoto" method="post" class="profile" enctype="multipart/form-data" >
+                            <form id="profilephoto" method="post" class="profile" enctype="multipart/form-data" action="./profilephoto.php">
 
                             <!-- Avatar -->
                             <div class="edit-profile-photo">
