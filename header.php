@@ -66,7 +66,7 @@ session_start();
                             <li><a href="dashboard-my-listings.html">My Listings</a></li>
                             <li><a href="dashboard-reviews.html">Reviews</a></li>
                             <li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
-                            <li><a href="dashboard-add-listing.html">Add Listing</a></li>
+                            <li><a href="add_posting.php">Add Listing</a></li>
                             <li><a href="profile.php">My Profile</a></li>
                             <li><a href="dashboard-invoice.html">Invoice</a></li>
                         </ul>
@@ -102,7 +102,7 @@ session_start();
         <div class="right-side">
             <div class="header-widget" id="header-widget-nlogged">
                 <a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim"><i class="sl sl-icon-login"></i> Sign In</a>
-                <a href="dashboard-add-listing.html" class="button border with-icon">Add Listing <i class="sl sl-icon-plus"></i></a>
+                <a href="add_posting.php" class="button border with-icon">Add Post <i class="sl sl-icon-plus"></i></a>
             </div>
 
             <div class="header-widget" id="header-widget-logged">
@@ -110,7 +110,18 @@ session_start();
                 <!-- User Menu -->
                 <div class="user-menu">
                     <div class="user-name"><?php echo $_SESSION['user_name_first']?><span>
-                            <div class="profile_img_circle" style='background-image: url("./profile_img/<?php echo $_SESSION['user_sid']?>.png")'></div></span></div>
+                            <?php
+                            if(@file('http://223.195.109.38/lanternproject/profile_img/'.$_SESSION[user_sid].'.png')){$result = $_SESSION[user_sid];}
+
+                            else $result = "default";
+                            ?>
+
+
+                            <div class="profile_img_circle" style='background-image: url("./profile_img/<?php echo $result?>.png")'></div>
+
+
+
+                        </span></div>
                     <ul>
                         <li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
                         <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages</a></li>
@@ -119,7 +130,7 @@ session_start();
                     </ul>
                 </div>
 
-                <a href="dashboard-add-listing.html" class="button border with-icon">Add Listing <i class="sl sl-icon-plus"></i></a>
+                <a href="add_posting.php" class="button border with-icon">Add Post <i class="sl sl-icon-plus"></i></a>
             </div>
             <script>
                 function loginhead(){
@@ -177,14 +188,14 @@ session_start();
                             <p class="form-row form-row-wide">
                                 <label for="email">Email:
                                     <i class="im im-icon-Male"></i>
-                                    <input type="text" class="input-text" name="email" id="email" value="" />
+                                    <input type="text" class="input-text" name="email" id="email" value="" autocomplete="off"/>
                                 </label>
                             </p>
 
                             <p class="form-row form-row-wide">
                                 <label for="password">Password:
                                     <i class="im im-icon-Lock-2"></i>
-                                    <input class="input-text" type="password" name="password" id="password"/>
+                                    <input class="input-text" type="password" name="password" id="password" autocomplete="off"/>
                                 </label>
                                 <span class="lost_password">
 										<a href="#" >Lost Your Password?</a>
@@ -211,8 +222,8 @@ session_start();
                                 <label for="username2"> First name / Last name:
                                     <br>
                                     <i class="im im-icon-Male"></i>
-                                    <input type="text" class="input-text-half" name="name_first" id="username1" value=""  style="float: left; margin-right: 1%;"/>
-                                    <input type="text" class="input-text-half" name="name_last" id="username2" value=""  />
+                                    <input type="text" class="input-text-half" name="name_first" id="username1" value=""  style="float: left; margin-right: 1%;" autocomplete="off"/>
+                                    <input type="text" class="input-text-half" name="name_last" id="username2" value=""  autocomplete="off"/>
                                 </label>
                             </p>
 
@@ -220,21 +231,21 @@ session_start();
                             <p class="form-row form-row-wide">
                                 <label for="email2">Email Address:
                                     <i class="im im-icon-Mail"></i>
-                                    <input type="text" class="input-text" name="email" id="email2" value="" />
+                                    <input type="text" class="input-text" name="email" id="email2" value="" autocomplete="off"/>
                                 </label>
                             </p>
 
                             <p class="form-row form-row-wide">
                                 <label for="password1">Password:
                                     <i class="im im-icon-Lock-2"></i>
-                                    <input class="input-text" type="password" name="password1" id="password1"/>
+                                    <input class="input-text" type="password" name="password1" id="password1" autocomplete="off"/>
                                 </label>
                             </p>
 
                             <p class="form-row form-row-wide">
                                 <label for="password2">Repeat Password:
                                     <i class="im im-icon-Lock-2"></i>
-                                    <input class="input-text" type="password" name="password2" id="password2"/>
+                                    <input class="input-text" type="password" name="password2" id="password2" autocomplete="off"/>
                                 </label>
                             </p>
 

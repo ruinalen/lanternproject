@@ -65,7 +65,7 @@ session_start();
                             <li><a href="dashboard-my-listings.html">My Listings</a></li>
                             <li><a href="dashboard-reviews.html">Reviews</a></li>
                             <li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
-                            <li><a href="dashboard-add-listing.html">Add Listing</a></li>
+                            <li><a href="dashboard-add-listing.html">Add Post</a></li>
                             <li><a href="profile.php">My Profile</a></li>
                             <li><a href="dashboard-invoice.html">Invoice</a></li>
                         </ul>
@@ -101,7 +101,7 @@ session_start();
         <div class="right-side">
             <div class="header-widget" id="header-widget-nlogged">
                 <a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim"><i class="sl sl-icon-login"></i> Sign In</a>
-                <a href="dashboard-add-listing.html" class="button border with-icon">Add Listing <i class="sl sl-icon-plus"></i></a>
+                <a href="dashboard-add-listing.html" class="button border with-icon">Add Post <i class="sl sl-icon-plus"></i></a>
             </div>
 
             <div class="header-widget" id="header-widget-logged">
@@ -109,7 +109,18 @@ session_start();
                 <!-- User Menu -->
                 <div class="user-menu">
                     <div class="user-name"><?php echo $_SESSION['user_name_first']?><span>
-                            <div class="profile_img_circle" style='background-image: url("./profile_img/<?php echo $_SESSION['user_sid']?>.png")'></div></span></div>
+                            <?php
+                            if(@file('http://223.195.109.38/lanternproject/profile_img/'.$_SESSION[user_sid].'.png')){$result = $_SESSION[user_sid];}
+
+                            else $result = "default";
+                            ?>
+
+
+                            <div class="profile_img_circle" style='background-image: url("./profile_img/<?php echo $result?>.png")'></div>
+
+
+
+                        </span></div>
                     <ul>
                         <li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
                         <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages</a></li>
@@ -118,7 +129,7 @@ session_start();
                     </ul>
                 </div>
 
-                <a href="dashboard-add-listing.html" class="button border with-icon">Add Listing <i class="sl sl-icon-plus"></i></a>
+                <a href="./add_posting.php" class="button border with-icon">Add Post <i class="sl sl-icon-plus"></i></a>
             </div>
             <script>
                 function loginhead(){

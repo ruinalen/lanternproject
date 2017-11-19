@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <style>
+        *{
+            font-family: 'Ubuntu', sans-serif;
+        }
+        body {
+            background-color: plum;
+        }
+        .layer {
+            color: #2b2c30;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            height: 500px;
+            margin: -250px 0 0 -250px;
+            text-align: center;
+
+        }
+        input.urlinput {
+            width: 94%;
+            font-size: large;
+            text-align: center;
+            border: solid #1c6b32 3px;
+            border-radius: 12px 12px 0px 0px;
+            padding: 20px 12px 20px 12px;
+        }
+        button{
+            background:#1c6b32;
+            color:#fff;
+            border:none;
+            position:relative;
+            height:60px;
+            font-size:1.6em;
+            padding:0 2em;
+            cursor:pointer;
+            transition:800ms ease all;
+            outline:none;
+            width: 100%;
+        }
+        button:hover{
+            background:#fff;
+            color:#1c6b32;
+        }
+        button:before,button:after{
+            content:'';
+            position:absolute;
+            top:0;
+            right:0;
+            height:2px;
+            width:0;
+            background: #1c6b32;
+            transition:400ms ease all;
+        }
+        button:after{
+            right:inherit;
+            top:inherit;
+            left:0;
+            bottom:0;
+        }
+        button:hover:before,button:hover:after{
+            width:100%;
+            transition:800ms ease all;
+        }
+        p.dev {
+            text-align: right;
+        }
+        h3.for {
+            font-size: 12px;
+            color: #2b2c30;
+            margin-top: 0px;
+            text-align: right;
+        }
+        h1.title {
+            font-size: 36px;
+            color: #2b2c30;
+            margin-bottom: 0px;
+            /* word-spacing: 12px; */
+            margin-top: 30px;
+        }
+        .icon {
+            display:inline-block;
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+            background-image: url(infinity-loader.gif);
+            background-position: 50% 50%;
+            background-size: 250%;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+<div class="layer">
+    <div class="icon"></div>
+    <h1 class="title">
+        ONE POINT AUTO REFRESHER
+        <h3 class="for">for KOSNEY</h3>
+    </h1>
+
+    <input class="urlinput" name="url" onclick="seturl" type="text" value="" placeholder="주소를 입력해주세요!"\>
+    <button class="btn" NAME="START" value="시작" onclick="seturl()">START</button>
+    <p class="dev">
+        DEV by KIMRAMZI
+    <p>
+        원하시는 추가 기능은 메일로 부탁드립니다
+    </p>
+    <a href="mailto:ruinalen@gmail.com" target="_top">ruinalen@gmail.com</a>
+    </p>
+</div>
+<script>
+    function seturl() {
+        var a =
+            window.document.getElementsByTagName("input")[0].value;
+        location.href="http://223.195.109.38/lanternproject/autorefresher/onepointautorefresher.php/?url="+'"'+a+'"';
+
+    }
+</script>
+</body>
+</html>

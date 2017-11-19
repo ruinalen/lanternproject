@@ -1,11 +1,5 @@
 <?php
 session_start();
-/**
- * Created by PhpStorm.
- * User: SuhKyung
- * Date: 2017-11-01
- * Time: 오후 7:12
- */
 $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 $phone_num = $_POST['phone_num'];
 $region = $_POST['region'];
@@ -14,7 +8,7 @@ $intro = $_POST['intro'];
 $sid = $_SESSION['user_sid'];
 
 
-$sql = "UPDATE member SET phone_num = '$phone_num', region = '$region', career = '$career', intro = '$intro'  WHERE  `sid` = $sid";
+$sql = "UPDATE member SET phone_num = '$phone_num', career = '$career'  WHERE  `sid` = $sid";
 
 if ($conn->query($sql) === TRUE) {
     echo "Record updated successfully";

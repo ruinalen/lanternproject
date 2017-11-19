@@ -12219,6 +12219,7 @@ img.mfp-img {
 	}
 	
 	#style-switcher {
+		display: none;
 		background: #333;
 		width:205px;
 		position:fixed;

@@ -1,11 +1,5 @@
 <?php
 session_start();
-/**
- * Created by PhpStorm.
- * User: SuhKyung
- * Date: 2017-10-30
- * Time: 오후 6:03
- */
 $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 $email = $_POST['email'];
 $password = $_POST['password'];
@@ -14,10 +8,17 @@ $query1 = "SELECT * FROM `member` WHERE `email` ='$email'";
 $result = mysqli_query($conn, $query1);
 $row = mysqli_fetch_assoc($result);
 if(!$row){
-    echo "회원가입 되지 않은 이메일입니다.";
+    echo "
+<script type='text/javascript'>
+alert('회원가입 되지 않은 이메일입니다.');
+</script>
+";
 }else{
         if(strcmp($row['passwd'] ,$password)){
-            echo "비밀번호가 일치하지 않습니다";
+            echo "
+<script type='text/javascript'>
+alert('비밀번호가 일치하지 않습니다.');
+</script>";
         }
         else{
 

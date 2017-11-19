@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 ​Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">​
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timer.jquery/0.6.5/timer.jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+
+        var min = 0;
+        var sec = 0;
+        var time = 0;
+        var runCount;
+
+        // 시작 함수 호출 시
+        function fncCountDown() {
+
+            console.log("start!!");
+
+            // 입력 값 셋팅
+            time = $("#time").val();
+
+            if ( time.length > 0 ) {
+                runCount = setInterval("startCountDown()", 1000);
+
+            } else {
+                alert("값을 입력 해 주세요");
+                return;
+
+            }
+        }
+
+        // 카운트 다운 및 노출하기
+        function startCountDown() {
+
+            // hour = parseInt(time/3600);
+            min = parseInt((time%3600)/60);
+            sec = time%60;
+
+            $("#countTime").val(min + " : " + sec);
+
+            // 시간이 다 됐을 시 timer 정지
+            if ( parseInt(time) == 0 ) {
+                stopCountDown();
+
+            } else {
+                time--;
+            }
+
+        }
+
+        // 타이머 정지
+        function stopCountDown() {
+            console.log("clearInterval");
+            clearInterval(runCount);
+        }
+
+    </script>
+
+</head>
+<body>
+
+<table border="1">
+    <tr>
+        <td><input type="text" id="time" value="20" /></td>
+        <td><input type="button" value="시작" onclick="fncCountDown()"></td>
+        <td><input type="text" id="countTime" readOnly /></td>
+    <tr>
+</table>
+</body>
+
+</html>

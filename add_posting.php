@@ -9,6 +9,59 @@ $result = mysqli_query($conn, $query1);
 $user = mysqli_fetch_assoc($result);?>
 <!DOCTYPE html>
 <head>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 500px !important;
+        }
+        /* Optional: Makes the sample page fill the window. */
+
+        .controls {
+            margin-top: 10px;
+            border: 1px solid transparent;
+            border-radius: 2px 0 0 2px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            height: 32px;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        #pac-input {
+            background-color: #fff;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 300;
+            margin-left: 12px;
+            padding: 0 11px 0 13px;
+            text-overflow: ellipsis;
+            width: 300px;
+        }
+
+        #pac-input:focus {
+            border-color: #4d90fe;
+        }
+
+        .pac-container {
+            font-family: Roboto;
+        }
+
+        #type-selector {
+            color: #fff;
+            background-color: #4d90fe;
+            padding: 5px 11px 0px 11px;
+        }
+
+        #type-selector label {
+            font-family: Roboto;
+            font-size: 13px;
+            font-weight: 300;
+        }
+        #target {
+            width: 345px;
+        }
+    </style>
 
     <!-- Basic Page Needs
     ================================================== -->
@@ -21,9 +74,16 @@ $user = mysqli_fetch_assoc($result);?>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/colors/main.css" id="colors">
 
+
+
+
+
 </head>
 
 <body>
+
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxjd5GaNmcZ0uzykr0oFajwo5lOombz40&libraries=places&callback=initAutocomplete" async defer></script>-->
+
 
 <!-- Wrapper -->
 <div id="wrapper">
@@ -33,124 +93,7 @@ $user = mysqli_fetch_assoc($result);?>
     <header id="header-container" class="fixed fullwidth dashboard">
 
         <!-- Header -->
-        <div id="header" class="not-sticky">
-            <div class="container">
-
-                <!-- Left Side Content -->
-                <div class="left-side">
-
-                    <!-- Logo -->
-                    <div id="logo">
-                        <a href="index.html"><img src="images/logo00.png" alt=""></a>
-                        <a href="index.html" class="dashboard-logo"><img src="images/logo2.png" alt=""></a>
-                    </div>
-
-                    <!-- Mobile Navigation -->
-                    <div class="menu-responsive">
-                        <i class="fa fa-reorder menu-trigger"></i>
-                    </div>
-
-                    <!-- Main Navigation -->
-                    <nav id="navigation" class="style-1">
-                        <ul id="responsive">
-
-                            <li><a href="#">Home</a>
-                                <ul>
-                                    <li><a href="index.html">Home 1</a></li>
-                                    <li><a href="index-2.html">Home 2</a></li>
-                                    <li><a href="index-3.html">Home 3</a></li>
-                                    <li><a href="index-4.html">Home 4</a></li>
-                                </ul>
-                            </li>
-
-                            <li><a href="#">Listings</a>
-                                <ul>
-                                    <li><a href="#">List Layout</a>
-                                        <ul>
-                                            <li><a href="listings-list-with-sidebar.html">With Sidebar</a></li>
-                                            <li><a href="listings-list-full-width.html">Full Width</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Grid Layout</a>
-                                        <ul>
-                                            <li><a href="listings-grid-with-sidebar-1.html">With Sidebar 1</a></li>
-                                            <li><a href="listings-grid-with-sidebar-2.html">With Sidebar 2</a></li>
-                                            <li><a href="listings-grid-full-width.html">Full Width</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Half Screen Map</a>
-                                        <ul>
-                                            <li><a href="listings-half-screen-map-list.html">List Layout</a></li>
-                                            <li><a href="listings-half-screen-map-grid-1.html">Grid Layout 1</a></li>
-                                            <li><a href="listings-half-screen-map-grid-2.html">Grid Layout 2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="listings-single-page.html">Single Listing</a></li>
-                                </ul>
-                            </li>
-
-                            <li><a class="current" href="#">User Panel</a>
-                                <ul>
-                                    <li><a href="dashboard.html">Dashboard</a></li>
-                                    <li><a href="dashboard-messages.html">Messages</a></li>
-                                    <li><a href="dashboard-my-listings.html">My Listings</a></li>
-                                    <li><a href="dashboard-reviews.html">Reviews</a></li>
-                                    <li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
-                                    <li><a href="dashboard-add-listing.html">Add Listing</a></li>
-                                    <li><a href="dashboard-my-profile.html">My Profile</a></li>
-                                    <li><a href="dashboard-invoice.html">Invoice</a></li>
-                                </ul>
-                            </li>
-
-                            <li><a href="#">Pages</a>
-                                <ul>
-                                    <li><a href="pages-blog.html">Blog</a>
-                                        <ul>
-                                            <li><a href="pages-blog.html">Blog</a></li>
-                                            <li><a href="pages-blog-post.html">Blog Post</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="pages-contact.html">Contact</a></li>
-                                    <li><a href="pages-elements.html">Elements</a></li>
-                                    <li><a href="pages-pricing-tables.html">Pricing Tables</a></li>
-                                    <li><a href="pages-typography.html">Typography</a></li>
-                                    <li><a href="pages-404.html">404 Page</a></li>
-                                    <li><a href="pages-icons.html">Icons</a></li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                    </nav>
-                    <div class="clearfix"></div>
-                    <!-- Main Navigation / End -->
-
-                </div>
-                <!-- Left Side Content / End -->
-
-                <!-- Right Side Content / End -->
-                <div class="right-side">
-                    <!-- Header Widget -->
-                    <div class="header-widget">
-
-                        <!-- User Menu -->
-                        <div class="user-menu">
-                            <div class="user-name"><span><img src="images/dashboard-avatar.jpg" alt=""></span>Tom Perrin</div>
-                            <ul>
-                                <li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
-                                <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages</a></li>
-                                <li><a href="dashboard-my-profile.html"><i class="sl sl-icon-user"></i> My Profile</a></li>
-                                <li><a href="index.html"><i class="sl sl-icon-power"></i> Logout</a></li>
-                            </ul>
-                        </div>
-
-                        <a href="dashboard-add-listing.html" class="button border with-icon">Add Listing <i class="sl sl-icon-plus"></i></a>
-                    </div>
-                    <!-- Header Widget / End -->
-                </div>
-                <!-- Right Side Content / End -->
-
-            </div>
-        </div>
+        <?php include 'header-dashboard.php';?>
         <!-- Header / End -->
 
     </header>
@@ -206,7 +149,7 @@ $user = mysqli_fetch_assoc($result);?>
             <div id="titlebar">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Add Listing</h2>
+                        <h2>Add Posting</h2>
                         <!-- Breadcrumbs -->
                         <nav id="breadcrumbs">
                             <ul>
@@ -221,7 +164,7 @@ $user = mysqli_fetch_assoc($result);?>
 
             <div class="row">
                 <div class="col-lg-12">
-
+                    <form action="insert_posting.php" method="post" id="add-posting-form">
                     <div id="add-listing">
 
                         <!-- Section -->
@@ -245,388 +188,304 @@ $user = mysqli_fetch_assoc($result);?>
 
                                 <!-- Status -->
                                 <div class="col-md-6">
-                                    <h5>Language</h5>
-                                    <select class="chosen-select-no-single" >
-                                        <option label="blank">Select Category</option>
-                                        <option>Eat & Drink</option>
-                                        <option>Shops</option>
-                                        <option>Hotels</option>
-                                        <option>Restaurants</option>
-                                        <option>Fitness</option>
-                                        <option>Events</option>
-                                    </select>
+                                    <h5>Languages</h5>
+                                    <table id="pricing-list-container">
+                                        <tr class="pricing-list-item pattern">
+                                            <td>
+                                                <div class="fm-input pricing-name">
+                                                    <select name="lang1" class="aachosen-select-no-single" id="lang1Select">
+                                                        <option value=" ">Select Language</option>
+                                                        <option value="Afrikanns">Afrikanns</option>
+                                                        <option value="Albanian">Albanian</option>
+                                                        <option value="Arabic">Arabic</option>
+                                                        <option value="Armenian">Armenian</option>
+                                                        <option value="Basque">Basque</option>
+                                                        <option value="Bengali">Bengali</option>
+                                                        <option value="Bulgarian">Bulgarian</option>
+                                                        <option value="Catalan">Catalan</option>
+                                                        <option value="Cambodian">Cambodian</option>
+                                                        <option value="Chinese (Mandarin)">Chinese (Mandarin)</option>
+                                                        <option value="Croation">Croation</option>
+                                                        <option value="Czech">Czech</option>
+                                                        <option value="Danish">Danish</option>
+                                                        <option value="Dutch">Dutch</option>
+                                                        <option value="English">English</option>
+                                                        <option value="Estonian">Estonian</option>
+                                                        <option value="Fiji">Fiji</option>
+                                                        <option value="Finnish">Finnish</option>
+                                                        <option value="French">French</option>
+                                                        <option value="Georgian">Georgian</option>
+                                                        <option value="German">German</option>
+                                                        <option value="Greek">Greek</option>
+                                                        <option value="Gujarati">Gujarati</option>
+                                                        <option value="Hebrew">Hebrew</option>
+                                                        <option value="Hindi">Hindi</option>
+                                                        <option value="Hungarian">Hungarian</option>
+                                                        <option value="Icelandic">Icelandic</option>
+                                                        <option value="Indonesian">Indonesian</option>
+                                                        <option value="Irish">Irish</option>
+                                                        <option value="Italian">Italian</option>
+                                                        <option value="Japanese">Japanese</option>
+                                                        <option value="Javanese">Javanese</option>
+                                                        <option value="Korean">Korean</option>
+                                                        <option value="Latin">Latin</option>
+                                                        <option value="Latvian">Latvian</option>
+                                                        <option value="Lithuanian">Lithuanian</option>
+                                                        <option value="Macedonian">Macedonian</option>
+                                                        <option value="Malay">Malay</option>
+                                                        <option value="Malayalam">Malayalam</option>
+                                                        <option value="Maltese">Maltese</option>
+                                                        <option value="Maori">Maori</option>
+                                                        <option value="Marathi">Marathi</option>
+                                                        <option value="Mongolian">Mongolian</option>
+                                                        <option value="Nepali">Nepali</option>
+                                                        <option value="Norwegian">Norwegian</option>
+                                                        <option value="Persian">Persian</option>
+                                                        <option value="Polish">Polish</option>
+                                                        <option value="Portuguese">Portuguese</option>
+                                                        <option value="Punjabi">Punjabi</option>
+                                                        <option value="Quechua">Quechua</option>
+                                                        <option value="Romanian">Romanian</option>
+                                                        <option value="Russian">Russian</option>
+                                                        <option value="Samoan">Samoan</option>
+                                                        <option value="Serbian">Serbian</option>
+                                                        <option value="Slovak">Slovak</option>
+                                                        <option value="Slovenian">Slovenian</option>
+                                                        <option value="Spanish">Spanish</option>
+                                                        <option value="Swahili">Swahili</option>
+                                                        <option value="Swedish ">Swedish </option>
+                                                        <option value="Tamil">Tamil</option>
+                                                        <option value="Tatar">Tatar</option>
+                                                        <option value="Telugu">Telugu</option>
+                                                        <option value="Thai">Thai</option>
+                                                        <option value="Tibetan">Tibetan</option>
+                                                        <option value="Tonga">Tonga</option>
+                                                        <option value="Turkish">Turkish</option>
+                                                        <option value="Ukranian">Ukranian</option>
+                                                        <option value="Urdu">Urdu</option>
+                                                        <option value="Uzbek">Uzbek</option>
+                                                        <option value="Vietnamese">Vietnamese</option>
+                                                        <option value="Welsh">Welsh</option>
+                                                        <option value="Xhosa">Xhosa</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="fm-input pricing-ingredients">
+                                                    <select name="lang_f1" class="chosen-select-no-single" id="langf1Select">
+                                                        <option value="0">Select Fluency</option>
+                                                        <option value="1">1(Poor)</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5(Fluent)</option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="fm-input pricing-name">
+                                                    <select name="lang2" class="aachosen-select-no-single" id="lang2Select">
+                                                        <option value=" ">Select Language</option>
+                                                        <option value="Afrikanns">Afrikanns</option>
+                                                        <option value="Albanian">Albanian</option>
+                                                        <option value="Arabic">Arabic</option>
+                                                        <option value="Armenian">Armenian</option>
+                                                        <option value="Basque">Basque</option>
+                                                        <option value="Bengali">Bengali</option>
+                                                        <option value="Bulgarian">Bulgarian</option>
+                                                        <option value="Catalan">Catalan</option>
+                                                        <option value="Cambodian">Cambodian</option>
+                                                        <option value="Chinese (Mandarin)">Chinese (Mandarin)</option>
+                                                        <option value="Croation">Croation</option>
+                                                        <option value="Czech">Czech</option>
+                                                        <option value="Danish">Danish</option>
+                                                        <option value="Dutch">Dutch</option>
+                                                        <option value="English">English</option>
+                                                        <option value="Estonian">Estonian</option>
+                                                        <option value="Fiji">Fiji</option>
+                                                        <option value="Finnish">Finnish</option>
+                                                        <option value="French">French</option>
+                                                        <option value="Georgian">Georgian</option>
+                                                        <option value="German">German</option>
+                                                        <option value="Greek">Greek</option>
+                                                        <option value="Gujarati">Gujarati</option>
+                                                        <option value="Hebrew">Hebrew</option>
+                                                        <option value="Hindi">Hindi</option>
+                                                        <option value="Hungarian">Hungarian</option>
+                                                        <option value="Icelandic">Icelandic</option>
+                                                        <option value="Indonesian">Indonesian</option>
+                                                        <option value="Irish">Irish</option>
+                                                        <option value="Italian">Italian</option>
+                                                        <option value="Japanese">Japanese</option>
+                                                        <option value="Javanese">Javanese</option>
+                                                        <option value="Korean">Korean</option>
+                                                        <option value="Latin">Latin</option>
+                                                        <option value="Latvian">Latvian</option>
+                                                        <option value="Lithuanian">Lithuanian</option>
+                                                        <option value="Macedonian">Macedonian</option>
+                                                        <option value="Malay">Malay</option>
+                                                        <option value="Malayalam">Malayalam</option>
+                                                        <option value="Maltese">Maltese</option>
+                                                        <option value="Maori">Maori</option>
+                                                        <option value="Marathi">Marathi</option>
+                                                        <option value="Mongolian">Mongolian</option>
+                                                        <option value="Nepali">Nepali</option>
+                                                        <option value="Norwegian">Norwegian</option>
+                                                        <option value="Persian">Persian</option>
+                                                        <option value="Polish">Polish</option>
+                                                        <option value="Portuguese">Portuguese</option>
+                                                        <option value="Punjabi">Punjabi</option>
+                                                        <option value="Quechua">Quechua</option>
+                                                        <option value="Romanian">Romanian</option>
+                                                        <option value="Russian">Russian</option>
+                                                        <option value="Samoan">Samoan</option>
+                                                        <option value="Serbian">Serbian</option>
+                                                        <option value="Slovak">Slovak</option>
+                                                        <option value="Slovenian">Slovenian</option>
+                                                        <option value="Spanish">Spanish</option>
+                                                        <option value="Swahili">Swahili</option>
+                                                        <option value="Swedish ">Swedish </option>
+                                                        <option value="Tamil">Tamil</option>
+                                                        <option value="Tatar">Tatar</option>
+                                                        <option value="Telugu">Telugu</option>
+                                                        <option value="Thai">Thai</option>
+                                                        <option value="Tibetan">Tibetan</option>
+                                                        <option value="Tonga">Tonga</option>
+                                                        <option value="Turkish">Turkish</option>
+                                                        <option value="Ukranian">Ukranian</option>
+                                                        <option value="Urdu">Urdu</option>
+                                                        <option value="Uzbek">Uzbek</option>
+                                                        <option value="Vietnamese">Vietnamese</option>
+                                                        <option value="Welsh">Welsh</option>
+                                                        <option value="Xhosa">Xhosa</option>
+                                                    </select>
+                                                    </select>
+                                                </div>
+
+                                                <div class="fm-input pricing-ingredients">
+                                                    <select name="lang_f2" class="chosen-select-no-single" id="langf2Select">
+                                                        <option value="0">Select Fluency</option>
+                                                        <option value="1">1(Poor)</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5(Fluent)</option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="fm-input pricing-name">
+                                                    <select name="lang3" class="aachosen-select-no-single" id="lang3Select">
+                                                        <option value=" ">Select Language</option>
+                                                        <option value="Afrikanns">Afrikanns</option>
+                                                        <option value="Albanian">Albanian</option>
+                                                        <option value="Arabic">Arabic</option>
+                                                        <option value="Armenian">Armenian</option>
+                                                        <option value="Basque">Basque</option>
+                                                        <option value="Bengali">Bengali</option>
+                                                        <option value="Bulgarian">Bulgarian</option>
+                                                        <option value="Catalan">Catalan</option>
+                                                        <option value="Cambodian">Cambodian</option>
+                                                        <option value="Chinese (Mandarin)">Chinese (Mandarin)</option>
+                                                        <option value="Croation">Croation</option>
+                                                        <option value="Czech">Czech</option>
+                                                        <option value="Danish">Danish</option>
+                                                        <option value="Dutch">Dutch</option>
+                                                        <option value="English">English</option>
+                                                        <option value="Estonian">Estonian</option>
+                                                        <option value="Fiji">Fiji</option>
+                                                        <option value="Finnish">Finnish</option>
+                                                        <option value="French">French</option>
+                                                        <option value="Georgian">Georgian</option>
+                                                        <option value="German">German</option>
+                                                        <option value="Greek">Greek</option>
+                                                        <option value="Gujarati">Gujarati</option>
+                                                        <option value="Hebrew">Hebrew</option>
+                                                        <option value="Hindi">Hindi</option>
+                                                        <option value="Hungarian">Hungarian</option>
+                                                        <option value="Icelandic">Icelandic</option>
+                                                        <option value="Indonesian">Indonesian</option>
+                                                        <option value="Irish">Irish</option>
+                                                        <option value="Italian">Italian</option>
+                                                        <option value="Japanese">Japanese</option>
+                                                        <option value="Javanese">Javanese</option>
+                                                        <option value="Korean">Korean</option>
+                                                        <option value="Latin">Latin</option>
+                                                        <option value="Latvian">Latvian</option>
+                                                        <option value="Lithuanian">Lithuanian</option>
+                                                        <option value="Macedonian">Macedonian</option>
+                                                        <option value="Malay">Malay</option>
+                                                        <option value="Malayalam">Malayalam</option>
+                                                        <option value="Maltese">Maltese</option>
+                                                        <option value="Maori">Maori</option>
+                                                        <option value="Marathi">Marathi</option>
+                                                        <option value="Mongolian">Mongolian</option>
+                                                        <option value="Nepali">Nepali</option>
+                                                        <option value="Norwegian">Norwegian</option>
+                                                        <option value="Persian">Persian</option>
+                                                        <option value="Polish">Polish</option>
+                                                        <option value="Portuguese">Portuguese</option>
+                                                        <option value="Punjabi">Punjabi</option>
+                                                        <option value="Quechua">Quechua</option>
+                                                        <option value="Romanian">Romanian</option>
+                                                        <option value="Russian">Russian</option>
+                                                        <option value="Samoan">Samoan</option>
+                                                        <option value="Serbian">Serbian</option>
+                                                        <option value="Slovak">Slovak</option>
+                                                        <option value="Slovenian">Slovenian</option>
+                                                        <option value="Spanish">Spanish</option>
+                                                        <option value="Swahili">Swahili</option>
+                                                        <option value="Swedish ">Swedish </option>
+                                                        <option value="Tamil">Tamil</option>
+                                                        <option value="Tatar">Tatar</option>
+                                                        <option value="Telugu">Telugu</option>
+                                                        <option value="Thai">Thai</option>
+                                                        <option value="Tibetan">Tibetan</option>
+                                                        <option value="Tonga">Tonga</option>
+                                                        <option value="Turkish">Turkish</option>
+                                                        <option value="Ukranian">Ukranian</option>
+                                                        <option value="Urdu">Urdu</option>
+                                                        <option value="Uzbek">Uzbek</option>
+                                                        <option value="Vietnamese">Vietnamese</option>
+                                                        <option value="Welsh">Welsh</option>
+                                                        <option value="Xhosa">Xhosa</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="fm-input pricing-ingredients">
+                                                    <select name="lang_f3" class="chosen-select-no-single" id="langf3Select">
+                                                        <option value="0">Select Fluency</option>
+                                                        <option value="1">1(Poor)</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5(Fluent)</option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+
                                 </div>
 
-                                <!-- Type -->
                                 <div class="col-md-6">
-                                    <h5>Keywords <i class="tip" data-tip-content="Maximum of 15 keywords related with your business"></i></h5>
-                                    <input type="text" placeholder="Keywords should be separated by commas">
+                                    <h5>Maximum Travelers</h5>
+                                    <input name="accommodation" type="text" placeholder="Type the Number of Maximum travelers">
                                 </div>
 
                             </div>
+
                             <!-- Row / End -->
 
                         </div>
                         <!-- Section / End -->
 
-                        <!-- Section -->
-                        <div class="add-listing-section margin-top-45">
-
-                            <!-- Headline -->
-                            <div class="add-listing-headline">
-                                <h3><i class="sl sl-icon-location"></i> Location</h3>
-                            </div>
-
-                            <div class="submit-section">
-
-                                <!-- Row -->
-                                <div class="row with-forms">
-
-                                    <!-- City -->
-                                    <div class="col-md-6">
-                                        <h5>City</h5>
-                                        <select class="chosen-select-no-single" >
-                                            <option label="blank">Select City</option>
-                                            <option>New York</option>
-                                            <option>Los Angeles</option>
-                                            <option>Chicago</option>
-                                            <option>Houston</option>
-                                            <option>Phoenix</option>
-                                            <option>San Diego</option>
-                                            <option>Austin</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Address -->
-                                    <div class="col-md-6">
-                                        <h5>Address</h5>
-                                        <input type="text" placeholder="e.g. 964 School Street">
-                                    </div>
-
-                                    <!-- City -->
-                                    <div class="col-md-6">
-                                        <h5>State</h5>
-                                        <input type="text">
-                                    </div>
-
-                                    <!-- Zip-Code -->
-                                    <div class="col-md-6">
-                                        <h5>Zip-Code</h5>
-                                        <input type="text">
-                                    </div>
-
-                                </div>
-                                <!-- Row / End -->
-
-                            </div>
-                        </div>
-                        <!-- Section / End -->
-
 
                         <!-- Section -->
                         <div class="add-listing-section margin-top-45">
 
                             <!-- Headline -->
                             <div class="add-listing-headline">
-                                <h3><i class="sl sl-icon-picture"></i> Gallery</h3>
-                            </div>
-
-                            <!-- Dropzone -->
-                            <div class="submit-section">
-                                <form action="/file-upload" class="dropzone" ></form>
-                            </div>
-
-                        </div>
-                        <!-- Section / End -->
-
-
-                        <!-- Section -->
-                        <div class="add-listing-section margin-top-45">
-
-                            <!-- Headline -->
-                            <div class="add-listing-headline">
-                                <h3><i class="sl sl-icon-docs"></i> Details</h3>
-                            </div>
-
-                            <!-- Description -->
-                            <div class="form">
-                                <h5>Description</h5>
-                                <textarea class="WYSIWYG" name="summary" cols="40" rows="3" id="summary" spellcheck="true"></textarea>
-                            </div>
-
-                            <!-- Row -->
-                            <div class="row with-forms">
-
-                                <!-- Phone -->
-                                <div class="col-md-4">
-                                    <h5>Phone <span>(optional)</span></h5>
-                                    <input type="text">
-                                </div>
-
-                                <!-- Website -->
-                                <div class="col-md-4">
-                                    <h5>Website <span>(optional)</span></h5>
-                                    <input type="text">
-                                </div>
-
-                                <!-- Email Address -->
-                                <div class="col-md-4">
-                                    <h5>E-mail <span>(optional)</span></h5>
-                                    <input type="text">
-                                </div>
-
-                            </div>
-                            <!-- Row / End -->
-
-
-                            <!-- Row -->
-                            <div class="row with-forms">
-
-                                <!-- Phone -->
-                                <div class="col-md-4">
-                                    <h5 class="fb-input"><i class="fa fa-facebook-square"></i> Facebook <span>(optional)</span></h5>
-                                    <input type="text" placeholder="https://www.facebook.com/">
-                                </div>
-
-                                <!-- Website -->
-                                <div class="col-md-4">
-                                    <h5 class="twitter-input"><i class="fa fa-twitter"></i> Twitter <span>(optional)</span></h5>
-                                    <input type="text" placeholder="https://www.twitter.com/">
-                                </div>
-
-                                <!-- Email Address -->
-                                <div class="col-md-4">
-                                    <h5 class="gplus-input"><i class="fa fa-google-plus"></i> Google Plus <span>(optional)</span></h5>
-                                    <input type="text" placeholder="https://plus.google.com">
-                                </div>
-
-                            </div>
-                            <!-- Row / End -->
-
-
-                            <!-- Checkboxes -->
-                            <h5 class="margin-top-30 margin-bottom-10">Amenities <span>(optional)</span></h5>
-                            <div class="checkboxes in-row margin-bottom-20">
-
-                                <input id="check-a" type="checkbox" name="check">
-                                <label for="check-a">Elevator in building</label>
-
-                                <input id="check-b" type="checkbox" name="check">
-                                <label for="check-b">Friendly workspace</label>
-
-                                <input id="check-c" type="checkbox" name="check">
-                                <label for="check-c">Instant Book</label>
-
-                                <input id="check-d" type="checkbox" name="check">
-                                <label for="check-d">Wireless Internet</label>
-
-                                <input id="check-e" type="checkbox" name="check" >
-                                <label for="check-e">Free parking on premises</label>
-
-                                <input id="check-f" type="checkbox" name="check" >
-                                <label for="check-f">Free parking on street</label>
-
-                                <input id="check-g" type="checkbox" name="check">
-                                <label for="check-g">Smoking allowed</label>
-
-                                <input id="check-h" type="checkbox" name="check">
-                                <label for="check-h">Events</label>
-
-                            </div>
-                            <!-- Checkboxes / End -->
-
-                        </div>
-                        <!-- Section / End -->
-
-
-                        <!-- Section -->
-                        <div class="add-listing-section margin-top-45">
-
-                            <!-- Headline -->
-                            <div class="add-listing-headline">
-                                <h3><i class="sl sl-icon-clock"></i> Opening Hours</h3>
-                                <!-- Switcher -->
-                                <label class="switch"><input type="checkbox" checked><span class="slider round"></span></label>
-                            </div>
-
-                            <!-- Switcher ON-OFF Content -->
-                            <div class="switcher-content">
-
-                                <!-- Day -->
-                                <div class="row opening-day">
-                                    <div class="col-md-2"><h5>Monday</h5></div>
-                                    <div class="col-md-5">
-                                        <select class="chosen-select" data-placeholder="Opening Time">
-                                            <option label="Opening Time"></option>
-                                            <option>Closed</option>
-                                            <option>1 AM</option>
-                                            <option>2 AM</option>
-                                            <option>3 AM</option>
-                                            <option>4 AM</option>
-                                            <option>5 AM</option>
-                                            <option>6 AM</option>
-                                            <option>7 AM</option>
-                                            <option>8 AM</option>
-                                            <option>9 AM</option>
-                                            <option>10 AM</option>
-                                            <option>11 AM</option>
-                                            <option>12 AM</option>
-                                            <option>1 PM</option>
-                                            <option>2 PM</option>
-                                            <option>3 PM</option>
-                                            <option>4 PM</option>
-                                            <option>5 PM</option>
-                                            <option>6 PM</option>
-                                            <option>7 PM</option>
-                                            <option>8 PM</option>
-                                            <option>9 PM</option>
-                                            <option>10 PM</option>
-                                            <option>11 PM</option>
-                                            <option>12 PM</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <select class="chosen-select" data-placeholder="Closing Time">
-                                            <option label="Closing Time"></option>
-                                            <option>Closed</option>
-                                            <option>1 AM</option>
-                                            <option>2 AM</option>
-                                            <option>3 AM</option>
-                                            <option>4 AM</option>
-                                            <option>5 AM</option>
-                                            <option>6 AM</option>
-                                            <option>7 AM</option>
-                                            <option>8 AM</option>
-                                            <option>9 AM</option>
-                                            <option>10 AM</option>
-                                            <option>11 AM</option>
-                                            <option>12 AM</option>
-                                            <option>1 PM</option>
-                                            <option>2 PM</option>
-                                            <option>3 PM</option>
-                                            <option>4 PM</option>
-                                            <option>5 PM</option>
-                                            <option>6 PM</option>
-                                            <option>7 PM</option>
-                                            <option>8 PM</option>
-                                            <option>9 PM</option>
-                                            <option>10 PM</option>
-                                            <option>11 PM</option>
-                                            <option>12 PM</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- Day / End -->
-
-                                <!-- Day -->
-                                <div class="row opening-day js-demo-hours">
-                                    <div class="col-md-2"><h5>Tuesday</h5></div>
-                                    <div class="col-md-5">
-                                        <select class="chosen-select" data-placeholder="Opening Time">
-                                            <!-- Hours added via JS (this is only for demo purpose) -->
-                                        </select>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <select class="chosen-select" data-placeholder="Closing Time">
-                                            <!-- Hours added via JS (this is only for demo purpose) -->
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- Day / End -->
-
-                                <!-- Day -->
-                                <div class="row opening-day js-demo-hours">
-                                    <div class="col-md-2"><h5>Wednesday</h5></div>
-                                    <div class="col-md-5">
-                                        <select class="chosen-select" data-placeholder="Opening Time">
-                                            <!-- Hours added via JS (this is only for demo purpose) -->
-                                        </select>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <select class="chosen-select" data-placeholder="Closing Time">
-                                            <!-- Hours added via JS (this is only for demo purpose) -->
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- Day / End -->
-
-                                <!-- Day -->
-                                <div class="row opening-day js-demo-hours">
-                                    <div class="col-md-2"><h5>Thursday</h5></div>
-                                    <div class="col-md-5">
-                                        <select class="chosen-select" data-placeholder="Opening Time">
-                                            <!-- Hours added via JS (this is only for demo purpose) -->
-                                        </select>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <select class="chosen-select" data-placeholder="Closing Time">
-                                            <!-- Hours added via JS (this is only for demo purpose) -->
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- Day / End -->
-
-                                <!-- Day -->
-                                <div class="row opening-day js-demo-hours">
-                                    <div class="col-md-2"><h5>Friday</h5></div>
-                                    <div class="col-md-5">
-                                        <select class="chosen-select" data-placeholder="Opening Time">
-                                            <!-- Hours added via JS (this is only for demo purpose) -->
-                                        </select>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <select class="chosen-select" data-placeholder="Closing Time">
-                                            <!-- Hours added via JS (this is only for demo purpose) -->
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- Day / End -->
-
-                                <!-- Day -->
-                                <div class="row opening-day js-demo-hours">
-                                    <div class="col-md-2"><h5>Saturday</h5></div>
-                                    <div class="col-md-5">
-                                        <select class="chosen-select" data-placeholder="Opening Time">
-                                            <!-- Hours added via JS (this is only for demo purpose) -->
-                                        </select>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <select class="chosen-select" data-placeholder="Closing Time">
-                                            <!-- Hours added via JS (this is only for demo purpose) -->
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- Day / End -->
-
-                                <!-- Day -->
-                                <div class="row opening-day js-demo-hours">
-                                    <div class="col-md-2"><h5>Sunday</h5></div>
-                                    <div class="col-md-5">
-                                        <select class="chosen-select" data-placeholder="Opening Time">
-                                            <!-- Hours added via JS (this is only for demo purpose) -->
-                                        </select>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <select class="chosen-select" data-placeholder="Closing Time">
-                                            <!-- Hours added via JS (this is only for demo purpose) -->
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- Day / End -->
-
-                            </div>
-                            <!-- Switcher ON-OFF Content / End -->
-
-                        </div>
-                        <!-- Section / End -->
-
-
-                        <!-- Section -->
-                        <div class="add-listing-section margin-top-45">
-
-                            <!-- Headline -->
-                            <div class="add-listing-headline">
-                                <h3><i class="sl sl-icon-book-open"></i> Pricing</h3>
+                                <h3><i class="sl sl-icon-book-open"></i> Keywords</h3>
                                 <!-- Switcher -->
                                 <label class="switch"><input type="checkbox" checked><span class="slider round"></span></label>
                             </div>
@@ -640,9 +499,8 @@ $user = mysqli_fetch_assoc($result);?>
                                             <tr class="pricing-list-item pattern">
                                                 <td>
                                                     <div class="fm-move"><i class="sl sl-icon-cursor-move"></i></div>
-                                                    <div class="fm-input pricing-name"><input type="text" placeholder="Title" /></div>
-                                                    <div class="fm-input pricing-ingredients"><input type="text" placeholder="Description" /></div>
-                                                    <div class="fm-input pricing-price"><input type="text" placeholder="Price" data-unit="USD" /></div>
+                                                    <div class="fm-input pricing-name"><input type="text" placeholder="Keyword" /></div>
+                                                    <div class="fm-input pricing-ingredients"><input type="text" placeholder="Is this keyword a place?" /></div>
                                                     <div class="fm-close"><a class="delete" href="#"><i class="fa fa-remove"></i></a></div>
                                                 </td>
                                             </tr>
@@ -657,15 +515,121 @@ $user = mysqli_fetch_assoc($result);?>
                         </div>
                         <!-- Section / End -->
 
+                        <div class="add-listing-section margin-top-45">
 
-                        <a href="#" class="button preview">Preview <i class="fa fa-arrow-circle-right"></i></a>
+                            <!-- Headline -->
+                            <div class="add-listing-headline">
+                                <h3><i class="sl sl-icon-book-open"></i> Keywords</h3>
+                                <!-- Switcher -->
+                                <label class="switch"><input type="checkbox" checked=""><span class="slider round"></span></label>
+                            </div>
+
+                            <!-- Switcher ON-OFF Content -->
+                            <div class="switcher-content">
+
+                                <div class="row">
+                                    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                                    <div class="col-md-12">
+
+                                        <div id="map"></div>
+                                        <!-- Replace the value of the key parameter with your own API key. -->
+                                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxjd5GaNmcZ0uzykr0oFajwo5lOombz40&libraries=places&callback=initAutocomplete"
+                                                async defer></script>
+
+                                        <script>
+                                            // This example adds a search box to a map, using the Google Place Autocomplete
+                                            // feature. People can enter geographical searches. The search box will return a
+                                            // pick list containing a mix of places and predicted search terms.
+
+                                            // This example requires the Places library. Include the libraries=places
+                                            // parameter when you first load the API. For example:
+                                            // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+                                            function initAutocomplete() {
+                                                var map = new google.maps.Map(document.getElementById('map'), {
+                                                    center: {lat: -33.8688, lng: 151.2195},
+                                                    zoom: 13,
+                                                    mapTypeId: 'roadmap'
+                                                });
+
+                                                // Create the search box and link it to the UI element.
+                                                var input = document.getElementById('pac-input');
+                                                var searchBox = new google.maps.places.SearchBox(input);
+                                                map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+                                                // Bias the SearchBox results towards current map's viewport.
+                                                map.addListener('bounds_changed', function() {
+                                                    searchBox.setBounds(map.getBounds());
+                                                });
+
+                                                var markers = [];
+                                                // Listen for the event fired when the user selects a prediction and retrieve
+                                                // more details for that place.
+                                                searchBox.addListener('places_changed', function() {
+                                                    var places = searchBox.getPlaces();
+
+                                                    if (places.length == 0) {
+                                                        return;
+                                                    }
+
+                                                    // Clear out the old markers.
+                                                    markers.forEach(function(marker) {
+                                                        marker.setMap(null);
+                                                    });
+                                                    markers = [];
+
+                                                    // For each place, get the icon, name and location.
+                                                    var bounds = new google.maps.LatLngBounds();
+                                                    places.forEach(function(place) {
+                                                        if (!place.geometry) {
+                                                            console.log("Returned place contains no geometry");
+                                                            return;
+                                                        }
+                                                        var icon = {
+                                                            url: place.icon,
+                                                            size: new google.maps.Size(71, 71),
+                                                            origin: new google.maps.Point(0, 0),
+                                                            anchor: new google.maps.Point(17, 34),
+                                                            scaledSize: new google.maps.Size(25, 25)
+                                                        };
+
+                                                        // Create a marker for each place.
+                                                        markers.push(new google.maps.Marker({
+                                                            map: map,
+                                                            icon: icon,
+                                                            title: place.name,
+                                                            position: place.geometry.location
+                                                        }));
+
+                                                        if (place.geometry.viewport) {
+                                                            // Only geocodes have viewport.
+                                                            bounds.union(place.geometry.viewport);
+                                                        } else {
+                                                            bounds.extend(place.geometry.location);
+                                                        }
+                                                    });
+                                                    map.fitBounds(bounds);
+                                                });
+                                            }
+                                        </script>
+                                    </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- Switcher ON-OFF Content / End -->
+
+                        </div>
+
+                        <a href="#" class="button preview" onclick="document.getElementById('add-posting-form').submit()" >Preview <i class="fa fa-arrow-circle-right"></i></a>
 
                     </div>
+                    </form>
                 </div>
-
+                <!-- Section / End -->
                 <!-- Copyrights -->
                 <div class="col-md-12">
-                    <div class="copyrights">© 2017 Listeo. All Rights Reserved.</div>
+                    <div class="copyrights">© 2017 Lantern. All Rights Reserved.</div>
                 </div>
 
             </div>
@@ -695,10 +659,19 @@ $user = mysqli_fetch_assoc($result);?>
 <script type="text/javascript" src="scripts/jquery-ui.min.js"></script>
 <script type="text/javascript" src="scripts/tooltips.min.js"></script>
 <script type="text/javascript" src="scripts/custom.js"></script>
-
+<script type="text/javascript" src="scripts/optionsearch.js"></script>
+<!-- DropZone | Documentation: http://dropzonejs.com -->
+<script type="text/javascript" src="scripts/dropzone.js"></script>
 
 <!-- Opening hours added via JS (this is only for demo purpose) -->
 <script>
+    $("#lang1Select").val("<?php echo $user['lang1']?>").attr("selected", "selected");
+    $("#langf1Select").val("<?php echo $user['lang_f1']?>").attr("selected", "selected");
+    $("#lang2Select").val("<?php echo $user['lang2']?>").attr("selected", "selected");
+    $("#langf2Select").val("<?php echo $user['lang_f2']?>").attr("selected", "selected");
+    $("#lang3Select").val("<?php echo $user['lang3']?>").attr("selected", "selected");
+    $("#langf3Select").val("<?php echo $user['lang_f3']?>").attr("selected", "selected");
+    $(".aachosen-select-no-single").chosen();
     $(".opening-day.js-demo-hours .chosen-select").each(function() {
         $(this).append(''+
             '<option></option>'+
@@ -730,8 +703,8 @@ $user = mysqli_fetch_assoc($result);?>
     });
 </script>
 
-<!-- DropZone | Documentation: http://dropzonejs.com -->
-<script type="text/javascript" src="scripts/dropzone.js"></script>
+
+
 
 
 </body>
