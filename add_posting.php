@@ -33,7 +33,6 @@ $user = mysqli_fetch_assoc($result);?>
             font-family: Roboto;
             font-size: 15px;
             font-weight: 300;
-            margin-left: 12px;
             padding: 0 11px 0 13px;
             text-overflow: ellipsis;
             width: 300px;
@@ -189,7 +188,7 @@ $user = mysqli_fetch_assoc($result);?>
                                     <!-- Status -->
                                     <div class="col-md-6">
                                         <h5>Languages</h5>
-                                        <table id="pricing-list-container">
+                                        <table id="pricing-list-containers" style="width: 100%">
                                             <tr class="pricing-list-item pattern123">
                                                 <td>
                                                     <div class="fm-input pricing-name">
@@ -501,14 +500,114 @@ $user = mysqli_fetch_assoc($result);?>
                                                         <div class="fm-move"><i class="sl sl-icon-cursor-move"></i></div>
                                                         <div class="checkboxes in-row margin-bottom-20">
 
-                                                            <input id="check-a" type="checkbox" name="check" >
+                                                            <input id="check-a" type="checkbox" name="check" onclick="inputhide();">
                                                             <label for="check-a" style="display: block !important; margin-top: 0px!important;">location Keyword?</label>
 
                                                             <input id="check-b" type="checkbox" name="check">
                                                             <label for="check-b" style="display: block !important; margin-top: 0px!important;">Super Keyword?</label>
 
                                                         </div>
-                                                        <div class="fm-input pricing-name"><input type="text" placeholder="Keyword" /></div>
+                                                        <div class="fm-input pricing-name" id="keywordinputarea" style="max-width: 100% !important;">
+                                                            <input id="general-input" type="text" placeholder="Keyword" />
+                                                            <input id='pac-input' class='controls' type='text' placeholder='Search Box' style="display: none; width: 100%;"/>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <!-- Replace the value of the key parameter with your own API key. -->
+                                                                    <div id="map" style="display: none; width: 100%;"></div>
+                                                                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxjd5GaNmcZ0uzykr0oFajwo5lOombz40&libraries=places&callback=initAutocomplete"
+                                                                            async defer></script>
+
+                                                                    <script>
+                                                                        // This example adds a search box to a map, using the Google Place Autocomplete
+                                                                        // feature. People can enter geographical searches. The search box will return a
+                                                                        // pick list containing a mix of places and predicted search terms.
+
+                                                                        // This example requires the Places library. Include the libraries=places
+                                                                        // parameter when you first load the API. For example:
+                                                                        // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+
+                                                                        function initAutocomplete() {
+                                                                            var map = new google.maps.Map(document.getElementById('map'), {
+                                                                                center: {lat: 37.541, lng: 126.986},
+                                                                                zoom: 13,
+                                                                                mapTypeId: 'roadmap'
+                                                                            });
+
+
+
+                                                                            // Create the search box and link it to the UI element.
+                                                                            var input = document.getElementById('pac-input');
+                                                                            var searchBox = new google.maps.places.SearchBox(input);
+
+
+                                                                            var markers = [];
+                                                                            // Listen for the event fired when the user selects a prediction and retrieve
+                                                                            // more details for that place.
+                                                                            searchBox.addListener('places_changed', function() {
+                                                                                var places = searchBox.getPlaces();
+
+                                                                                if (places.length == 0) {
+                                                                                    return;
+                                                                                }
+
+                                                                                // Clear out the old markers.
+                                                                                markers.forEach(function(marker) {
+                                                                                    marker.setMap(null);
+                                                                                });
+                                                                                markers = [];
+
+                                                                                // For each place, get the icon, name and location.
+                                                                                var bounds = new google.maps.LatLngBounds();
+                                                                                places.forEach(function(place) {
+                                                                                    if (!place.geometry) {
+                                                                                        console.log("Returned place contains no geometry");
+                                                                                        return;
+                                                                                    }
+                                                                                    var icon = {
+                                                                                        url: place.icon,
+                                                                                        size: new google.maps.Size(71, 71),
+                                                                                        origin: new google.maps.Point(0, 0),
+                                                                                        anchor: new google.maps.Point(17, 34),
+                                                                                        scaledSize: new google.maps.Size(25, 25)
+                                                                                    };
+
+                                                                                    // Create a marker for each place.
+                                                                                    markers.push(new google.maps.Marker({
+                                                                                        map: map,
+                                                                                        draggable: true,
+                                                                                        title: place.name,
+                                                                                        position: place.geometry.location
+                                                                                    }));
+
+                                                                                    if (place.geometry.viewport) {
+                                                                                        // Only geocodes have viewport.
+                                                                                        bounds.union(place.geometry.viewport);
+                                                                                    } else {
+                                                                                        bounds.extend(place.geometry.location);
+                                                                                    }
+                                                                                });
+                                                                                map.fitBounds(bounds);
+                                                                            });
+                                                                        }
+                                                                    </script>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <script>
+                                                            function inputhide() {
+                                                                if(document.getElementById('check-a').checked){
+                                                                    $("#general-input").hide();
+                                                                    $("#pac-input").show();
+                                                                    $("#map").show();
+                                                                }else {
+                                                                    $("#general-input").show();
+                                                                    $("#map").hide();
+                                                                }
+
+                                                            }
+                                                        </script>
                                                         <div class="fm-close"><a class="delete" href="#"><i class="fa fa-remove"></i></a></div>
                                                     </td>
                                                 </tr>
@@ -522,113 +621,6 @@ $user = mysqli_fetch_assoc($result);?>
 
                             </div>
                             <!-- Section / End -->
-
-                            <div class="add-listing-section margin-top-45">
-
-                                <!-- Headline -->
-                                <div class="add-listing-headline">
-                                    <h3><i class="sl sl-icon-book-open"></i> Keywords</h3>
-                                    <!-- Switcher -->
-                                    <label class="switch"><input type="checkbox" checked=""><span class="slider round"></span></label>
-                                </div>
-
-                                <!-- Switcher ON-OFF Content -->
-                                <div class="switcher-content">
-
-                                    <div class="row">
-                                        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                                        <div class="col-md-12">
-
-                                            <div id="map"></div>
-                                            <!-- Replace the value of the key parameter with your own API key. -->
-                                            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxjd5GaNmcZ0uzykr0oFajwo5lOombz40&libraries=places&callback=initAutocomplete"
-                                                    async defer></script>
-
-                                            <script>
-                                                // This example adds a search box to a map, using the Google Place Autocomplete
-                                                // feature. People can enter geographical searches. The search box will return a
-                                                // pick list containing a mix of places and predicted search terms.
-
-                                                // This example requires the Places library. Include the libraries=places
-                                                // parameter when you first load the API. For example:
-                                                // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
-
-                                                function initAutocomplete() {
-                                                    var map = new google.maps.Map(document.getElementById('map'), {
-                                                        center: {lat: 37.541, lng: 126.986},
-                                                        zoom: 13,
-                                                        mapTypeId: 'roadmap'
-                                                    });
-
-
-
-                                                    // Create the search box and link it to the UI element.
-                                                    var input = document.getElementById('pac-input');
-                                                    var searchBox = new google.maps.places.SearchBox(input);
-                                                    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-                                                    // Bias the SearchBox results towards current map's viewport.
-                                                    map.addListener('bounds_changed', function() {
-                                                        searchBox.setBounds(map.getBounds());
-                                                    });
-
-                                                    var markers = [];
-                                                    // Listen for the event fired when the user selects a prediction and retrieve
-                                                    // more details for that place.
-                                                    searchBox.addListener('places_changed', function() {
-                                                        var places = searchBox.getPlaces();
-
-                                                        if (places.length == 0) {
-                                                            return;
-                                                        }
-
-                                                        // Clear out the old markers.
-                                                        markers.forEach(function(marker) {
-                                                            marker.setMap(null);
-                                                        });
-                                                        markers = [];
-
-                                                        // For each place, get the icon, name and location.
-                                                        var bounds = new google.maps.LatLngBounds();
-                                                        places.forEach(function(place) {
-                                                            if (!place.geometry) {
-                                                                console.log("Returned place contains no geometry");
-                                                                return;
-                                                            }
-                                                            var icon = {
-                                                                url: place.icon,
-                                                                size: new google.maps.Size(71, 71),
-                                                                origin: new google.maps.Point(0, 0),
-                                                                anchor: new google.maps.Point(17, 34),
-                                                                scaledSize: new google.maps.Size(25, 25)
-                                                            };
-
-                                                            // Create a marker for each place.
-                                                            markers.push(new google.maps.Marker({
-                                                                map: map,
-                                                                draggable: true,
-                                                                title: place.name,
-                                                                position: place.geometry.location
-                                                            }));
-
-                                                            if (place.geometry.viewport) {
-                                                                // Only geocodes have viewport.
-                                                                bounds.union(place.geometry.viewport);
-                                                            } else {
-                                                                bounds.extend(place.geometry.location);
-                                                            }
-                                                        });
-                                                        map.fitBounds(bounds);
-                                                    });
-                                                }
-                                            </script>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <!-- Switcher ON-OFF Content / End -->
 
                         </div>
 

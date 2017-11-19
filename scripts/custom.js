@@ -811,6 +811,7 @@ $(document).ready(function(){
 		var newElem = $('tr.pricing-list-item.pattern').first().clone();
 		newElem.find('input').val('');
 		newElem.appendTo('table#pricing-list-container');
+        newElem.attr("id","1234");
 	}
 
 	if ($("table#pricing-list-container").is('*')) {
