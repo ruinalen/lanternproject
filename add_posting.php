@@ -9,6 +9,59 @@ $result = mysqli_query($conn, $query1);
 $user = mysqli_fetch_assoc($result);?>
 <!DOCTYPE html>
 <head>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 500px !important;
+        }
+        /* Optional: Makes the sample page fill the window. */
+
+        .controls {
+            margin-top: 10px;
+            border: 1px solid transparent;
+            border-radius: 2px 0 0 2px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            height: 32px;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        #pac-input {
+            background-color: #fff;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 300;
+            margin-left: 12px;
+            padding: 0 11px 0 13px;
+            text-overflow: ellipsis;
+            width: 300px;
+        }
+
+        #pac-input:focus {
+            border-color: #4d90fe;
+        }
+
+        .pac-container {
+            font-family: Roboto;
+        }
+
+        #type-selector {
+            color: #fff;
+            background-color: #4d90fe;
+            padding: 5px 11px 0px 11px;
+        }
+
+        #type-selector label {
+            font-family: Roboto;
+            font-size: 13px;
+            font-weight: 300;
+        }
+        #target {
+            width: 345px;
+        }
+    </style>
 
     <!-- Basic Page Needs
     ================================================== -->
@@ -21,9 +74,16 @@ $user = mysqli_fetch_assoc($result);?>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/colors/main.css" id="colors">
 
+
+
+
+
 </head>
 
 <body>
+
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxjd5GaNmcZ0uzykr0oFajwo5lOombz40&libraries=places&callback=initAutocomplete" async defer></script>-->
+
 
 <!-- Wrapper -->
 <div id="wrapper">
@@ -89,7 +149,7 @@ $user = mysqli_fetch_assoc($result);?>
             <div id="titlebar">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Add Listing</h2>
+                        <h2>Add Posting</h2>
                         <!-- Breadcrumbs -->
                         <nav id="breadcrumbs">
                             <ul>
@@ -130,7 +190,7 @@ $user = mysqli_fetch_assoc($result);?>
                                 <div class="col-md-6">
                                     <h5>Languages</h5>
                                     <table id="pricing-list-container">
-                                        <tr class="pricing-list-item pattern">
+                                        <tr class="pricing-list-item pattern123">
                                             <td>
                                                 <div class="fm-input pricing-name">
                                                     <select name="lang1" class="aachosen-select-no-single" id="lang1Select">
@@ -455,15 +515,121 @@ $user = mysqli_fetch_assoc($result);?>
                         </div>
                         <!-- Section / End -->
 
+                        <div class="add-listing-section margin-top-45">
+
+                            <!-- Headline -->
+                            <div class="add-listing-headline">
+                                <h3><i class="sl sl-icon-book-open"></i> Keywords</h3>
+                                <!-- Switcher -->
+                                <label class="switch"><input type="checkbox" checked=""><span class="slider round"></span></label>
+                            </div>
+
+                            <!-- Switcher ON-OFF Content -->
+                            <div class="switcher-content">
+
+                                <div class="row">
+                                    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                                    <div class="col-md-12">
+
+                                        <div id="map"></div>
+                                        <!-- Replace the value of the key parameter with your own API key. -->
+                                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxjd5GaNmcZ0uzykr0oFajwo5lOombz40&libraries=places&callback=initAutocomplete"
+                                                async defer></script>
+
+                                        <script>
+                                            // This example adds a search box to a map, using the Google Place Autocomplete
+                                            // feature. People can enter geographical searches. The search box will return a
+                                            // pick list containing a mix of places and predicted search terms.
+
+                                            // This example requires the Places library. Include the libraries=places
+                                            // parameter when you first load the API. For example:
+                                            // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+
+                                            function initAutocomplete() {
+                                                var map = new google.maps.Map(document.getElementById('map'), {
+                                                    center: {lat: 37.541, lng: 126.986},
+                                                    zoom: 13,
+                                                    mapTypeId: 'roadmap'
+                                                });
+
+
+
+                                                // Create the search box and link it to the UI element.
+                                                var input = document.getElementById('pac-input');
+                                                var searchBox = new google.maps.places.SearchBox(input);
+                                                map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+                                                // Bias the SearchBox results towards current map's viewport.
+                                                map.addListener('bounds_changed', function() {
+                                                    searchBox.setBounds(map.getBounds());
+                                                });
+
+                                                var markers = [];
+                                                // Listen for the event fired when the user selects a prediction and retrieve
+                                                // more details for that place.
+                                                searchBox.addListener('places_changed', function() {
+                                                    var places = searchBox.getPlaces();
+
+                                                    if (places.length == 0) {
+                                                        return;
+                                                    }
+
+                                                    // Clear out the old markers.
+                                                    markers.forEach(function(marker) {
+                                                        marker.setMap(null);
+                                                    });
+                                                    markers = [];
+
+                                                    // For each place, get the icon, name and location.
+                                                    var bounds = new google.maps.LatLngBounds();
+                                                    places.forEach(function(place) {
+                                                        if (!place.geometry) {
+                                                            console.log("Returned place contains no geometry");
+                                                            return;
+                                                        }
+                                                        var icon = {
+                                                            url: place.icon,
+                                                            size: new google.maps.Size(71, 71),
+                                                            origin: new google.maps.Point(0, 0),
+                                                            anchor: new google.maps.Point(17, 34),
+                                                            scaledSize: new google.maps.Size(25, 25)
+                                                        };
+
+                                                        // Create a marker for each place.
+                                                        markers.push(new google.maps.Marker({
+                                                            map: map,
+                                                            draggable: true,
+                                                            title: place.name,
+                                                            position: place.geometry.location
+                                                        }));
+
+                                                        if (place.geometry.viewport) {
+                                                            // Only geocodes have viewport.
+                                                            bounds.union(place.geometry.viewport);
+                                                        } else {
+                                                            bounds.extend(place.geometry.location);
+                                                        }
+                                                    });
+                                                    map.fitBounds(bounds);
+                                                });
+                                            }
+                                        </script>
+                                    </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- Switcher ON-OFF Content / End -->
+
+                        </div>
 
                         <a href="#" class="button preview" onclick="document.getElementById('add-posting-form').submit()" >Preview <i class="fa fa-arrow-circle-right"></i></a>
 
                     </div>
                     </form>
                 </div>
-
-
-
+                <!-- Section / End -->
                 <!-- Copyrights -->
                 <div class="col-md-12">
                     <div class="copyrights">© 2017 Lantern. All Rights Reserved.</div>
@@ -497,6 +663,8 @@ $user = mysqli_fetch_assoc($result);?>
 <script type="text/javascript" src="scripts/tooltips.min.js"></script>
 <script type="text/javascript" src="scripts/custom.js"></script>
 <script type="text/javascript" src="scripts/optionsearch.js"></script>
+<!-- DropZone | Documentation: http://dropzonejs.com -->
+<script type="text/javascript" src="scripts/dropzone.js"></script>
 
 <!-- Opening hours added via JS (this is only for demo purpose) -->
 <script>
@@ -538,8 +706,8 @@ $user = mysqli_fetch_assoc($result);?>
     });
 </script>
 
-<!-- DropZone | Documentation: http://dropzonejs.com -->
-<script type="text/javascript" src="scripts/dropzone.js"></script>
+
+
 
 
 </body>
