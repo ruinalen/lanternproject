@@ -14,7 +14,7 @@
     .controls {
         margin-top: 10px;
         border: 1px solid transparent;
-        border-radius: 2px 0 0 2px;
+        border-radius: 2px 0 0 2px; 
         box-sizing: border-box;
         -moz-box-sizing: border-box;
         height: 32px;
