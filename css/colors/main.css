@@ -129,8 +129,13 @@ span.blog-item-tag ,
 }
 
 #titlebar.listing-titlebar span.listing-tag {
-    border-color: #ffb400;
-    color: #ffb400;
+    border-color: lawngreen;
+    color: lawngreen;
+}
+
+#titlebar.listing-titlebar span.listing-tag-not {
+    border-color: red;
+    color: red;
 }
 
 
