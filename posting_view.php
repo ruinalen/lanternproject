@@ -10,6 +10,30 @@ $lantern_sid = $posting['lantern_sid'];
 $query2 = "SELECT * FROM `member` WHERE `sid`='$lantern_sid'";
 $result2 = mysqli_query($conn, $query2);
 $lantern = mysqli_fetch_assoc($result2);
+
+$query3 = "SELECT * FROM `pkrelation` WHERE `pid`='$pid'";
+$result3 = mysqli_query($conn, $query3);
+
+$supers = array();
+$others = array();
+$places = array();
+
+while($row = mysqli_fetch_assoc($result3)){
+
+    $query4 = "SELECT * FROM `keyword` WHERE `kid`='$row[kid]'";
+    $result4 = mysqli_query($conn, $query4);
+    $keyword = mysqli_fetch_assoc($result4);
+
+    if($keyword['geo_offset']==1){
+       array_push($places, $keyword);
+    }
+    if($row[super_offset]==1){
+        array_push($supers, $keyword['keyword']);
+    }
+    else{
+        array_push($others, $keyword['keyword']);
+    }
+}
 ?>
 <!DOCTYPE html>
 <head>
@@ -80,7 +104,7 @@ $lantern = mysqli_fetch_assoc($result2);
                 <img src="./profile_img/<?php echo $lantern_sid;?>.png" width="50%">
                 <br><br>
 				<div class="listing-titlebar-title">
-					<h2><?php echo $lantern['name_first'].' '.$lantern['name_last'];?> <span class="listing-tag">Verified</span></h2>
+					<h2><?php echo $lantern['name_first'].' '.$lantern['name_last'];?> <span class="listing-tag" style="color: lawngreen; border-color: lawngreen;">Verified</span></h2>
 					<span>
 						<a href="#listing-location" class="listing-address">
 							<i class="im im-icon-Global-Position"></i><?php echo $lantern['region']?>
@@ -118,11 +142,12 @@ $lantern = mysqli_fetch_assoc($result2);
 
 
 				<!-- Amenities -->
-				<h3 class="listing-desc-headline">Amenities</h3>
+				<h3 class="listing-desc-headline">Extras</h3>
 				<ul class="listing-features checkboxes margin-top-0">
 					<li><i class="fa fa-child"></i>  Kid Friendly</li>
 					<li><i class="im im-icon-Wheelchair"></i> Disabled Friendly</li>
 					<li><i class="im im-icon-Car-2"></i> Own a Car</li>
+                    <li><i class="sl sl-icon-people"></i> Maximum travelers: <?php echo $posting['accommodation']?></li>
 				</ul>
 			</div>
 
@@ -130,71 +155,45 @@ $lantern = mysqli_fetch_assoc($result2);
 			<!-- Food Menu -->
 			<div id="listing-pricing-list" class="listing-section">
 				<h3 class="listing-desc-headline margin-top-70 margin-bottom-30">Keywords</h3>
+                    <div class="pricing-list-container">
 
-				<div class="show-more">
-					<div class="pricing-list-container">
+                        <div class="boxed-widget" >
+                            <h5>Super Keywords</h5>
+                            <div id="super" style="margin-top: 10px">
+                                <?php
+                                    foreach ($supers as $val)
+                                        echo "<button class='button' style='background-color: #aaaaaa'>".$val."</button>";
+                                ?>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="boxed-widget">
+                            <h5>Other Keywords</h5>
+                            <div id="other" style="margin-top: 10px">
+                                <?php
+                                foreach ($others as $val)
+                                    echo "<button class='button'style='background-color: #aaaaaa'>".$val."</button>";
+                                ?>
 
-						<!-- Food List -->
-						<h4>Burgers</h4>
-						<ul>
-							<li>
-								<h5>Classic Burger</h5>
-								<p>Beef, salad, mayonnaise, spicey relish, cheese</p>
-								<span>$6</span>
-							</li>
-							<li>
-								<h5>Cheddar Burger</h5>
-								<p>Cheddar cheese, lettuce, tomato, onion, dill pickles</p>
-								<span>$6</span>
-							</li>
-							<li>
-								<h5>Veggie Burger</h5>
-								<p>Panko crumbed and fried, grilled peppers and mushroom</p>
-								<span>$6</span>
-							</li>
-							<li>
-								<h5>Chicken Burger</h5>
-								<p>Cheese, chicken fillet, avocado, bacon, tomatoes, basil</p>
-								<span>$6</span>
-							</li>
-						</ul>
+                            </div>
+                        </div>
 
-						<!-- Food List -->
-						<h4>Drinks</h4>
-						<ul>
-							<li>
-								<h5>Frozen Shake</h5>
-								<span>$4</span>
-							</li>
-							<li>
-								<h5>Orange Juice</h5>
-								<span>$4</span>
-							</li>
-							<li>
-								<h5>Beer</h5>
-								<span>$4</span>
-							</li>
-							<li>
-								<h5>Water</h5>
-								<span>Free</span>
-							</li>
-						</ul>
+                    </div>
+                </div>
 
-					</div>
-				</div>
-				<a href="#" class="show-more-button" data-more-title="Show More" data-less-title="Show Less"><i class="fa fa-angle-down"></i></a>
-			</div>
+
 			<!-- Food Menu / End -->
 
 
 			<!-- Location -->
 			<div id="listing-location" class="listing-section">
 				<h3 class="listing-desc-headline margin-top-60 margin-bottom-30">Places</h3>
+                <div id="map-container" style="width:auto;" class="fullwidth-home-map">
 
-				<div id="singleListingMap-container">
-					<div id="singleListingMap" data-latitude="40.70437865245596" data-longitude="-73.98674011230469" data-map-icon="im im-icon-Hamburger"></div>
-					<a href="#" id="streetView">Street View</a>
-				</div>
+                    <div id="map" data-map-zoom="9">
+                        <!-- map goes here -->
+                    </div>
+                </div>
 			</div>
 
 			<!-- Reviews -->
@@ -282,77 +281,6 @@ $lantern = mysqli_fetch_assoc($result2);
 				<div class="clearfix"></div>
 				<!-- Pagination / End -->
 			</div>
-
-
-			<!-- Add Review Box -->
-			<div id="add-review" class="add-review-box">
-
-				<!-- Add Review -->
-				<h3 class="listing-desc-headline margin-bottom-20">Add Review</h3>
-
-				<span class="leave-rating-title">Your rating for this listing</span>
-
-				<!-- Rating / Upload Button -->
-				<div class="row">
-					<div class="col-md-6">
-						<!-- Leave Rating -->
-						<div class="clearfix"></div>
-						<div class="leave-rating margin-bottom-30">
-							<input type="radio" name="rating" id="rating-1" value="1"/>
-							<label for="rating-1" class="fa fa-star"></label>
-							<input type="radio" name="rating" id="rating-2" value="2"/>
-							<label for="rating-2" class="fa fa-star"></label>
-							<input type="radio" name="rating" id="rating-3" value="3"/>
-							<label for="rating-3" class="fa fa-star"></label>
-							<input type="radio" name="rating" id="rating-4" value="4"/>
-							<label for="rating-4" class="fa fa-star"></label>
-							<input type="radio" name="rating" id="rating-5" value="5"/>
-							<label for="rating-5" class="fa fa-star"></label>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-
-					<div class="col-md-6">
-						<!-- Uplaod Photos -->
-						<div class="add-review-photos margin-bottom-30">
-							<div class="photoUpload">
-							    <span><i class="sl sl-icon-arrow-up-circle"></i> Upload Photos</span>
-							    <input type="file" class="upload" />
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Review Comment -->
-				<form id="add-comment" class="add-comment">
-					<fieldset>
-
-						<div class="row">
-							<div class="col-md-6">
-								<label>Name:</label>
-								<input type="text" value=""/>
-							</div>
-
-							<div class="col-md-6">
-								<label>Email:</label>
-								<input type="text" value=""/>
-							</div>
-						</div>
-
-						<div>
-							<label>Review:</label>
-							<textarea cols="40" rows="3"></textarea>
-						</div>
-
-					</fieldset>
-
-					<button class="button">Submit Review</button>
-					<div class="clearfix"></div>
-				</form>
-
-			</div>
-			<!-- Add Review Box / End -->
-
 
 		</div>
 
@@ -445,71 +373,6 @@ $lantern = mysqli_fetch_assoc($result2);
 </div>
 
 
-<!-- Footer
-================================================== -->
-<div id="footer" class="margin-top-15">
-	<!-- Main -->
-	<div class="container">
-		<div class="row">
-			<div class="col-md-5 col-sm-6">
-				<img class="footer-logo" src="images/logo00.png" alt="">
-				<br><br>
-				<p>Morbi convallis bibendum urna ut viverra. Maecenas quis consequat libero, a feugiat eros. Nunc ut lacinia tortor morbi ultricies laoreet ullamcorper phasellus semper.</p>
-			</div>
-
-			<div class="col-md-4 col-sm-6 ">
-				<h4>Helpful Links</h4>
-				<ul class="footer-links">
-					<li><a href="#">Login</a></li>
-					<li><a href="#">Sign Up</a></li>
-					<li><a href="#">My Account</a></li>
-					<li><a href="#">Add Listing</a></li>
-					<li><a href="#">Pricing</a></li>
-					<li><a href="#">Privacy Policy</a></li>
-				</ul>
-
-				<ul class="footer-links">
-					<li><a href="#">FAQ</a></li>
-					<li><a href="#">Blog</a></li>
-					<li><a href="#">Our Partners</a></li>
-					<li><a href="#">How It Works</a></li>
-					<li><a href="#">Contact</a></li>
-				</ul>
-				<div class="clearfix"></div>
-			</div>
-
-			<div class="col-md-3  col-sm-12">
-				<h4>Contact Us</h4>
-				<div class="text-widget">
-					<span>12345 Little Lonsdale St, Melbourne</span> <br>
-Phone: <span>(123) 123-456 </span><br>
-E-Mail:<span> <a href="#">office@example.com</a> </span><br>
-				</div>
-
-				<ul class="social-icons margin-top-20">
-					<li><a class="facebook" href="#"><i class="icon-facebook"></i></a></li>
-					<li><a class="twitter" href="#"><i class="icon-twitter"></i></a></li>
-					<li><a class="gplus" href="#"><i class="icon-gplus"></i></a></li>
-					<li><a class="vimeo" href="#"><i class="icon-vimeo"></i></a></li>
-				</ul>
-
-			</div>
-
-		</div>
-
-		<!-- Copyright -->
-		<div class="row">
-			<div class="col-md-12">
-				<div class="copyrights">© 2017 Listeo. All Rights Reserved.</div>
-			</div>
-		</div>
-
-	</div>
-
-</div>
-<!-- Footer / End -->
-
-
 <!-- Back To Top Button -->
 <div id="backtotop"><a href="#"></a></div>
 
@@ -536,7 +399,7 @@ E-Mail:<span> <a href="#">office@example.com</a> </span><br>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
 <script type="text/javascript" src="scripts/infobox.min.js"></script>
 <script type="text/javascript" src="scripts/markerclusterer.js"></script>
-<script type="text/javascript" src="scripts/maps.js"></script>
+<?php include 'map.php';?>
 
 
 
@@ -565,36 +428,6 @@ var $clocks = $('.td-input');
 
 
 
-<!-- Style Switcher
-================================================== -->
-<script src="scripts/switcher.js"></script>
-
-<div id="style-switcher">
-	<h2>Color Switcher <a href="#"><i class="sl sl-icon-settings"></i></a></h2>
-
-	<div>
-		<ul class="colors" id="color1">
-			<li><a href="#" class="main" title="Main"></a></li>
-			<li><a href="#" class="blue" title="Blue"></a></li>
-			<li><a href="#" class="green" title="Green"></a></li>
-			<li><a href="#" class="orange" title="Orange"></a></li>
-			<li><a href="#" class="navy" title="Navy"></a></li>
-			<li><a href="#" class="yellow" title="Yellow"></a></li>
-			<li><a href="#" class="peach" title="Peach"></a></li>
-			<li><a href="#" class="beige" title="Beige"></a></li>
-			<li><a href="#" class="purple" title="Purple"></a></li>
-			<li><a href="#" class="celadon" title="Celadon"></a></li>
-			<li><a href="#" class="red" title="Red"></a></li>
-			<li><a href="#" class="brown" title="Brown"></a></li>
-			<li><a href="#" class="cherry" title="Cherry"></a></li>
-			<li><a href="#" class="cyan" title="Cyan"></a></li>
-			<li><a href="#" class="gray" title="Gray"></a></li>
-			<li><a href="#" class="olive" title="Olive"></a></li>
-		</ul>
-	</div>
-
-</div>
-<!-- Style Switcher / End -->
 
 
 </body>
@@ -633,14 +466,16 @@ var $clocks = $('.td-input');
                 default: break;
             }
 
-            innerText += "<h4>"+lang+"</h4><div class = 'myProgress'> <div class='myBar' id='myBar"+i+"'>" +
-                "</div></div><div style='float:left'>"+fluency+"</div><br><br>";
+            innerText += "<h5>"+lang+"</h5><div class = 'myProgress'> <div class='myBar' id='myBar"+i+"'>" +
+                "</div></div><div style='float:left'>"+fluency+"</div><br>";
 
         }
         $(".languages").html(innerText);
         $("#myBar1").css('width',langf1+'%');
         $("#myBar2").css('width',langf2+'%');
         $("#myBar3").css('width',langf3+'%');
+
+
 
     });
 </script>
