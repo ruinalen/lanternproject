@@ -34,6 +34,23 @@ while($row = mysqli_fetch_assoc($result3)){
         array_push($others, $keyword['keyword']);
     }
 }
+
+$query5 = "SELECT * FROM `pcalendar` WHERE `pid`='$pid'";
+$result5 = mysqli_query($conn, $query5);
+$dates = mysqli_fetch_assoc($result5);
+$ava_dates =  explode(',', $dates['available_dates']);
+$reserved_dates = explode(',', $dates['reserved_dates']);
+$eventdates = array();
+
+foreach ($ava_dates as $val) {
+    array_push($eventdates,array(start=> $val, overlap=> false, rendering=> 'background', color=> 'green'));
+}
+foreach ($reserved_dates as $val){
+    array_push($eventdates,array(start=> $val, overlap=> false, rendering=> 'background', color=> 'black'));
+}
+
+
+
 ?>
 <!DOCTYPE html>
 <head>
@@ -49,6 +66,13 @@ while($row = mysqli_fetch_assoc($result3)){
             height: 30px;
             background-color: #ffb400;
         }
+
+        #calendar {
+            width: auto;
+            margin: 5%;
+            font-size: 12px;
+        }
+
     </style>
 
 
@@ -291,18 +315,17 @@ while($row = mysqli_fetch_assoc($result3)){
 
 			<!-- Book Now -->
 			<div class="boxed-widget">
-				<h3><i class="fa fa-calendar-check-o "></i> Book a Table</h3>
+				<h3><i class="fa fa-calendar-check-o "></i> Book a Lantern</h3>
+                <div id='calendar'></div>
 				<div class="row with-forms  margin-top-0">
 
 					<!-- Date Picker - docs: http://www.vasterad.com/docs/listeo/#!/date_picker -->
 					<div class="col-lg-6 col-md-12">
 						<input type="text" id="booking-date" data-lang="en" data-large-mode="true" data-min-year="2017" data-max-year="2020">
 					</div>
-
-					<!-- Time Picker - docs: http://www.vasterad.com/docs/listeo/#!/time_picker -->
-					<div class="col-lg-6 col-md-12">
-						<input type="text" id="booking-time" value="9:00 am">
-					</div>
+                    <div class="col-lg-6 col-md-12">
+                        <input type="text" id="booking-date2" data-lang="en" data-large-mode="true" data-min-year="2017" data-max-year="2020">
+                    </div>
 
 				</div>
 
@@ -401,12 +424,19 @@ while($row = mysqli_fetch_assoc($result3)){
 <script type="text/javascript" src="scripts/markerclusterer.js"></script>
 <?php include 'map.php';?>
 
+<link href='fullcalendar-3.7.0/fullcalendar.min.css' rel='stylesheet' />
+<link href='fullcalendar-3.7.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+<script src='fullcalendar-3.7.0/lib/moment.min.js'></script>
+<script src='fullcalendar-3.7.0/lib/jquery.min.js'></script>
+<script src='fullcalendar-3.7.0/fullcalendar.min.js'></script>
+
 
 
 <!-- Date Picker - docs: http://www.vasterad.com/docs/listeo/#!/date_picker -->
 <link href="css/plugins/datedropper.css" rel="stylesheet" type="text/css">
 <script src="scripts/datedropper.js"></script>
 <script>$('#booking-date').dateDropper();</script>
+<script>$('#booking-date2').dateDropper();</script>
 
 <!-- Time Picker - docs: http://www.vasterad.com/docs/listeo/#!/time_picker -->
 <script src="scripts/timedropper.js"></script>
@@ -474,6 +504,16 @@ var $clocks = $('.td-input');
         $("#myBar1").css('width',langf1+'%');
         $("#myBar2").css('width',langf2+'%');
         $("#myBar3").css('width',langf3+'%');
+
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: ''
+            },
+            events: <?php echo json_encode($eventdates) ;?>
+        });
 
 
 
