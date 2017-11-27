@@ -55,8 +55,7 @@ if ($conn->query($sql1) === TRUE) {
 
     echo "
         <script type='text/javascript'>
-            alert('등록 완료');
-            location.href='http://223.195.109.38/lanternproject/index.php';
+            location.href='http://223.195.109.38/lanternproject/insert_super.php';
         </script>
         ";
 } else {

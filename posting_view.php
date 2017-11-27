@@ -188,10 +188,11 @@ foreach ($reserved_dates as $val){
                             <div id="super" style="margin-top: 10px">
                                 <?php
                                     foreach ($supers as $val)
-                                        echo "<button class='button' style='background-color: #aaaaaa'>".$val."</button>";
+                                        echo "<button class='button' id='super' style='background-color: #aaaaaa'>".$val."</button>";
                                 ?>
                             </div>
                         </div>
+
                         <br>
                         <div class="boxed-widget">
                             <h5>Other Keywords</h5>
@@ -405,6 +406,28 @@ foreach ($reserved_dates as $val){
 </div>
 <!-- Wrapper / End -->
 
+<div class="modal" id="modal1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- header -->
+            <div class="modal-header">
+                <!-- 닫기(x) 버튼 -->
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <!-- header title -->
+                <h4 class="modal-title">Header</h4>
+            </div>
+            <!-- body -->
+            <div class="modal-body">
+                Body
+            </div>
+            <!-- Footer -->
+            <div class="modal-footer">
+                Footer
+                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Scripts
 ================================================== -->
@@ -518,6 +541,10 @@ var $clocks = $('.td-input');
         });
 
 
+        $("#super").click(function(){
+            $("#modal1").modal();
+        });
 
     });
+
 </script>
