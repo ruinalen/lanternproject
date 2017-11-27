@@ -25,14 +25,16 @@ while($row = mysqli_fetch_assoc($result3)){
     $keyword = mysqli_fetch_assoc($result4);
 
     if($keyword['geo_offset']==1){
-       array_push($places, $keyword);
+       array_push($places, array(kid => $keyword['kid'], keyword => $keyword['keyword'], location=>$keyword['geo_location'], address=>$keyword['geo_address'], name=>$keyword['geo_name'] ));
     }
+
     if($row[super_offset]==1){
         array_push($supers, $keyword['keyword']);
     }
     else{
         array_push($others, $keyword['keyword']);
     }
+
 }
 
 $query5 = "SELECT * FROM `pcalendar` WHERE `pid`='$pid'";
@@ -214,7 +216,7 @@ foreach ($reserved_dates as $val){
 				<h3 class="listing-desc-headline margin-top-60 margin-bottom-30">Places</h3>
                 <div id="map-container" style="width:auto;" class="fullwidth-home-map">
 
-                    <div id="map" data-map-zoom="9">
+                    <div id="map" data-map-zoom="11">
                         <!-- map goes here -->
                     </div>
                 </div>
