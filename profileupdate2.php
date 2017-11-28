@@ -4,7 +4,6 @@ session_start();
 $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 
 $intro = $_POST['intro'];
-
 if(isset($_POST['country'])) {
     $region = $_POST['country'];
 }

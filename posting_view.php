@@ -74,7 +74,25 @@ foreach ($reserved_dates as $val){
             margin: 5%;
             font-size: 12px;
         }
-
+         .setDiv {
+             padding-top: 100px;
+             text-align: center;
+         }
+        .mask {
+            position:absolute;
+            left:0;
+            top:0;
+            z-index:9999;
+            background-color:#000;
+            display:none;
+        }
+        .window {
+            display: none;
+            background-color: #ffffff;
+            height: 50%;
+            width: 50%;
+            z-index:99999;
+        }
     </style>
 
 
@@ -185,7 +203,7 @@ foreach ($reserved_dates as $val){
 
                         <div class="boxed-widget" >
                             <h5>Super Keywords</h5>
-                            <div id="super" style="margin-top: 10px">
+                            <div id="super" class="showMask" style="margin-top: 10px">
                                 <?php
                                     foreach ($supers as $val)
                                         echo "<button class='button' id='super' style='background-color: #aaaaaa'>".$val."</button>";
@@ -405,30 +423,6 @@ foreach ($reserved_dates as $val){
 
 </div>
 <!-- Wrapper / End -->
-
-<div class="modal" id="modal1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- header -->
-            <div class="modal-header">
-                <!-- 닫기(x) 버튼 -->
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <!-- header title -->
-                <h4 class="modal-title">Header</h4>
-            </div>
-            <!-- body -->
-            <div class="modal-body">
-                Body
-            </div>
-            <!-- Footer -->
-            <div class="modal-footer">
-                Footer
-                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Scripts
 ================================================== -->
 <script type="text/javascript" src="scripts/jquery-2.2.0.min.js"></script>
@@ -547,4 +541,57 @@ var $clocks = $('.td-input');
 
     });
 
+</script>
+
+<div class="setDiv">
+    <div class="mask"></div>
+    <div class="window">
+        <input type="button" href="#" class="close" value="가운데 띄워지는 레이어 팝업 입니다. (닫기)"/>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript">
+    function wrapWindowByMask(){
+        // 화면의 높이와 너비를 변수로 만듭니다.
+        var maskHeight = $(document).height();
+        var maskWidth = $(window).width();
+
+        // 마스크의 높이와 너비를 화면의 높이와 너비 변수로 설정합니다.
+        $('.mask').css({'width':maskWidth,'height':maskHeight});
+
+        // fade 애니메이션 : 1초 동안 검게 됐다가 80%의 불투명으로 변합니다.
+        $('.mask').fadeIn(1000);
+        $('.mask').fadeTo("slow",0.8);
+
+        // 레이어 팝업을 가운데로 띄우기 위해 화면의 높이와 너비의 가운데 값과 스크롤 값을 더하여 변수로 만듭니다.
+        var left = ( $(window).scrollLeft() + ( $(window).width() - $('.window').width()) / 2 );
+        var top = ( $(window).scrollTop() + ( $(window).height() - $('.window').height()) / 2 );
+
+        // css 스타일을 변경합니다.
+        $('.window').css({'left':left,'top':top, 'position':'absolute'});
+
+        // 레이어 팝업을 띄웁니다.
+        $('.window').show();
+    }
+
+    $(document).ready(function(){
+        // showMask를 클릭시 작동하며 검은 마스크 배경과 레이어 팝업을 띄웁니다.
+        $('.showMask').click(function(e){
+            // preventDefault는 href의 링크 기본 행동을 막는 기능입니다.
+            e.preventDefault();
+            wrapWindowByMask();
+        });
+
+        // 닫기(close)를 눌렀을 때 작동합니다.
+        $('.window .close').click(function (e) {
+            e.preventDefault();
+            $('.mask, .window').hide();
+        });
+
+        // 뒤 검은 마스크를 클릭시에도 모두 제거하도록 처리합니다.
+        $('.mask').click(function () {
+            $(this).hide();
+            $('.window').hide();
+        });
+    });
 </script>

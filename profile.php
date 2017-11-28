@@ -7,7 +7,6 @@ $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 $query1 = "SELECT * FROM `member` WHERE `sid` ='$_SESSION[user_sid]'";
 $result = mysqli_query($conn, $query1);
 $user = mysqli_fetch_assoc($result);
-print_r($row);
 ?>
 <!DOCTYPE html>
 <head>
@@ -233,7 +232,6 @@ print_r($row);
 
                                 <label>Describe Yourself</label>
                                 <textarea name="intro" id="intro" cols="30" rows="10" value=""></textarea>
-
                                 <label>Which Country You Live</label>
                                 <select name="country" class="aachosen-select-no-single" id="regionSelect">
                                     <option value="AF">Afghanistan</option>
@@ -797,13 +795,13 @@ print_r($row);
 
                 <script>
                     function nullCheck(info){
-                        if(info==="NULL" || info==="null" || info==="" || !info)
-                            return " ";
-                        else
+
                             return info;
                     }
 
+                    $text  = "<?php echo nl2br($user['intro']);?>";
 
+                    alert($text);
                     document.getElementById('phone_num').value = nullCheck("<?php echo $user['phone_num']?>");
 
                     document.getElementById('career').value = nullCheck("<?php echo $user['career']?>");

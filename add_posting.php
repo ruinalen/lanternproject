@@ -71,6 +71,7 @@ $user = mysqli_fetch_assoc($result);?>
     <!-- CSS
     ================================================== -->
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/colors/main.css" id="colors">
 
 
@@ -471,14 +472,14 @@ $user = mysqli_fetch_assoc($result);?>
                                         <input name="accommodation" type="text" placeholder="Type the Number of Maximum travelers">
                                         <div class="checkboxes in-row margin-bottom-20">
 
-                                            <input id="check-a" type="checkbox" name="check">
-                                            <label for="check-a"><i class="fa fa-child"></i>  Kid Friendly</label>
+                                            <input id="kid" type="checkbox" name="kid">
+                                            <label for="kid"><i class="fa fa-child"></i>  Kid Friendly</label>
 
-                                            <input id="check-b" type="checkbox" name="check">
-                                            <label for="check-b"><i class="im im-icon-Wheelchair"></i> Disabled Friendly</label>
+                                            <input id="friendly" type="checkbox" name="friendly">
+                                            <label for="friendly"><i class="im im-icon-Wheelchair"></i> Disabled Friendly</label>
 
-                                            <input id="check-c" type="checkbox" name="check">
-                                            <label for="check-c"><i class="im im-icon-Car-2"></i> Own a Car</label>
+                                            <input id="ownacar" type="checkbox" name="ownacar">
+                                            <label for="ownacar"><i class="im im-icon-Car-2"></i> Own a Car</label>
 
                                         </div>
                                     </div>
@@ -515,7 +516,7 @@ $user = mysqli_fetch_assoc($result);?>
 
                                                         </div>
                                                         <div class="fm-input pricing-name" id="keywordinputarea" style="max-width: 100% !important;">
-                                                            <input id="general-input" type="text" placeholder="Keyword" />
+                                                            <input id="general-input" type="text" placeholder="Keyword" name="keyword0" />
                                                             <input id='pac-input' class='controls' type='text' placeholder='Search Box' style="display: none; width: 100%;"/>
                                                             <div class="row">
                                                                 <div class="col-md-12">
@@ -610,6 +611,7 @@ $user = mysqli_fetch_assoc($result);?>
                                                                     $("#map").show();
                                                                 }else {
                                                                     $("#general-input").show();
+                                                                    $("#pac-input").hide();
                                                                     $("#map").hide();
                                                                 }
 

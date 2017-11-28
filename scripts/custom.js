@@ -808,10 +808,26 @@ $(document).ready(function(){
 	/* Pricing List
 	/*----------------------------------------------------*/
 	function newMenuItem() {
+        // get the last DIV which ID starts with ^= "klon"
+        var $input = $('input[name^="keyword"]:last');
+
+        // Read the Number from that DIV's ID (i.e: 3 from "klon3")
+        // And increment that number by 1
+        var num = parseInt($input.prop("name").match(/\d+/g), 10 ) +1;
+		alert(num);
+        // Clone it and assign the new ID (i.e: from num 4 to ID "klon4")
+        var $keyword = $input.clone().prop('name', 'keyword'+num );
+
+        // Finally insert $keyword wherever you want
+        $input.after( $keyword.text('keyword'+num) );
+
+
+
+
+
 		var newElem = $('tr.pricing-list-item.pattern').first().clone();
 		newElem.find('input').val('');
 		newElem.appendTo('table#pricing-list-container');
-        newElem.attr("id","1234");
 	}
 
 	if ($("table#pricing-list-container").is('*')) {
