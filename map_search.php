@@ -14,7 +14,7 @@
             // ----------------------------------------------- //
             var ib = new InfoBox();
 
-//             Infobox Output
+            // Infobox Output
             function locationData(locationURL,locationImg,locationTitle, locationAddress, locationRating, locationRatingCounter) {
                 return(''+
                     '<a href="'+ locationURL +'" class="listing-img-container">'+
@@ -26,28 +26,22 @@
                     '<span>'+locationAddress+'</span>'+
                     '</div>'+
 
-                    '</a>'
+                    '</a>'+
 
-//                    '<div class="listing-content">'+
-//                    '<div class="listing-title">'+
-//                    '<div class="'+infoBox_ratingType+'" data-rating="'+locationRating+'"><div class="rating-counter">('+locationRatingCounter+' reviews)</div></div>'+
-//                    '</div>'+
-//                    '</div>')
-                )}
-
-            // Locations
-
-
-
-            var locations=new Array();
-            var arr = <?php echo json_encode($places); ?>;
-
-            for(var i=0; i< arr.length; i++){
-                var lat = arr[i]['location'].split(",");
-                locations.push([locationData('listings-single-page.html','images/listing-item-01.jpg',arr[i]['keyword'], arr[i]['address'], '3.5', '12'),lat[0], lat[1], i, '<i class="im im-icon-Lantern"></i>']);
-
+                    '<div class="listing-content">'+
+                    '<div class="listing-title">'+
+                    '<div class="'+infoBox_ratingType+'" data-rating="'+locationRating+'"><div class="rating-counter">('+locationRatingCounter+' reviews)</div></div>'+
+                    '</div>'+
+                    '</div>')
             }
 
+            // Locations
+            var locations = [
+                [ locationData('listings-single-page.html','images/listing-item-01.jpg',"Tom'ssdfsfsdfsdfsdfsdf Restaurant",'964 School Street, New York', '3.5', '12'), 37.534533, 126.99457899999993, 1, '<i class="im im-icon-Chef-Hat"></i>'],
+                [ locationData('listings-single-page.html','images/listing-item-02.jpg','Sticky Band','Bishop Avenue, New York', '5.0', '23'), 37.534533, 126.99457899999993,          2, '<i class="im im-icon-Electric-Guitar"></i>'],
+                [ locationData('listings-single-page.html','images/listing-item-03.jpg','Hotel Govendor','778 Country Street, New York', '2.0', '17'), 37.534533, 126.99457899999993,         3, '<i class="im im-icon-Home-2"></i>' ],
+
+            ];
 
             // Chosen Rating Type
             google.maps.event.addListener(ib,'domready',function(){
@@ -80,13 +74,11 @@
             }
 
 
-
-            var lat1 = arr[0]['location'].split(",");
             // Main Map
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: zoomLevel,
                 scrollwheel: scrollEnabled,
-                center: new google.maps.LatLng( lat1[0], lat1[1]),
+                center: new google.maps.LatLng(37.534533, 126.99457899999993),
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 zoomControl: false,
                 mapTypeControl: false,
@@ -473,4 +465,5 @@
 
 
     })(this.jQuery);
+
 </script>

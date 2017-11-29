@@ -55,7 +55,8 @@ if ($conn->query($sql1) === TRUE) {
 
     echo "
         <script type='text/javascript'>
-            location.href='http://223.195.109.38/lanternproject/insert_super.php';
+            //location.href='http://223.195.109.38/lanternproject/add_posting_super.php';
+            location.href='http://223.195.109.38/lanternproject/index.php';
         </script>
         ";
 } else {

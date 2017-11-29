@@ -130,10 +130,10 @@ foreach ($reserved_dates as $val){
 <!-- Slider
 ================================================== -->
 <div class="listing-slider mfp-gallery-container margin-bottom-0">
-	<a href="images/single-listing-01.jpg" data-background-image="images/single-listing-01.jpg" class="item mfp-gallery" title="Title 1"></a>
-	<a href="images/single-listing-02.jpg" data-background-image="images/single-listing-02.jpg" class="item mfp-gallery" title="Title 3"></a>
-	<a href="images/single-listing-03.jpg" data-background-image="images/single-listing-03.jpg" class="item mfp-gallery" title="Title 2"></a>
-	<a href="images/single-listing-04.jpg" data-background-image="images/single-listing-04.jpg" class="item mfp-gallery" title="Title 4"></a>
+	<a href="images/single-listing-01.jpg" data-background-image="images/raw_octopus.jpg" class="item mfp-gallery" title="Title 1"></a>
+	<a href="images/single-listing-02.jpg" data-background-image="images/itaewon.jpg" class="item mfp-gallery" title="Title 3"></a>
+	<a href="images/single-listing-03.jpg" data-background-image="images/workout.jpg" class="item mfp-gallery" title="Title 2"></a>
+	<a href="images/single-listing-04.jpg" data-background-image="images/bbq.jpg" class="item mfp-gallery" title="Title 4"></a>
 </div>
 
 
@@ -154,8 +154,8 @@ foreach ($reserved_dates as $val){
 							<i class="im im-icon-Global-Position"></i><?php echo $lantern['region']?>
 </a>
 					</span>
-					<div class="star-rating" data-rating="5">
-						<div class="rating-counter"><a href="#listing-reviews">(31 reviews)</a></div>
+					<div class="star-rating" data-rating="4">
+						<div class="rating-counter"><a href="#listing-reviews">(1 reviews)</a></div>
 					</div>
 				</div>
 			</div>
@@ -241,91 +241,132 @@ foreach ($reserved_dates as $val){
                 </div>
 			</div>
 
-			<!-- Reviews -->
-			<div id="listing-reviews" class="listing-section">
-				<h3 class="listing-desc-headline margin-top-75 margin-bottom-20">Reviews <span>(12)</span></h3>
+<!--			<!-- Reviews -->
+<!--			<div id="listing-reviews" class="listing-section">-->
+<!--				<h3 class="listing-desc-headline margin-top-75 margin-bottom-20">Reviews <span>(12)</span></h3>-->
+<!---->
+<!--				<div class="clearfix"></div>-->
+<!---->
+<!--				<!-- Reviews -->
+<!--				<section class="comments listing-reviews">-->
+<!---->
+<!--					<ul>-->
+<!--						<li>-->
+<!--							<div class="avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /></div>-->
+<!--							<div class="comment-content"><div class="arrow-comment"></div>-->
+<!--								<div class="comment-by">Kathy Brown<span class="date">June 2017</span>-->
+<!--									<div class="star-rating" data-rating="5"></div>-->
+<!--								</div>-->
+<!--								<p>Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor imperdiet vitae. Curabitur lacinia neque non metus</p>-->
+<!---->
+<!--								<div class="review-images mfp-gallery-container">-->
+<!--									<a href="images/review-image-01.jpg" class="mfp-gallery"><img src="images/review-image-01.jpg" alt=""></a>-->
+<!--								</div>-->
+<!--								<a href="#" class="rate-review"><i class="sl sl-icon-like"></i> Helpful Review <span>12</span></a>-->
+<!--							</div>-->
+<!--						</li>-->
+<!---->
+<!--						<li>-->
+<!--							<div class="avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /> </div>-->
+<!--							<div class="comment-content"><div class="arrow-comment"></div>-->
+<!--								<div class="comment-by">John Doe<span class="date">May 2017</span>-->
+<!--									<div class="star-rating" data-rating="4"></div>-->
+<!--								</div>-->
+<!--								<p>Commodo est luctus eget. Proin in nunc laoreet justo volutpat blandit enim. Sem felis, ullamcorper vel aliquam non, varius eget justo. Duis quis nunc tellus sollicitudin mauris.</p>-->
+<!--								<a href="#" class="rate-review"><i class="sl sl-icon-like"></i> Helpful Review <span>2</span></a>-->
+<!--							</div>-->
+<!--						</li>-->
+<!---->
+<!--						<li>-->
+<!--							<div class="avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /></div>-->
+<!--							<div class="comment-content"><div class="arrow-comment"></div>-->
+<!--								<div class="comment-by">Kathy Brown<span class="date">June 2017</span>-->
+<!--									<div class="star-rating" data-rating="5"></div>-->
+<!--								</div>-->
+<!--								<p>Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor imperdiet vitae. Curabitur lacinia neque non metus</p>-->
+<!---->
+<!--								<div class="review-images mfp-gallery-container">-->
+<!--									<a href="images/review-image-02.jpg" class="mfp-gallery"><img src="images/review-image-02.jpg" alt=""></a>-->
+<!--									<a href="images/review-image-03.jpg" class="mfp-gallery"><img src="images/review-image-03.jpg" alt=""></a>-->
+<!--								</div>-->
+<!--								<a href="#" class="rate-review"><i class="sl sl-icon-like"></i> Helpful Review <span>4</span></a>-->
+<!--							</div>-->
+<!--						</li>-->
+<!---->
+<!--						<li>-->
+<!--							<div class="avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /> </div>-->
+<!--							<div class="comment-content"><div class="arrow-comment"></div>-->
+<!--								<div class="comment-by">John Doe<span class="date">May 2017</span>-->
+<!--									<div class="star-rating" data-rating="5"></div>-->
+<!--								</div>-->
+<!--								<p>Commodo est luctus eget. Proin in nunc laoreet justo volutpat blandit enim. Sem felis, ullamcorper vel aliquam non, varius eget justo. Duis quis nunc tellus sollicitudin mauris.</p>-->
+<!--								<a href="#" class="rate-review"><i class="sl sl-icon-like"></i> Helpful Review</a>-->
+<!--							</div>-->
+<!---->
+<!--						</li>-->
+<!--					 </ul>-->
+<!--				</section>-->
+<!---->
+<!--				<!-- Pagination -->
+<!--				<div class="clearfix"></div>-->
+<!--				<div class="row">-->
+<!--					<div class="col-md-12">-->
+<!--						<!-- Pagination -->
+<!--						<div class="pagination-container margin-top-30">-->
+<!--							<nav class="pagination">-->
+<!--								<ul>-->
+<!--									<li><a href="#" class="current-page">1</a></li>-->
+<!--									<li><a href="#">2</a></li>-->
+<!--									<li><a href="#"><i class="sl sl-icon-arrow-right"></i></a></li>-->
+<!--								</ul>-->
+<!--							</nav>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="clearfix"></div>-->
+<!--				<!-- Pagination / End -->
+<!--			</div>-->
 
-				<div class="clearfix"></div>
+            			<!-- Reviews -->
+            			<div id="listing-reviews" class="listing-section">
+            				<h3 class="listing-desc-headline margin-top-75 margin-bottom-20">Reviews <span>(1)</span> <span></span></h3>
 
-				<!-- Reviews -->
-				<section class="comments listing-reviews">
+            				<div class="clearfix"></div>
 
-					<ul>
-						<li>
-							<div class="avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /></div>
-							<div class="comment-content"><div class="arrow-comment"></div>
-								<div class="comment-by">Kathy Brown<span class="date">June 2017</span>
-									<div class="star-rating" data-rating="5"></div>
-								</div>
-								<p>Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor imperdiet vitae. Curabitur lacinia neque non metus</p>
+            				<!-- Reviews -->
+            				<section class="comments listing-reviews">
 
-								<div class="review-images mfp-gallery-container">
-									<a href="images/review-image-01.jpg" class="mfp-gallery"><img src="images/review-image-01.jpg" alt=""></a>
-								</div>
-								<a href="#" class="rate-review"><i class="sl sl-icon-like"></i> Helpful Review <span>12</span></a>
-							</div>
-						</li>
+            					<ul>
+            						<li>
+            							<div class="avatar"><img src="./profile_img/21.png" alt="" /></div>
+            							<div class="comment-content"><div class="arrow-comment"></div>
+            								<div class="comment-by">서경 배<span class="date">November 2017</span>
+            									<div class="star-rating" data-rating="4"></div>
+            								</div>
+            								<p>후기 test1111 님 너무 친절하세요^^</p>
 
-						<li>
-							<div class="avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /> </div>
-							<div class="comment-content"><div class="arrow-comment"></div>
-								<div class="comment-by">John Doe<span class="date">May 2017</span>
-									<div class="star-rating" data-rating="4"></div>
-								</div>
-								<p>Commodo est luctus eget. Proin in nunc laoreet justo volutpat blandit enim. Sem felis, ullamcorper vel aliquam non, varius eget justo. Duis quis nunc tellus sollicitudin mauris.</p>
-								<a href="#" class="rate-review"><i class="sl sl-icon-like"></i> Helpful Review <span>2</span></a>
-							</div>
-						</li>
+            							</div>
+            						</li>
 
-						<li>
-							<div class="avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /></div>
-							<div class="comment-content"><div class="arrow-comment"></div>
-								<div class="comment-by">Kathy Brown<span class="date">June 2017</span>
-									<div class="star-rating" data-rating="5"></div>
-								</div>
-								<p>Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor imperdiet vitae. Curabitur lacinia neque non metus</p>
+<!--                                    <li>-->
+<!--                                        <div class="avatar"><img src="./profile_img/19.png" alt="" /></div>-->
+<!--                                        <div class="comment-content"><div class="arrow-comment"></div>-->
+<!--                                            <div class="comment-by">test test<span class="date">November 2017</span>-->
+<!--                                                <div class="star-rating" data-rating="3"></div>-->
+<!--                                            </div>-->
+<!--                                            <p>후기 test2222</p>-->
+<!---->
+<!--                                        </div>-->
+<!--                                    </li>-->
 
-								<div class="review-images mfp-gallery-container">
-									<a href="images/review-image-02.jpg" class="mfp-gallery"><img src="images/review-image-02.jpg" alt=""></a>
-									<a href="images/review-image-03.jpg" class="mfp-gallery"><img src="images/review-image-03.jpg" alt=""></a>
-								</div>
-								<a href="#" class="rate-review"><i class="sl sl-icon-like"></i> Helpful Review <span>4</span></a>
-							</div>
-						</li>
 
-						<li>
-							<div class="avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /> </div>
-							<div class="comment-content"><div class="arrow-comment"></div>
-								<div class="comment-by">John Doe<span class="date">May 2017</span>
-									<div class="star-rating" data-rating="5"></div>
-								</div>
-								<p>Commodo est luctus eget. Proin in nunc laoreet justo volutpat blandit enim. Sem felis, ullamcorper vel aliquam non, varius eget justo. Duis quis nunc tellus sollicitudin mauris.</p>
-								<a href="#" class="rate-review"><i class="sl sl-icon-like"></i> Helpful Review</a>
-							</div>
+            					 </ul>
+            				</section>
 
-						</li>
-					 </ul>
-				</section>
 
-				<!-- Pagination -->
-				<div class="clearfix"></div>
-				<div class="row">
-					<div class="col-md-12">
-						<!-- Pagination -->
-						<div class="pagination-container margin-top-30">
-							<nav class="pagination">
-								<ul>
-									<li><a href="#" class="current-page">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#"><i class="sl sl-icon-arrow-right"></i></a></li>
-								</ul>
-							</nav>
-						</div>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-				<!-- Pagination / End -->
-			</div>
+
+            			</div>
+
 
 		</div>
 
@@ -535,20 +576,55 @@ var $clocks = $('.td-input');
         });
 
 
-        $("#super").click(function(){
-            $("#modal1").modal();
-        });
+//        $("#super").click(function(){
+//            $("#modal1").modal();
+//        });
+
+        $("#writereview").click(function () {
+            location.href ="http://223.195.109.38/lanternproject/write_review.php";
+        })
 
     });
 
 </script>
 
+<!--<div class="setDiv">-->
+<!--    <div class="mask"></div>-->
+<!--    <div class="window">-->
+<!--        <input type="button" href="#" class="close" value="Raw_Octopus"/>-->
+<!--        <h4>Try Raw Octopus!!</h4>-->
+<!--        <img style="width: 500px" src="images/raw_octopus.jpg"><br>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="setDiv">-->
+<!--    <div class="mask"></div>-->
+<!--    <div class="window">-->
+<!--        <input type="button" href="#" class="close" value="Night_culture"/>-->
+<!--        <h4>Want to go crazy with music and alcohol?-->
+<!--            Choose me and we will enjoy the night safely</h4>-->
+<!--        <img style="width: 500px" src="images/bbq.jpg"><br>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="setDiv">-->
+<!--    <div class="mask"></div>-->
+<!--    <div class="window">-->
+<!--        <input type="button" href="#" class="close" value="Itaewon"/>-->
+<!--        <h4>If you want to experience the night life vibe in Itaewon,I am the one to talk to. I also know many restaurants in here.</h4>-->
+<!--        <img style="width: 500px" src="images/itaewon.jpg"><br>-->
+<!--    </div>-->
+<!--</div>-->
+
 <div class="setDiv">
     <div class="mask"></div>
     <div class="window">
-        <input type="button" href="#" class="close" value="가운데 띄워지는 레이어 팝업 입니다. (닫기)"/>
+        <input type="button" href="#" class="close" value="Workout"/>
+        <h4>You miss the old American fashion orkout? You can still enjoy working out here in Korea! I will hook u up to old fashion style gym for a workout.</h4>
+        <img style="width: 500px" src="images/workout.jpg"><br>
     </div>
 </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script type="text/javascript">
     function wrapWindowByMask(){

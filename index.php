@@ -54,10 +54,6 @@ session_start();
                                 <input type="text" placeholder="What are you looking for?" value=""/>
                             </div>
 
-                            <div class="main-search-input-item location">
-                                <input type="text" placeholder="Location" value=""/>
-                                <a href="#"><i class="fa fa-dot-circle-o"></i></a>
-                            </div>
 
 
                             <div class="main-search-input-item location">
@@ -67,7 +63,7 @@ session_start();
                                 <!-- 달력 아이콘 누르면 달력 나오게 안되나요-->
                             </div>
 
-                            <button class="button" onclick="window.location.href='listings-half-screen-map-list.html'">Search</button>
+                            <button class="button" onclick="window.location.href='search_result.php'">Search</button>
 
                         </div>
                     </div>
