@@ -54,6 +54,18 @@ foreach ($reserved_dates as $val){
 
 
 ?>
+
+<?php
+session_start();
+if($_SESSION['user_sid'] == NULL){
+    echo("<script> document.location.href='http://223.195.109.38/lanternproject/index.php';</script>");
+}
+$u_query1 = "SELECT * FROM `member` WHERE `sid` ='$_SESSION[user_sid]'";
+$u_result = mysqli_query($conn, $u_query1);
+$u_user = mysqli_fetch_assoc($u_result);?>
+
+
+
 <!DOCTYPE html>
 <head>
     <style>
@@ -362,6 +374,67 @@ foreach ($reserved_dates as $val){
 
             					 </ul>
             				</section>
+
+                            <div id="review-dialog" class="zoom-anim-dialog mfp-hide">
+                                <div class="review-dialog-header" style="margin-bottom: 0px">
+                                    <h4>Review</h4>
+                                </div>
+
+                                <span class="leave-rating-title" style="margin-top: 5px">Your rating for the Lantern</span>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!-- Leave Rating -->
+                                        <div class="clearfix"></div>
+                                        <div class="leave-rating margin-bottom-30">
+                                            <input type="radio" name="rating" id="rating-1" value="1"/>
+                                            <label for="rating-1" class="fa fa-star"></label>
+                                            <input type="radio" name="rating" id="rating-2" value="2"/>
+                                            <label for="rating-2" class="fa fa-star"></label>
+                                            <input type="radio" name="rating" id="rating-3" value="3"/>
+                                            <label for="rating-3" class="fa fa-star"></label>
+                                            <input type="radio" name="rating" id="rating-4" value="4"/>
+                                            <label for="rating-4" class="fa fa-star"></label>
+                                            <input type="radio" name="rating" id="rating-5" value="5"/>
+                                            <label for="rating-5" class="fa fa-star"></label>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+
+                                <form id="add-comment" class="add-comment">
+                                    <fieldset>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Name:</label>
+                                                <input value="<?php echo $u_user['name_first']." ".$u_user['name_last']?>" type="text" readonly>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label>Email:</label>
+                                                <input value="<?php echo $u_user['email']?>" type="text" readonly>
+
+
+
+
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                </form>
+
+
+
+                                <div class="message-reply margin-top-0">
+                                    <textarea cols="40" rows="3" placeholder="Your message to the Lantern"></textarea>
+                                    <button class="button">Write Review</button>
+                                </div>
+                            </div>
+                            <a href="#review-dialog" class="send-message-to-owner button popup-with-zoom-anim"></i> Write Review</a>
+
+
+
 
 
 
