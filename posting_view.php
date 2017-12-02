@@ -62,9 +62,23 @@ if($_SESSION['user_sid'] == NULL){
 }
 $u_query1 = "SELECT * FROM `member` WHERE `sid` ='$_SESSION[user_sid]'";
 $u_result = mysqli_query($conn, $u_query1);
-$u_user = mysqli_fetch_assoc($u_result);?>
+$u_user = mysqli_fetch_assoc($u_result);
+?>
+
+<?php
+$reviews_list = array();
+
+$re_query1 = "SELECT * FROM `review` WHERE `receiver_sid` ='$lantern_sid'";
+$re_result = mysqli_query($conn, $re_query1);
+//$reviews = mysqli_fetch_assoc($re_result);
 
 
+while ($reviews = mysqli_fetch_assoc($re_result)) {
+    array_push($reviews_list, array(name => $reviews['writer_name'], rate => $reviews['rate'], comment => $reviews['comment'], date => $reviews['write_date'] ));
+}
+
+
+?>
 
 <!DOCTYPE html>
 <head>
@@ -340,6 +354,9 @@ $u_user = mysqli_fetch_assoc($u_result);?>
 <!--			</div>-->
 
             			<!-- Reviews -->
+
+
+
             			<div id="listing-reviews" class="listing-section">
             				<h3 class="listing-desc-headline margin-top-75 margin-bottom-20">Reviews <span>(1)</span> <span></span></h3>
 
@@ -350,12 +367,22 @@ $u_user = mysqli_fetch_assoc($u_result);?>
 
             					<ul>
             						<li>
+                                        <script type = "text/javascript">
+                                            var review_list = <?php echo json_encode($reviews_list) ?>;
+                                            alert(review_list);
+                                            for(var i=0; i< review_list.length; i++){
+                                                var re_list = review_list[i]['comment'];
+                                                alert(re_list);
+                                            }
+
+                                        </script>
+
             							<div class="avatar"><img src="./profile_img/21.png" alt="" /></div>
             							<div class="comment-content"><div class="arrow-comment"></div>
-            								<div class="comment-by">서경 배<span class="date">November 2017</span>
-            									<div class="star-rating" data-rating="4"></div>
+            								<div class="comment-by"><?php echo $reviews['writer_name']?><span class="date"><?php echo $reviews['write_date']?></span>
+            									<div class="star-rating" data-rating=<?php echo $reviews['rate']?>></div>
             								</div>
-            								<p>후기 test1111 님 너무 친절하세요^^</p>
+            								<p><?php echo $reviews['comment']?></p>
 
             							</div>
             						</li>
@@ -375,62 +402,76 @@ $u_user = mysqli_fetch_assoc($u_result);?>
             					 </ul>
             				</section>
 
-                            <div id="review-dialog" class="zoom-anim-dialog mfp-hide">
-                                <div class="review-dialog-header" style="margin-bottom: 0px">
-                                    <h4>Review</h4>
-                                </div>
-
-                                <span class="leave-rating-title" style="margin-top: 5px">Your rating for the Lantern</span>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <!-- Leave Rating -->
-                                        <div class="clearfix"></div>
-                                        <div class="leave-rating margin-bottom-30">
-                                            <input type="radio" name="rating" id="rating-1" value="1"/>
-                                            <label for="rating-1" class="fa fa-star"></label>
-                                            <input type="radio" name="rating" id="rating-2" value="2"/>
-                                            <label for="rating-2" class="fa fa-star"></label>
-                                            <input type="radio" name="rating" id="rating-3" value="3"/>
-                                            <label for="rating-3" class="fa fa-star"></label>
-                                            <input type="radio" name="rating" id="rating-4" value="4"/>
-                                            <label for="rating-4" class="fa fa-star"></label>
-                                            <input type="radio" name="rating" id="rating-5" value="5"/>
-                                            <label for="rating-5" class="fa fa-star"></label>
-                                        </div>
-                                        <div class="clearfix"></div>
+                            <!-- Reviews Posting-->
+                                <div id="review-dialog" class="zoom-anim-dialog mfp-hide">
+                                    <form method = "post" action="./write_review.php" id = "form1">
+                                    <div class="review-dialog-header" style="margin-bottom: 0px">
+                                        <h4>Review</h4>
                                     </div>
-                                </div>
 
-                                <form id="add-comment" class="add-comment">
-                                    <fieldset>
+                                        <!-- Rating Section-->
+                                    <span class="leave-rating-title" style="margin-top: 5px">Your rating for the Lantern</span>
 
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Name:</label>
-                                                <input value="<?php echo $u_user['name_first']." ".$u_user['name_last']?>" type="text" readonly>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- Leave Rating -->
+                                            <div class="clearfix"></div>
+                                            <div class="leave-rating margin-bottom-30">
+                                                <input type="radio" name="rating" id="rating-1" value="5"/>
+                                                <label for="rating-1" class="fa fa-star"></label>
+                                                <input type="radio" name="rating" id="rating-2" value="4"/>
+                                                <label for="rating-2" class="fa fa-star"></label>
+                                                <input type="radio" name="rating" id="rating-3" value="3"/>
+                                                <label for="rating-3" class="fa fa-star"></label>
+                                                <input type="radio" name="rating" id="rating-4" value="2"/>
+                                                <label for="rating-4" class="fa fa-star"></label>
+                                                <input type="radio" name="rating" id="rating-5" value="1"/>
+                                                <label for="rating-5" class="fa fa-star"></label>
                                             </div>
-
-                                            <div class="col-md-6">
-                                                <label>Email:</label>
-                                                <input value="<?php echo $u_user['email']?>" type="text" readonly>
-
-
-
-
-                                            </div>
+                                            <div class="clearfix"></div>
                                         </div>
+                                    </div>
+                                        <!-- Demographcis-->
+                                    <div id="add-comment" class="add-comment">
+                                        <fieldset>
 
-                                    </fieldset>
-                                </form>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Name:</label>
+                                                    <input name = "writer_name" value="<?php echo $u_user['name_first']." ".$u_user['name_last']?>" type="text" readonly>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label>Email:</label>
+                                                    <input value="<?php echo $u_user['email']?>" type="text" readonly>
+                                                </div>
+
+                                                <div class="col-md-6" style="display: none">
+                                                    <label>LanternID:</label>
+                                                    <input name = "Lantern_sid" value="<?php echo $lantern_sid?>" type="text" readonly>
+                                                </div>
+
+                                                <div class="col-md-6" style="display: none">
+                                                    <label>TravelerID:</label>
+                                                    <input name = "Traveler_sid" value="<?php echo $u_user['sid']?>" type="text" readonly>
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="message-reply margin-top-0">
+                                        <!-- Add Comment-->
+                                        <textarea name = "comment" cols="40" rows="3" placeholder="Your message to the Lantern"></textarea>
+                                    </div>
 
 
+                            </form>
 
-                                <div class="message-reply margin-top-0">
-                                    <textarea cols="40" rows="3" placeholder="Your message to the Lantern"></textarea>
-                                    <button class="button">Write Review</button>
+                                    <button type = "submit" form = "form1" class="button" value = "Post Review">Post Review</button>
+
                                 </div>
-                            </div>
+
                             <a href="#review-dialog" class="send-message-to-owner button popup-with-zoom-anim"></i> Write Review</a>
 
 
