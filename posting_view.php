@@ -70,12 +70,11 @@ $reviews_list = array();
 
 $re_query1 = "SELECT * FROM `review` WHERE `receiver_sid` ='$lantern_sid'";
 $re_result = mysqli_query($conn, $re_query1);
+$reviewscounter = mysqli_num_rows($re_result);
 //$reviews = mysqli_fetch_assoc($re_result);
 
 
-while ($reviews = mysqli_fetch_assoc($re_result)) {
-    array_push($reviews_list, array(name => $reviews['writer_name'], rate => $reviews['rate'], comment => $reviews['comment'], date => $reviews['write_date'] ));
-}
+
 
 
 ?>
@@ -358,7 +357,7 @@ while ($reviews = mysqli_fetch_assoc($re_result)) {
 
 
             			<div id="listing-reviews" class="listing-section">
-            				<h3 class="listing-desc-headline margin-top-75 margin-bottom-20">Reviews <span>(1)</span> <span></span></h3>
+                            <h3 class="listing-desc-headline margin-top-75 margin-bottom-20">Reviews <span>(<?php print($reviewscounter); ?>)</span> <span></span></h3>
 
             				<div class="clearfix"></div>
 
@@ -366,39 +365,23 @@ while ($reviews = mysqli_fetch_assoc($re_result)) {
             				<section class="comments listing-reviews">
 
             					<ul>
-            						<li>
-                                        <script type = "text/javascript">
-                                            var review_list = <?php echo json_encode($reviews_list) ?>;
-                                            alert(review_list);
-                                            for(var i=0; i< review_list.length; i++){
-                                                var re_list = review_list[i]['comment'];
-                                                alert(re_list);
-                                            }
-
-                                        </script>
-
-            							<div class="avatar"><img src="./profile_img/21.png" alt="" /></div>
-            							<div class="comment-content"><div class="arrow-comment"></div>
-            								<div class="comment-by"><?php echo $reviews['writer_name']?><span class="date"><?php echo $reviews['write_date']?></span>
-            									<div class="star-rating" data-rating=<?php echo $reviews['rate']?>></div>
-            								</div>
-            								<p><?php echo $reviews['comment']?></p>
-
-            							</div>
-            						</li>
-
-<!--                                    <li>-->
-<!--                                        <div class="avatar"><img src="./profile_img/19.png" alt="" /></div>-->
-<!--                                        <div class="comment-content"><div class="arrow-comment"></div>-->
-<!--                                            <div class="comment-by">test test<span class="date">November 2017</span>-->
-<!--                                                <div class="star-rating" data-rating="3"></div>-->
-<!--                                            </div>-->
-<!--                                            <p>후기 test2222</p>-->
-<!---->
-<!--                                        </div>-->
-<!--                                    </li>-->
-
-
+                                    <?php
+                                        while ($reviews = mysqli_fetch_assoc($re_result)) {
+                                            print ("
+                                                        <li>
+                                                            <div class=\"avatar\"><img src=\"./profile_img/".$reviews['writer_sid'].".png\" alt=\"\" /></div>
+                                                            <div class=\"comment-content\"><div class=\"arrow-comment\"></div>
+                                                                <div class=\"comment-by\">".$reviews['writer_name'].
+                                                                "<span class=\"date\">".$reviews['write_date']."</span>
+                                                                    <div class=\"star-rating\" data-rating=\"".$reviews['rate']."\"></div>
+                                                                </div>
+                                                                <p>".$reviews['comment']."</p>
+                    
+                                                            </div>
+                                                        </li>
+                                                    ");
+                                        }
+                                    ?>
             					 </ul>
             				</section>
 
