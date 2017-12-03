@@ -6,7 +6,8 @@ if($_SESSION['user_sid'] == NULL){
 $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 $query1 = "SELECT * FROM `member` WHERE `sid` ='$_SESSION[user_sid]'";
 $result = mysqli_query($conn, $query1);
-$user = mysqli_fetch_assoc($result);?>
+$user = mysqli_fetch_assoc($result);
+?>
 <!DOCTYPE html>
 <head>
     <style>
@@ -165,6 +166,7 @@ $user = mysqli_fetch_assoc($result);?>
             <div class="row">
                 <div class="col-lg-12">
                     <form action="insert_posting.php" method="post" id="add-posting-form">
+                        <input name="keyword_array" value= keyword_array style="display: none">
                         <div id="add-listing">
 
                             <!-- Section -->
@@ -503,125 +505,129 @@ $user = mysqli_fetch_assoc($result);?>
 
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <table id="pricing-list-container">
-                                                <tr class="pricing-list-item pattern">
-                                                    <td>
-                                                        <div class="checkboxes in-row margin-bottom-20">
+                                            <div class="boxed-widget" id="keywords_boxed">
 
-                                                            <input id="check-a" type="checkbox" name="check" onclick="inputhide();">
-                                                            <label for="check-a" style="display: block !important; margin-top: 0px!important;">location Keyword?</label>
+                                            </div>
 
-                                                            <input id="check-b" type="checkbox" name="check">
-                                                            <label for="check-b" style="display: block !important; margin-top: 0px!important;">Super Keyword?</label>
+                                            <div class="checkboxes in-row margin-bottom-20" style="margin-top: 20px;">
+                                                <input id="check-a" type="checkbox" name="placecheck" class="geocheck">
+                                                <label for="check-a" style="display: block !important; margin-top: 0px!important;">location Keyword?</label>
+                                            </div>
 
-                                                        </div>
-                                                        <div class="fm-input pricing-name" id="keywordinputarea" style="max-width: 100% !important;">
-                                                            <input id="general-input" type="text" placeholder="Keyword" name="keyword0" />
-                                                            <input id='pac-input' class='controls' type='text' placeholder='Search Box' style="display: none; width: 100%;"/>
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <!-- Replace the value of the key parameter with your own API key. -->
-                                                                    <div id="map" style="display: none; width: 100%;"></div>
-                                                                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxjd5GaNmcZ0uzykr0oFajwo5lOombz40&libraries=places&callback=initAutocomplete"
-                                                                            async defer></script>
+                                            <div id="general-input">
+                                            <input  id="keyword_g" type="text" placeholder="Keyword" name="keyword0" style="width: 300px; height: auto; float: left; margin: 10px;" />
+                                                <div style="height: 100px; margin: auto;"><a href="#" class="button add-pricing-list-item" id="general_keyword_submit">Add Keyword</a></div>
+                                            </div>
 
-                                                                    <script>
-                                                                        // This example adds a search box to a map, using the Google Place Autocomplete
-                                                                        // feature. People can enter geographical searches. The search box will return a
-                                                                        // pick list containing a mix of places and predicted search terms.
-
-                                                                        // This example requires the Places library. Include the libraries=places
-                                                                        // parameter when you first load the API. For example:
-                                                                        // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
-
-                                                                        function initAutocomplete() {
-                                                                            var map = new google.maps.Map(document.getElementById('map'), {
-                                                                                center: {lat: 37.541, lng: 126.986},
-                                                                                zoom: 13,
-                                                                                mapTypeId: 'roadmap'
-                                                                            });
+                                            <div id="keyword_geo_input" style="display: none">
+                                                <input id='pac-input' class='controls' type='text' placeholder='Enter a location' style="width: 300px; height: auto; float: left; margin: 10px;"/>
+                                                <div style="height: 100px; margin: auto;"><a href="#" class="button add-pricing-list-item" id="geo_keyword_submit">Add Keyword</a></div>
+                                                <div id='map'></div>
+                                            </div>
 
 
 
-                                                                            // Create the search box and link it to the UI element.
-                                                                            var input = document.getElementById('pac-input');
-                                                                            var searchBox = new google.maps.places.SearchBox(input);
+                                            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxjd5GaNmcZ0uzykr0oFajwo5lOombz40&libraries=places&callback=initAutocomplete" async defer></script>
+
+                                            <script>
+                                                // This example adds a search box to a map, using the Google Place Autocomplete
+                                                // feature. People can enter geographical searches. The search box will return a
+                                                // pick list containing a mix of places and predicted search terms.
+
+                                                // This example requires the Places library. Include the libraries=places
+                                                // parameter when you first load the API. For example:
+                                                // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+                                                var place123 =
+                                                    {
+                                                        geo_location : null,
+                                                        geo_address: null,
+                                                        geo_name: null
+                                                    };
 
 
-                                                                            var markers = [];
-                                                                            // Listen for the event fired when the user selects a prediction and retrieve
-                                                                            // more details for that place.
-                                                                            searchBox.addListener('places_changed', function() {
-                                                                                var places = searchBox.getPlaces();
+                                                function initAutocomplete() {
+                                                    var map = new google.maps.Map(document.getElementById('map'), {
+                                                        center: {lat: 37.541, lng: 126.986},
+                                                        zoom: 13,
+                                                        mapTypeId: 'roadmap'
+                                                    });
 
-                                                                                if (places.length == 0) {
-                                                                                    return;
-                                                                                }
 
-                                                                                // Clear out the old markers.
-                                                                                markers.forEach(function(marker) {
-                                                                                    marker.setMap(null);
-                                                                                });
-                                                                                markers = [];
 
-                                                                                // For each place, get the icon, name and location.
-                                                                                var bounds = new google.maps.LatLngBounds();
-                                                                                places.forEach(function(place) {
-                                                                                    if (!place.geometry) {
-                                                                                        console.log("Returned place contains no geometry");
-                                                                                        return;
-                                                                                    }
-                                                                                    var icon = {
-                                                                                        url: place.icon,
-                                                                                        size: new google.maps.Size(71, 71),
-                                                                                        origin: new google.maps.Point(0, 0),
-                                                                                        anchor: new google.maps.Point(17, 34),
-                                                                                        scaledSize: new google.maps.Size(25, 25)
-                                                                                    };
+                                                    // Create the search box and link it to the UI element.
+                                                    var input = document.getElementById('pac-input');
+                                                    var searchBox = new google.maps.places.SearchBox(input);
 
-                                                                                    // Create a marker for each place.
-                                                                                    markers.push(new google.maps.Marker({
-                                                                                        map: map,
-                                                                                        draggable: true,
-                                                                                        title: place.name,
-                                                                                        position: place.geometry.location
-                                                                                    }));
 
-                                                                                    if (place.geometry.viewport) {
-                                                                                        // Only geocodes have viewport.
-                                                                                        bounds.union(place.geometry.viewport);
-                                                                                    } else {
-                                                                                        bounds.extend(place.geometry.location);
-                                                                                    }
-                                                                                });
-                                                                                map.fitBounds(bounds);
-                                                                            });
-                                                                        }
-                                                                    </script>
-                                                                </div>
-                                                            </div>
+                                                    var markers = [];
+                                                    // Listen for the event fired when the user selects a prediction and retrieve
+                                                    // more details for that place.
+                                                    searchBox.addListener('places_changed', function() {
+                                                        var places = searchBox.getPlaces();
 
-                                                        </div>
-                                                        <script>
-                                                            function inputhide() {
-                                                                if(document.getElementById('check-a').checked){
-                                                                    $("#general-input").hide();
-                                                                    $("#pac-input").show();
-                                                                    $("#map").show();
-                                                                }else {
-                                                                    $("#general-input").show();
-                                                                    $("#pac-input").hide();
-                                                                    $("#map").hide();
-                                                                }
+                                                        if (places.length == 0) {
+                                                            return;
+                                                        }
 
+                                                        // Clear out the old markers.
+                                                        markers.forEach(function(marker) {
+                                                            marker.setMap(null);
+                                                        });
+                                                        markers = [];
+
+                                                        // For each place, get the icon, name and location.
+                                                        var bounds = new google.maps.LatLngBounds();
+                                                        places.forEach(function(place) {
+                                                            if (!place.geometry) {
+                                                                console.log("Returned place contains no geometry");
+                                                                return;
                                                             }
-                                                        </script>
-                                                        <div class="fm-close"><a class="delete" href="#"><i class="fa fa-remove"></i></a></div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <a href="#" class="button add-pricing-list-item">Add Item</a>
+                                                            var address = '';
+                                                            if (place.address_components) {
+                                                                address = [
+                                                                    (place.address_components[0] && place.address_components[0].short_name || ''),
+                                                                    (place.address_components[1] && place.address_components[1].short_name || ''),
+                                                                    (place.address_components[2] && place.address_components[2].short_name || '')
+                                                                ].join(' ');
+                                                            }
+
+                                                            var icon = {
+                                                                url: place.icon,
+                                                                size: new google.maps.Size(71, 71),
+                                                                origin: new google.maps.Point(0, 0),
+                                                                anchor: new google.maps.Point(17, 34),
+                                                                scaledSize: new google.maps.Size(25, 25)
+                                                            };
+
+                                                            // Create a marker for each place.
+                                                            markers.push(new google.maps.Marker({
+                                                                map: map,
+                                                                draggable: true,
+                                                                title: place.name,
+                                                                position: place.geometry.location
+                                                            }));
+
+                                                            if (place.geometry.viewport) {
+                                                                // Only geocodes have viewport.
+                                                                bounds.union(place.geometry.viewport);
+                                                            } else {
+                                                                bounds.extend(place.geometry.location);
+                                                            }
+
+                                                            place123=
+                                                                {
+                                                                    geo_location : place.geometry.location.toString(),
+                                                                    geo_address: place.formatted_address,
+                                                                    geo_name: place.name
+                                                                };
+
+
+                                                        });
+                                                        map.fitBounds(bounds);
+                                                    });
+                                                }
+                                            </script>
                                         </div>
                                     </div>
 
@@ -673,43 +679,118 @@ $user = mysqli_fetch_assoc($result);?>
 <!-- DropZone | Documentation: http://dropzonejs.com -->
 <script type="text/javascript" src="scripts/dropzone.js"></script>
 
+
+
 <!-- Opening hours added via JS (this is only for demo purpose) -->
 <script>
-    $("#lang1Select").val("<?php echo $user['lang1']?>").attr("selected", "selected");
-    $("#langf1Select").val("<?php echo $user['lang_f1']?>").attr("selected", "selected");
-    $("#lang2Select").val("<?php echo $user['lang2']?>").attr("selected", "selected");
-    $("#langf2Select").val("<?php echo $user['lang_f2']?>").attr("selected", "selected");
-    $("#lang3Select").val("<?php echo $user['lang3']?>").attr("selected", "selected");
-    $("#langf3Select").val("<?php echo $user['lang_f3']?>").attr("selected", "selected");
-    $(".aachosen-select-no-single").chosen();
-    $(".opening-day.js-demo-hours .chosen-select").each(function() {
-        $(this).append(''+
-            '<option></option>'+
-            '<option>Closed</option>'+
-            '<option>1 AM</option>'+
-            '<option>2 AM</option>'+
-            '<option>3 AM</option>'+
-            '<option>4 AM</option>'+
-            '<option>5 AM</option>'+
-            '<option>6 AM</option>'+
-            '<option>7 AM</option>'+
-            '<option>8 AM</option>'+
-            '<option>9 AM</option>'+
-            '<option>10 AM</option>'+
-            '<option>11 AM</option>'+
-            '<option>12 AM</option>'+
-            '<option>1 PM</option>'+
-            '<option>2 PM</option>'+
-            '<option>3 PM</option>'+
-            '<option>4 PM</option>'+
-            '<option>5 PM</option>'+
-            '<option>6 PM</option>'+
-            '<option>7 PM</option>'+
-            '<option>8 PM</option>'+
-            '<option>9 PM</option>'+
-            '<option>10 PM</option>'+
-            '<option>11 PM</option>'+
-            '<option>12 PM</option>');
+    $(document).ready(function() {
+        var keyword_array = [];
+        $("#lang1Select").val("<?php echo $user['lang1']?>").attr("selected", "selected");
+        $("#langf1Select").val("<?php echo $user['lang_f1']?>").attr("selected", "selected");
+        $("#lang2Select").val("<?php echo $user['lang2']?>").attr("selected", "selected");
+        $("#langf2Select").val("<?php echo $user['lang_f2']?>").attr("selected", "selected");
+        $("#lang3Select").val("<?php echo $user['lang3']?>").attr("selected", "selected");
+        $("#langf3Select").val("<?php echo $user['lang_f3']?>").attr("selected", "selected");
+        $(".aachosen-select-no-single").chosen();
+        $(".opening-day.js-demo-hours .chosen-select").each(function () {
+            $(this).append('' +
+                '<option></option>' +
+                '<option>Closed</option>' +
+                '<option>1 AM</option>' +
+                '<option>2 AM</option>' +
+                '<option>3 AM</option>' +
+                '<option>4 AM</option>' +
+                '<option>5 AM</option>' +
+                '<option>6 AM</option>' +
+                '<option>7 AM</option>' +
+                '<option>8 AM</option>' +
+                '<option>9 AM</option>' +
+                '<option>10 AM</option>' +
+                '<option>11 AM</option>' +
+                '<option>12 AM</option>' +
+                '<option>1 PM</option>' +
+                '<option>2 PM</option>' +
+                '<option>3 PM</option>' +
+                '<option>4 PM</option>' +
+                '<option>5 PM</option>' +
+                '<option>6 PM</option>' +
+                '<option>7 PM</option>' +
+                '<option>8 PM</option>' +
+                '<option>9 PM</option>' +
+                '<option>10 PM</option>' +
+                '<option>11 PM</option>' +
+                '<option>12 PM</option>');
+        });
+
+        $(".geocheck").change(function () {
+            if($(".geocheck").is(":checked")){
+                $("#keyword_geo_input").show();
+                $("#general-input").hide();
+                google.maps.event.trigger(map, 'resize');
+            }else{
+                $("#keyword_geo_input").hide();
+                $("#general-input").show();
+            }
+        });
+
+        function view_keywrods(){
+            var innerhtml = "";
+            for(var i=0; i<keyword_array.length;i++){
+                innerhtml+="<button class='button' disabled>";
+                innerhtml+=keyword_array[i];
+                innerhtml+="</button>";
+            }
+            $("#keywords_boxed").html(innerhtml);
+        }
+
+        $("#general_keyword_submit").click(function (e) {
+            e.preventDefault();
+            var datas =
+                {
+                    keyword : $("#keyword_g").val(),
+                    geo_offset: 0
+                };
+            $.ajax({
+                url: './insert_keyword.php',
+                type: 'POST',
+                data: datas,
+                dataType: "json",
+                success : function(data, status, xhr) {
+                    console.log(data);
+                    keyword_array.push(data["keyword"]);
+                    view_keywrods();
+                    $("#keyword_g").val("");
+
+                }
+            });
+        });
+
+
+
+        $("#geo_keyword_submit").click(function () {
+            var input = $("#pac-input").val();
+            var datas =
+                {
+                    keyword : input.split(',')[0],
+                    geo_offset: 1,
+                    geo_location : place123['geo_location'].slice(1, -1),
+                    geo_address: place123['geo_address'],
+                    geo_name: place123['geo_name']
+                };
+            $.ajax({
+                url: './insert_keyword.php',
+                type: 'POST',
+                data: datas,
+                dataType: "json",
+                success : function(data, status, xhr) {
+                    console.log(data);
+                    keyword_array.push(data["keyword"]);
+                    view_keywrods();
+                    $("#pac-input").val("");
+                    google.maps.event.trigger(map, 'resize');
+                }
+            });
+        });
     });
 </script>
 
