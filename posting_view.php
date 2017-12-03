@@ -1,4 +1,5 @@
 <?php
+session_start();
 $pid = $_GET['pid'];
 $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 

@@ -166,7 +166,7 @@ $user = mysqli_fetch_assoc($result);
             <div class="row">
                 <div class="col-lg-12">
                     <form action="insert_posting.php" method="post" id="add-posting-form">
-                        <input name="keyword_array" value= keyword_array style="display: none">
+                        <div id="hiddens"></div>
                         <div id="add-listing">
 
                             <!-- Section -->
@@ -477,8 +477,8 @@ $user = mysqli_fetch_assoc($result);
                                             <input id="kid" type="checkbox" name="kid">
                                             <label for="kid"><i class="fa fa-child"></i>  Kid Friendly</label>
 
-                                            <input id="friendly" type="checkbox" name="friendly">
-                                            <label for="friendly"><i class="im im-icon-Wheelchair"></i> Disabled Friendly</label>
+                                            <input id="disabled" type="checkbox" name="disabled">
+                                            <label for="disabled"><i class="im im-icon-Wheelchair"></i> Disabled Friendly</label>
 
                                             <input id="ownacar" type="checkbox" name="ownacar">
                                             <label for="ownacar"><i class="im im-icon-Car-2"></i> Own a Car</label>
@@ -637,7 +637,8 @@ $user = mysqli_fetch_assoc($result);
 
                         </div>
 
-                        <a href="#" class="button preview" onclick="document.getElementById('add-posting-form').submit()" >Next <i class="fa fa-arrow-circle-right"></i></a>
+<!--                        <a href="#" class="button preview" onclick="document.getElementById('add-posting-form').submit()" >Next <i class="fa fa-arrow-circle-right"></i></a>-->
+                        <a href="#" class="button preview" id="nextpage">Next <i class="fa fa-arrow-circle-right"></i></a>
 
                 </div>
                 </form>
@@ -791,6 +792,17 @@ $user = mysqli_fetch_assoc($result);
                 }
             });
         });
+
+        $("#nextpage").click(function () {
+            var inner= "";
+            for(var i=0; i<keyword_array.length;i++){
+                inner += "<input type='hidden' name='keywords_array[]' value='"+keyword_array[i]+"'>";
+            }
+            $("#hiddens").html(inner);
+
+            $("#add-posting-form").submit();
+
+        })
     });
 </script>
 

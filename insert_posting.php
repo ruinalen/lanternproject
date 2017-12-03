@@ -8,7 +8,7 @@ $intro = $_POST['intro'];
 if(isset($_POST['accommodation'])) {
     $accommodation = $_POST['accommodation'];
 }else{
-    $accommodation = 0;
+    $accommodation = 8;
 }
 if(isset($_POST['lang1'])) {
     $lang1 = $_POST['lang1'];
@@ -40,23 +40,54 @@ if(isset($_POST['lang_f3'])) {
 }else{
     $lang_f3 = 0;
 }
+if(isset($_POST['kid'])) {
+    $kid = 1;
+}else{
+    $kid = 0;
+}
+if(isset($_POST['disabled'])) {
+    $disabled = 1;
+}else{
+    $disabled = 0;
+}
+if(isset($_POST['ownacar'])) {
+    $ownacar = 1;
+}else{
+    $ownacar = 0;
+}
 if(isset( $_SESSION['user_sid'])) {
     $sid =  $_SESSION['user_sid'];
 }
 
+$keywords = $_POST['keywords_array'];
+
+
 $sql1 = "UPDATE `lantern`.`member` SET lantern_offset=1, intro = '$intro', lang1 = '$lang1', lang_f1 = $lang_f1, lang2 = '$lang2', lang_f2 = $lang_f2, lang3 = '$lang3', lang_f3 = '$lang_f3' WHERE `sid` = $sid";
 if ($conn->query($sql1) === TRUE) {
-    echo "Record updated successfully";
-    $sql2 = "INSERT INTO `lantern`.`posting` (`pid`, `lantern_sid`, `registration_date`, `accommodation`)
-              VALUES (NULL,'$sid', NOW(),'$accommodation')";
+    $sql2 = "INSERT INTO `lantern`.`posting` (`pid`, `lantern_sid`, `registration_date`, `accommodation`, `kid`, `disabled`, `owncar`)
+              VALUES (NULL,'$sid', NOW(),'$accommodation',$kid,$disabled,$ownacar)";
     $data = mysqli_query($conn, $sql2);
-    echo $data;
 
+    $sql3 = "SELECT * FROM `posting` WHERE `lantern_sid` ='$sid' ORDER BY  `pid` DESC";
+    $result = mysqli_query($conn, $sql3);
+    $row = mysqli_fetch_assoc($result);
+    $pid = $row['pid'];
+
+
+    foreach ($keywords as $val){
+        $sql4 = "INSERT INTO `lantern`.`pkrelation` (`kid`,`pid`) VALUES ((SELECT `kid` FROM `keyword` WHERE `keyword` ='$val'),$pid)";
+        $data = mysqli_query($conn, $sql4);
+        echo "$sql4";
+    }
+
+
+    $_SESSION['pid'] = $pid;
+    $_SESSION['keywords'] = array();
+    $_SESSION['keywords'] =  $keywords;
 
     echo "
         <script type='text/javascript'>
-            //location.href='http://223.195.109.38/lanternproject/add_posting_super.php';
-            location.href='http://223.195.109.38/lanternproject/index.php';
+            location.href='http://223.195.109.38/lanternproject/add_posting_super.php';
         </script>
         ";
 } else {
@@ -67,5 +98,7 @@ if ($conn->query($sql1) === TRUE) {
             location.href='http://223.195.109.38/lanternproject/index.php';
         </script>
         ";
+
 }
+
 
