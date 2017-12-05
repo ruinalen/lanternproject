@@ -18,12 +18,12 @@ if(isset($_POST['lang1'])) {
 if(isset($_POST['lang_f1'])) {
     $lang_f1 = $_POST['lang_f1'];
 }else{
-    $lang_f1 = NULL;
+    $lang_f1 = 0;
 }
 if(isset($_POST['lang2'])) {
     $lang2 = $_POST['lang2'];
 }else{
-    $lang2 = " ";
+    $lang2 = NULL;
 }
 if(isset($_POST['lang_f2'])) {
     $lang_f2 = $_POST['lang_f2'];
@@ -33,7 +33,7 @@ if(isset($_POST['lang_f2'])) {
 if(isset($_POST['lang3'])) {
     $lang3 = $_POST['lang3'];
 }else{
-    $lang3 = " ";
+    $lang3 = NULL;
 }
 if(isset($_POST['lang_f3'])) {
     $lang_f3 = $_POST['lang_f3'];
@@ -93,10 +93,10 @@ if ($conn->query($sql1) === TRUE) {
 } else {
     echo "Error updating record: " . $conn->error;
     echo "
-        <script type='text/javascript'>
-            alert('다시 시도 하세요');
-            location.href='http://223.195.109.38/lanternproject/index.php';
-        </script>
+//        <script type='text/javascript'>
+//            alert('다시 시도 하세요');
+//            location.href='http://223.195.109.38/lanternproject/index.php';
+//        </script>
         ";
 
 }

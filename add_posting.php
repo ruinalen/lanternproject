@@ -273,7 +273,7 @@ $user = mysqli_fetch_assoc($result);
                                                     </div>
 
                                                     <div class="fm-input pricing-ingredients">
-                                                        <select name="lang_f1" class="chosen-select-no-single" id="langf1Select">
+                                                        <select name="lang_f1" class="aachosen-select-no-single" id="langf1Select">
                                                             <option value="0">Select Fluency</option>
                                                             <option value="1">1(Poor)</option>
                                                             <option value="2">2</option>
@@ -364,7 +364,7 @@ $user = mysqli_fetch_assoc($result);
                                                     </div>
 
                                                     <div class="fm-input pricing-ingredients">
-                                                        <select name="lang_f2" class="chosen-select-no-single" id="langf2Select">
+                                                        <select name="lang_f2" class="aachosen-select-no-single" id="langf2Select">
                                                             <option value="0">Select Fluency</option>
                                                             <option value="1">1(Poor)</option>
                                                             <option value="2">2</option>
@@ -454,7 +454,7 @@ $user = mysqli_fetch_assoc($result);
                                                     </div>
 
                                                     <div class="fm-input pricing-ingredients">
-                                                        <select name="lang_f3" class="chosen-select-no-single" id="langf3Select">
+                                                        <select name="lang_f3" class="aachosen-select-no-single" id="langf3Select">
                                                             <option value="0">Select Fluency</option>
                                                             <option value="1">1(Poor)</option>
                                                             <option value="2">2</option>
@@ -799,7 +799,6 @@ $user = mysqli_fetch_assoc($result);
                 inner += "<input type='hidden' name='keywords_array[]' value='"+keyword_array[i]+"'>";
             }
             $("#hiddens").html(inner);
-
             $("#add-posting-form").submit();
 
         })
