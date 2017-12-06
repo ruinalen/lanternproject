@@ -17,6 +17,9 @@ $result3 = mysqli_query($conn, $query3);
 
 $supers = array();
 $supersinfo = array();
+$superphoto1 = array();
+$superphoto2 = array();
+$superphoto3 = array();
 $others = array();
 $places = array();
 
@@ -33,6 +36,9 @@ while($row = mysqli_fetch_assoc($result3)){
     if($row[super_offset]==1){
         array_push($supers, $keyword['keyword']);
         array_push($supersinfo, $row[super_info]);
+        array_push($superphoto1, $row[photo1]);
+        array_push($superphoto2, $row[photo2]);
+        array_push($superphoto3, $row[photo3]);
     }
     else{
         array_push($others, $keyword['keyword']);
@@ -72,14 +78,19 @@ $u_user = mysqli_fetch_assoc($u_result);
 $reviews_list = array();
 
 $re_query1 = "SELECT * FROM `review` WHERE `receiver_sid` ='$lantern_sid'";
+$re_query2 = "SELECT * FROM `review` WHERE `receiver_sid` ='$lantern_sid'";
 $re_result = mysqli_query($conn, $re_query1);
+$re_result2 = mysqli_query($conn, $re_query2);
 $reviewscounter = mysqli_num_rows($re_result);
 //$reviews = mysqli_fetch_assoc($re_result);
 
+$total = 0;
+while ($reviewtemp = mysqli_fetch_assoc($re_result2)) {
+    $total = $total + $reviewtemp['rate'];
 
-
-
-
+}
+$averagescore = $total / $reviewscounter;
+$averagescore = round($averagescore);
 ?>
 
 <!DOCTYPE html>
@@ -120,6 +131,99 @@ $reviewscounter = mysqli_num_rows($re_result);
             height: 50%;
             width: 50%;
             z-index:99999;
+        }
+
+        * {box-sizing:border-box}
+
+         /*Slideshow container*/
+        .slideshow-container {
+            max-width: 1000px;
+            position: relative;
+            margin: auto;
+        }
+
+        .mySlides {
+            display: none;
+        }
+
+        /* Next & previous buttons */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            margin-top: -22px;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+        }
+
+        /* Position the "next button" to the right */
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        /* On hover, add a black background color with a little bit see-through */
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        /* Caption text */
+        .text {
+            color: #f2f2f2;
+            font-size: 15px;
+            padding: 8px 12px;
+            position: absolute;
+            bottom: 8px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Number text (1/3 etc) */
+        .numbertext {
+            color: #f2f2f2;
+            font-size: 12px;
+            padding: 8px 12px;
+            position: absolute;
+            top: 0;
+        }
+
+        /* The dots/bullets/indicators */
+        .dot {
+            cursor:pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        .active, .dot:hover {
+            background-color: #717171;
+        }
+
+        /* Fading animation */
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 1.5s;
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .4}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .4}
+            to {opacity: 1}
         }
     </style>
 
@@ -182,8 +286,12 @@ $reviewscounter = mysqli_num_rows($re_result);
 							<i class="im im-icon-Global-Position"></i><?php echo $lantern['region']?>
 </a>
 					</span>
-					<div class="star-rating" data-rating="4">
-						<div class="rating-counter"><a href="#listing-reviews">(1 reviews)</a></div>
+
+					<div class="star-rating" data-rating="
+					<?php echo $averagescore ?>
+
+">
+						<div class="rating-counter"><a href="#listing-reviews">(Reviews <span><?php print $reviewscounter; ?></span> )</a></div>
 					</div>
 				</div>
 			</div>
@@ -241,12 +349,36 @@ $reviewscounter = mysqli_num_rows($re_result);
                                         <h4>".$supers[$x]."</h4>
                                     </div>
 
-                                    <div class=\"listing-slider mfp-gallery-container margin-bottom-0\">
-	                                    <a href=\"images/single-listing-01.jpg\" data-background-image=\"images/raw_octopus.jpg\" class=\"item mfp-gallery\" title=\"Title 1\"></a>
-	                                    <a href=\"images/single-listing-02.jpg\" data-background-image=\"images/itaewon.jpg\" class=\"item mfp-gallery\" title=\"Title 3\"></a>
-	                                    <a href=\"images/single-listing-03.jpg\" data-background-image=\"images/workout.jpg\" class=\"item mfp-gallery\" title=\"Title 2\"></a>
-	                                    <a href=\"images/single-listing-04.jpg\" data-background-image=\"images/bbq.jpg\" class=\"item mfp-gallery\" title=\"Title 4\"></a>
+                                    <div class=\"slideshow-container\">
+                                        <div class=\"mySlides fade\">
+                                            <div class=\"numbertext\">1 / 3</div>
+                                            <img src=\"images/raw_octopus.jpg\" style=\"width:100%\">
+                                            <div class=\"text\"></div>
+                                        </div>
+
+                                        <div class=\"mySlides fade\">
+                                            <div class=\"numbertext\">2 / 3</div>
+                                            <img src=\"images/raw_octopus.jpg\" style=\"width:100%\">
+                                            <div class=\"text\"></div>
+                                        </div>
+
+                                        <div class=\"mySlides fade\">
+                                            <div class=\"numbertext\">3 / 3</div>
+                                            <img src=\"images/raw_octopus.jpg\" style=\"width:100%\">
+                                            <div class=\"text\"></div>
+                                        </div>
+
+                                        <a class=\"prev\" onclick=\"plusSlides(-1)\">&#10094;</a>
+                                        <a class=\"next\" onclick=\"plusSlides(1)\">&#10095;</a>
                                     </div>
+                                    <br>
+                                    
+                                    <div style=\"text-align:center\">
+                                      <span class=\"dot\" onclick=\"currentSlide(1)\"></span> 
+                                      <span class=\"dot\" onclick=\"currentSlide(2)\"></span> 
+                                      <span class=\"dot\" onclick=\"currentSlide(3)\"></span> 
+                                    </div>
+
 
 
                                     <div class=\"message-reply margin-top-10px\">
@@ -283,7 +415,39 @@ $reviewscounter = mysqli_num_rows($re_result);
                     </div>
                 </div>
 
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
 
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > 3) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " active";
+    }
+
+
+
+
+
+</script>
 			<!-- Food Menu / End -->
 
 
