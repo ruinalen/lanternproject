@@ -107,7 +107,8 @@ input:checked + .slider,
 #mapnav-buttons a:hover,
 #sign-in-dialog .mfp-close:hover,
 #small-dialog .mfp-close:hover,
-#review-dialog .mfp-close:hover {
+#review-dialog .mfp-close:hover,
+.super-dialog .mfp-close:hover {
     background-color: #ffb400;
 }
 

@@ -16,6 +16,7 @@ $query3 = "SELECT * FROM `pkrelation` WHERE `pid`='$pid'";
 $result3 = mysqli_query($conn, $query3);
 
 $supers = array();
+$supersinfo = array();
 $others = array();
 $places = array();
 
@@ -31,6 +32,7 @@ while($row = mysqli_fetch_assoc($result3)){
 
     if($row[super_offset]==1){
         array_push($supers, $keyword['keyword']);
+        array_push($supersinfo, $row[super_info]);
     }
     else{
         array_push($others, $keyword['keyword']);
@@ -229,12 +231,41 @@ $reviewscounter = mysqli_num_rows($re_result);
 
                         <div class="boxed-widget" >
                             <h5>Super Keywords</h5>
-                            <div id="super" class="showMask" style="margin-top: 10px">
-                                <?php
-                                    foreach ($supers as $val)
-                                        echo "<button class='button' id='super' style='background-color: #aaaaaa'>".$val."</button>";
-                                ?>
-                            </div>
+                            <?php
+
+                            for ($x = 0; $x < sizeof($supers); $x++) {
+                                print("
+                                <div id=\"super-dialog\" class=\"zoom-anim-dialog mfp-hide ".$supers[$x]."\">
+
+                                    <div class=\"super-dialog-header\" style=\"margin-bottom: 0px\">
+                                        <h4>".$supers[$x]."</h4>
+                                    </div>
+
+                                    <div class=\"listing-slider mfp-gallery-container margin-bottom-0\">
+	                                    <a href=\"images/single-listing-01.jpg\" data-background-image=\"images/raw_octopus.jpg\" class=\"item mfp-gallery\" title=\"Title 1\"></a>
+	                                    <a href=\"images/single-listing-02.jpg\" data-background-image=\"images/itaewon.jpg\" class=\"item mfp-gallery\" title=\"Title 3\"></a>
+	                                    <a href=\"images/single-listing-03.jpg\" data-background-image=\"images/workout.jpg\" class=\"item mfp-gallery\" title=\"Title 2\"></a>
+	                                    <a href=\"images/single-listing-04.jpg\" data-background-image=\"images/bbq.jpg\" class=\"item mfp-gallery\" title=\"Title 4\"></a>
+                                    </div>
+
+
+                                    <div class=\"message-reply margin-top-10px\">
+                                        <!-- Add Comment-->
+                                        ".$supersinfo[$x]."
+                                    </div>
+
+                                </div>
+
+                            <a href=\".".$supers[$x]."\" class=\"keyword showing button popup-with-zoom-anim\"></i>".$supers[$x]."</a>
+                                
+                                
+                                
+                                
+                                ");
+
+                            }
+
+                            ?>
                         </div>
 
                         <br>
@@ -723,7 +754,7 @@ var $clocks = $('.td-input');
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>-->
 <script type="text/javascript">
     function wrapWindowByMask(){
         // 화면의 높이와 너비를 변수로 만듭니다.

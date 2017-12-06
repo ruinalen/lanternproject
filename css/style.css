@@ -2751,6 +2751,15 @@ a.send-message-to-owner.button {
 	margin-bottom: -5px;
 }
 
+a.keyword-showing.button {
+	font-size: 15px;
+	font-weight: 500;
+	padding: 4px 20px;
+	margin-top: 20px;
+	margin-bottom: -5px;
+}
+
+
 /* Opening Hours */
 .opening-hours {
 	position: relative;
@@ -10200,6 +10209,7 @@ button.mfp-close {
 #small-dialog .mfp-close,
 #sign-in-dialog, .mfp-close,
 #review-dialog .mfp-close,
+#super-dialog .mfp-close,
 .mfp-close:hover {
 	color: #fff;
 }
@@ -10208,7 +10218,8 @@ button.mfp-close {
 /* Popup close button*/
 #sign-in-dialog .mfp-close,
 #small-dialog .mfp-close,
-#review-dialog .mfp-close {
+#review-dialog .mfp-close,
+#super-dialog .mfp-close {
 	color: #666;
 	background-color: #e4e4e4;
 	border-radius: 50%;
@@ -10220,7 +10231,8 @@ button.mfp-close {
 
 #sign-in-dialog .mfp-close:hover,
 #small-dialog .mfp-close:hover,
-#review-dialog .mfp-close:hover {
+#review-dialog .mfp-close:hover,
+#super-dialog .mfp-close:hover {
 	color: #fff;
 	transform: rotate(0);
 	background-color: #66676b;
@@ -10231,7 +10243,9 @@ button.mfp-close {
 #small-dialog .mfp-close::after,
 #small-dialog .mfp-close::before,
 #review-dialog .mfp-close::after,
-#review-dialog .mfp-close::before {
+#review-dialog .mfp-close::before,
+#super-dialog .mfp-close::after,
+#super-dialog .mfp-close::before{
 	top: 4px;
 	height: 9px;
 	font-size: 21px;
@@ -10239,14 +10253,16 @@ button.mfp-close {
 }
 
 .small-dialog-content input[type=submit],
-.review-dialog-content input[type=submit] {
+.review-dialog-content input[type=submit],
+.super-dialog-content input[type=submit]{
 	width: 100%;
 	margin-top: 26px;
 	margin-bottom: 10px;
 }
 
 .small-dialog-content .divider,
-.review-dialog-content .divider {
+.review-dialog-content .divider,
+.super-dialog-content . divider{
 	display: inline-block;
 	width: 100%;
 	margin-top: 15px;
@@ -10278,8 +10294,18 @@ button.mfp-close {
 	padding: 35px 40px;
 	margin-bottom: 40px;
 }
-
-
+.super-dialog-header {
+	font-size: 22px;
+	width: calc(100% + 80px);
+	position: relative;
+	left: -40px;
+	top: 0;
+	border-radius: 4px 4px 0 0;
+	display: inline-block;
+	background-color: #f6f6f6;
+	padding: 35px 40px;
+	margin-bottom: 40px;
+}
 .small-dialog-header h3 {
 	padding: 0;
 	margin: 0;
@@ -10287,6 +10313,12 @@ button.mfp-close {
 }
 
 .review-dialog-header h4 {
+	padding: 0;
+	margin: 0;
+	font-size: 24px;
+}
+
+.super-dialog-header h4 {
 	padding: 0;
 	margin: 0;
 	font-size: 24px;
@@ -10377,7 +10409,8 @@ button.mfp-close {
 /* Popup */
 #sign-in-dialog,
 #small-dialog ,
-#review-dialog {
+#review-dialog,
+#super-dialog {
 	background: #fff;
 	padding: 40px;
 	padding-top: 0;
@@ -10397,7 +10430,8 @@ button.mfp-close {
 
 #sign-in-dialog span.line,
 #small-dialog span.line,
-#review-dialog span.line {padding-top: 0;}
+#review-dialog span.line,
+#super-dialog span.line {padding-top: 0;}
 
 .my-mfp-zoom-in .zoom-anim-dialog {
 	opacity: 0;
@@ -12050,13 +12084,19 @@ img.mfp-img {
 		padding: 30px;
 	}
 
-	#sign-in-dialog, #small-dialog, #review-dialog {
+	.super-dialog-header {
+		width: calc(100% + 60px);
+		left: -30px;
+		padding: 30px;
+	}
+
+	#sign-in-dialog, #small-dialog, #review-dialog, #super-dialog {
 		background: #fff;
 		padding: 30px;
 		padding-top: 0;
     }
 
-	#sign-in-dialog .mfp-close, #small-dialog .mfp-close , #review-dialog .mfp-close {
+	#sign-in-dialog .mfp-close, #small-dialog .mfp-close , #review-dialog .mfp-close, #super-dialog .mfp-close {
 	    top: 24px;
 	    right: 30px;
 	    width: 40px;
@@ -12119,6 +12159,7 @@ img.mfp-img {
 	    padding-right: 80px;
 	    line-height: 30Px;
 	}
+
 	.review-dialog-header h4 {
 		padding: 0;
 		margin: 0;
@@ -12126,7 +12167,16 @@ img.mfp-img {
 		padding-right: 80px;
 		line-height: 30Px;
 	}
-	#sign-in-dialog, #small-dialog, #review-dialog {
+
+	.super-dialog-header h4 {
+		padding: 0;
+		margin: 0;
+		font-size: 22px;
+		padding-right: 80px;
+		line-height: 30Px;
+	}
+
+	#sign-in-dialog, #small-dialog, #review-dialog, #super-dialog {
 	    max-width: 75vw;
 	}
 
