@@ -2,23 +2,26 @@
 
 $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 $keyword = $_GET['search'];
-$kidquery = "SELECT * FROM `keyword` WHERE `keyword` = '".$keyword."'; ";//kid찾기
+$kidquery = "SELECT * FROM `keyword` WHERE `keyword` LIKE '".$keyword."'; ";//kid찾기
 $result = mysqli_query($conn, $kidquery);
 $row = mysqli_fetch_assoc($result);
-print ("<script>alert(".$row[0].");</script>");
-if($row[0]==null){
+print ("<script>alert(".$row['kid'].");</script>");
+if($row['kid']==null){
     print ("<script>alert('검색결과가 없습니다');</script>");
+}else{
+    $pidquery="SELECT * FROM `pkrelation` WHERE `kid` = ".$row['kid'];//pid 찾기
+    $result = mysqli_query($conn, $pidquery);
+    $row = mysqli_fetch_assoc($result);
+    print ("<script>alert(".$row['pid'].");</script>");
+    $sidquery="SELECT * FROM `posting` WHERE `pid` = ".$row['pid'];//pid 찾기
+    $sidresult = mysqli_query($conn, $sidquery);
+    $sidrow = mysqli_fetch_assoc($sidresult);
+    print ("<script>alert(".$sidrow['lantern_sid'].");</script>");
+    $resultquery = "SELECT * FROM `member` WHERE `sid` = ".$sidrow['lantern_sid'];
+    $resultresult = mysqli_query($conn, $resultquery);
+    $resultrow = mysqli_fetch_assoc($resultresult);
 }
-$pidquery="SELECT * FROM `pkrelation` WHERE `kid` = ".$row['kid'];//pid 찾기
-$result = mysqli_query($conn, $pidquery);
-$row = mysqli_fetch_assoc($result);
-$sidquery="SELECT * FROM `posting` WHERE `pid` = ".$row['pid'];//pid 찾기
-$sidresult = mysqli_query($conn, $sidquery);
-$sidrow = mysqli_fetch_assoc($sidresult);
 
-$resultquery = "SELECT * FROM `member` WHERE `sid` = ".$sidrow['lantern_sid'];
-$resultresult = mysqli_query($conn, $resultquery);
-$resultrow = mysqli_fetch_assoc($resultresult);
 ?>
 <!DOCTYPE html>
 <head>
