@@ -1,4 +1,24 @@
 <?php
+
+$conn = mysqli_connect('localhost','lantern','lantern','lantern');
+$keyword = $_GET['search'];
+$kidquery = "SELECT * FROM `keyword` WHERE `keyword` = '".$keyword."'; ";//kid찾기
+$result = mysqli_query($conn, $kidquery);
+$row = mysqli_fetch_assoc($result);
+print ("<script>alert(".$row[0].");</script>");
+if($row[0]==null){
+    print ("<script>alert('검색결과가 없습니다');</script>");
+}
+$pidquery="SELECT * FROM `pkrelation` WHERE `kid` = ".$row['kid'];//pid 찾기
+$result = mysqli_query($conn, $pidquery);
+$row = mysqli_fetch_assoc($result);
+$sidquery="SELECT * FROM `posting` WHERE `pid` = ".$row['pid'];//pid 찾기
+$sidresult = mysqli_query($conn, $sidquery);
+$sidrow = mysqli_fetch_assoc($sidresult);
+
+$resultquery = "SELECT * FROM `member` WHERE `sid` = ".$sidrow['lantern_sid'];
+$resultresult = mysqli_query($conn, $resultquery);
+$resultrow = mysqli_fetch_assoc($resultresult);
 ?>
 <!DOCTYPE html>
 <head>
@@ -47,7 +67,7 @@
 
                         <div class="col-md-6">
                             <!-- Showing Results -->
-                            <p class="showing-results">3 Results Found </p>
+                            <p class="showing-results"><?php echo $row['pid'];?> Results Found </p>
                         </div>
 
                     </div>
@@ -59,17 +79,18 @@
                         <!-- Listing Item -->
                         <div class="col-lg-12 col-md-12">
                             <div class="listing-item-container list-layout" data-marker-id="1">
-                                <a href="posting_view.php?pid=3" class="listing-item">
+                                <a href="posting_view.php?pid=<?php echo $row['pid'];?>" class="listing-item">
 
                                     <!-- Image -->
                                     <div class="listing-item-image">
-                                        <img src="./profile_img/31.png" alt="">
+                                        <img src="./profile_img/<?php echo $sidrow['lantern_sid'];?>.png" alt="">
                                     </div>
 
                                     <!-- Content -->
                                     <div class="listing-item-content">
                                         <div class="listing-item-inner">
-                                            <h3>Seyeon Kim</h3>
+                                            <h3><?php print($resultrow['name_last']);
+                                                print($resultrow['name_first']);?></h3>
                                             <span></span>
                                             <div class="star-rating" data-rating="4.5">
                                                 <div class="rating-counter">(5 reviews)</div>
@@ -77,64 +98,6 @@
                                         </div>
 
                                         <span class="like-icon"></span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- Listing Item / End -->
-
-                        <!-- Listing Item -->
-                        <div class="col-lg-12 col-md-12">
-                            <div class="listing-item-container list-layout" data-marker-id="2">
-                                <a href="listings-single-page.html" class="listing-item">
-
-                                    <!-- Image -->
-                                    <div class="listing-item-image">
-                                        <img src="./profile_img/33.png" alt="">
-                                    </div>
-
-                                    <!-- Content -->
-                                    <div class="listing-item-content">
-
-                                        <div class="listing-item-inner">
-                                            <h3>Honey Jam</h3>
-                                            <span></span>
-                                            <div class="star-rating" data-rating="5.0">
-                                                <div class="rating-counter">(3 reviews)</div>
-                                            </div>
-                                        </div>
-
-                                        <span class="like-icon"></span>
-
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- Listing Item / End -->
-
-                        <!-- Listing Item -->
-                        <div class="col-lg-12 col-md-12">
-                            <div class="listing-item-container list-layout" data-marker-id="3">
-                                <a href="posting_view.php?pid=3" class="listing-item">
-
-                                    <!-- Image -->
-                                    <div class="listing-item-image">
-                                        <img src="./profile_img/34.png" alt="">
-                                    </div>
-
-                                    <!-- Content -->
-                                    <div class="listing-item-content">
-
-                                        <div class="listing-item-inner">
-                                            <h3>DongJoon Park</h3>
-                                            <span></span>
-                                            <div class="star-rating" data-rating="4.0">
-                                                <div class="rating-counter">(1 reviews)</div>
-                                            </div>
-                                        </div>
-
-                                        <span class="like-icon"></span>
-
                                     </div>
                                 </a>
                             </div>
