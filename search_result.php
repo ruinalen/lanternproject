@@ -3,6 +3,7 @@
 $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 $search = $_GET['keyword'];
 $search_list = array();
+$places = array();
 
 $kidquery = "SELECT * FROM `keyword` WHERE `keyword` LIKE '%$search%'";//kid찾기
 $result1 = mysqli_query($conn, $kidquery);
@@ -44,14 +45,22 @@ while ($row1 = mysqli_fetch_assoc($result1)){
             "rate" => $averagescore,
             "keyword" => $row1['keyword']
         ));
+
+        if($row1['geo_offset']==1){
+            array_push($places,array(
+                kid => $row1['kid'],
+                keyword => $row1['keyword'],
+                location=>$row1['geo_location'],
+                address=>$row1['geo_address'],
+                name=> $row1['geo_name']
+            ));
+        }
     }
     echo "  /////  ";
 }
 if($i==0){
     echo ("<script>alert('검색결과가 없습니다'); location.href='./index.php';</script>");
 }
-
-
 ?>
 <!DOCTYPE html>
 <head>
@@ -114,7 +123,7 @@ if($i==0){
                             print "
                             <!-- Listing Item -->
                         <div class=\"col-lg-12 col-md-12\">
-                            <div class=\"listing-item-container list-layout\" data-marker-id=\"1\" style='height: 250px;'>
+                            <div class=\"listing-item-container list-layout\" data-marker-id=\"1\" style='height: auto;'>
                                 <a href=\"posting_view.php?pid=".$item['pid']."\" class=\"listing-item\">
 
                                     <!-- Image -->
@@ -181,7 +190,7 @@ if($i==0){
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
 <script type="text/javascript" src="scripts/infobox.min.js"></script>
 <script type="text/javascript" src="scripts/markerclusterer.js"></script>
-<?php include 'map_search.php';?>
+<?php include 'map.php';?>
 
 
 </body>

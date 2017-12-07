@@ -55,8 +55,12 @@ session_start();
                             </div>
                             <div class="main-search-input-item location">
 
-                                    <input name="date" id="date" type="date" value="<?php echo date("Y-m-d");?>" min="<?php echo date("Y-m-d");?>"
-                                           max="<?php echo date("Y-m-d",strtotime("+12 week"));?>" style="width: 80%"/>
+<!--                                    <input name="date" id="date" type="date" value="--><?php //echo date("Y-m-d");?><!--" min="--><?php //echo date("Y-m-d");?><!--"-->
+<!--                                           max="--><?php //echo date("Y-m-d",strtotime("+12 week"));?><!--" style="width: 80%"/>-->
+
+                                <input name="date" id="date" type="date" value="All"
+                                       min="<?php echo date("Y-m-d");?>" max="<?php echo date("Y-m-d",strtotime("+12 week"));?>" style="width: 80%"/>
+
                                     <a href="#"><i class="fa fa-calendar"></i></a>
 
                                 <!-- 달력 아이콘 누르면 달력 나오게 안되나요-->
