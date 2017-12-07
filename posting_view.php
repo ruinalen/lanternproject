@@ -89,6 +89,7 @@ while ($reviewtemp = mysqli_fetch_assoc($re_result2)) {
     $total = $total + $reviewtemp['rate'];
 
 }
+
 $averagescore = $total / $reviewscounter;
 $averagescore = round($averagescore);
 ?>
@@ -651,7 +652,7 @@ $averagescore = round($averagescore);
 
                                 </div>
 
-                            <a href="#review-dialog" class="send-message-to-owner button popup-with-zoom-anim"></i> Write Review</a>
+                            <a href="#review-dialog" class="send-message-to-owner button popup-with-zoom-anim"> Write Review</a>
 
 
 
@@ -676,16 +677,57 @@ $averagescore = round($averagescore);
 
 					<!-- Date Picker - docs: http://www.vasterad.com/docs/listeo/#!/date_picker -->
 					<div class="col-lg-6 col-md-12">
-						<input type="text" id="booking-date" data-lang="en" data-large-mode="true" data-min-year="2017" data-max-year="2020">
+						<input type="date" id="booking-date" data-lang="en" data-large-mode="true" data-min-year="2017" data-max-year="2020">
 					</div>
                     <div class="col-lg-6 col-md-12">
-                        <input type="text" id="booking-date2" data-lang="en" data-large-mode="true" data-min-year="2017" data-max-year="2020">
+                        <input type="date" id="booking-date2" data-lang="en" data-large-mode="true" data-min-year="2017" data-max-year="2020">
                     </div>
 
 				</div>
 
 				<!-- progress button animation handled via custom.js -->
-				<button class="progress-button button fullwidth margin-top-5"><span>Book Now</span></button>
+                <div id="request-form" class="zoom-anim-dialog mfp-hide" style="max-width:60%; height: auto; ">
+                    <form method = "post" action="./write_request.php" id = "form2">
+                        <div class="request-form-header" style="margin-bottom: 0px">
+                            <h4>Request Form</h4>
+                        </div>
+                        <span>
+
+                            <div id="start-date"></div>
+                            <div id="end-date"></div>
+                            <div id="diffDays"></div>
+
+                        </span>
+
+                        <div class="row with-forms  margin-top-0">
+
+                            <!-- Date Picker - docs: http://www.vasterad.com/docs/listeo/#!/date_picker -->
+                            <div class="col-lg-6 col-md-12">
+                                <input type="text" id="booking-date" data-lang="en" data-large-mode="true" data-min-year="2017" data-max-year="2020">
+                            </div>
+
+                            <!-- Time Picker - docs: http://www.vasterad.com/docs/listeo/#!/time_picker -->
+                            <div class="col-lg-6 col-md-12">
+                                <input type="text" id="booking-time" value="9:00 am">
+                            </div>
+
+                            <!-- Time Picker - docs: http://www.vasterad.com/docs/listeo/#!/time_picker -->
+                            <div class="col-lg-6 col-md-12">
+                                <input type="text" id="booking-time2" value="9:00 am">
+                            </div>
+
+                        </div>
+
+
+
+
+
+                    </form>
+                    <button type = "submit" form = "form2" class="button" value = "Post Request">Request</button>
+
+                </div>
+
+				<a href = "#request-form" class="send-message-to-owner button popup-with-zoom-anim fullwidth margin-top-5" id="booknowbutton"><span>Book Now</span></a>
 			</div>
 			<!-- Book Now / End -->
 
@@ -720,24 +762,7 @@ $averagescore = round($averagescore);
 			<!-- Contact / End-->
 
 
-<!--			<!-- Opening Hours -->
-<!--			<div class="boxed-widget opening-hours margin-top-35">-->
-<!--				<div class="listing-badge now-open">Now Open</div>-->
-<!--				<h3><i class="sl sl-icon-clock"></i> Opening Hours</h3>-->
-<!--				<ul>-->
-<!--					<li>Monday <span>9 AM - 5 PM</span></li>-->
-<!--					<li>Tuesday <span>9 AM - 5 PM</span></li>-->
-<!--					<li>Wednesday <span>9 AM - 5 PM</span></li>-->
-<!--					<li>Thursday <span>9 AM - 5 PM</span></li>-->
-<!--					<li>Friday <span>9 AM - 5 PM</span></li>-->
-<!--					<li>Saturday <span>9 AM - 3 PM</span></li>-->
-<!--					<li>Sunday <span>Closed</span></li>-->
-<!--				</ul>-->
-<!--			</div>-->
-<!--			<!-- Opening Hours / End
 
-
-			<!-- Share / Like -->
 			<div class="listing-share margin-top-40 margin-bottom-40 no-border">
 				<button class="like-button"><span class="like-icon"></span> Bookmark this listing</button>
 				<span>159 people bookmarked this place</span>
@@ -795,16 +820,24 @@ $averagescore = round($averagescore);
 <script src="scripts/timedropper.js"></script>
 <link rel="stylesheet" type="text/css" href="css/plugins/timedropper.css">
 <script>
-this.$('#booking-time').timeDropper({
-	setCurrentTime: false,
-	meridians: true,
-	primaryColor: "#f91942",
-	borderColor: "#f91942",
-	minutesInterval: '15'
-});
+    this.$('#booking-time').timeDropper({
+        setCurrentTime: false,
+        meridians: true,
+        primaryColor: "#f91942",
+        borderColor: "#f91942",
+        minutesInterval: '15'
+    });
 
-var $clocks = $('.td-input');
-	.each($clocks, function(clock){
+    this.$('#booking-time2').timeDropper({
+        setCurrentTime: false,
+        meridians: true,
+        primaryColor: "#f91942",
+        borderColor: "#f91942",
+        minutesInterval: '15'
+    });
+
+    var $clocks = $('.td-input');
+    _.each($clocks, function(clock){
         clock.value = null;
     });
 </script>
@@ -875,7 +908,25 @@ var $clocks = $('.td-input');
 
         $("#writereview").click(function () {
             location.href ="http://223.195.109.38/lanternproject/write_review.php";
-        })
+        });
+
+        $("#booknowbutton").click(function () {
+            var start = new Date( $("#booking-date").val());
+            var end =new Date( $("#booking-date2").val());
+            var timeDiff = Math.abs(start - end);
+            var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+            $("#start-date").html(start);
+            $("#end-date").html(end);
+            $("#diffDays").html(diffDays);
+
+
+
+
+
+        });
+
+
 
     });
 

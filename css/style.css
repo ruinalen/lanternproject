@@ -10215,6 +10215,9 @@ button.mfp-close {
 	color: #fff;
 }
 
+#request-form .mfp-close {
+	color: #fff;
+}
 
 /* Popup close button*/
 #sign-in-dialog .mfp-close,
@@ -10230,10 +10233,26 @@ button.mfp-close {
     height: 40px;
 }
 
+#request-form .mfp-close {
+	color: #666;
+	background-color: #e4e4e4;
+	border-radius: 50%;
+	top: 28px;
+	right: 40px;
+	width: 40px;
+	height: 40px;
+}
+
 #sign-in-dialog .mfp-close:hover,
 #small-dialog .mfp-close:hover,
 #review-dialog .mfp-close:hover,
 #super-dialog .mfp-close:hover {
+	color: #fff;
+	transform: rotate(0);
+	background-color: #66676b;
+}
+
+#request-form .mfp-close:hover {
 	color: #fff;
 	transform: rotate(0);
 	background-color: #66676b;
@@ -10253,6 +10272,15 @@ button.mfp-close {
 	transition: 0s;
 }
 
+#request-form .mfp-close::before,
+#request-form .mfp-close::after {
+	top: 4px;
+	height: 9px;
+	font-size: 21px;
+	transition: 0s;
+}
+
+
 .small-dialog-content input[type=submit],
 .review-dialog-content input[type=submit],
 .super-dialog-content input[type=submit]{
@@ -10260,6 +10288,15 @@ button.mfp-close {
 	margin-top: 26px;
 	margin-bottom: 10px;
 }
+
+.request-form-content input[type=submit] {
+	width: 100%;
+	margin-top: 26px;
+	margin-bottom: 10px;
+}
+
+
+
 
 .small-dialog-content .divider,
 .review-dialog-content .divider,
@@ -10269,6 +10306,15 @@ button.mfp-close {
 	margin-top: 15px;
 	padding-bottom: 0;
 }
+
+.request-form-content .divider {
+	display: inline-block;
+	width: 100%;
+	margin-top: 15px;
+	padding-bottom: 0;
+}
+
+
 
 .small-dialog-header {
 	font-size: 22px;
@@ -10307,6 +10353,21 @@ button.mfp-close {
 	padding: 35px 40px;
 	margin-bottom: 40px;
 }
+
+.request-form-header {
+	font-size: 22px;
+	width: calc(100% + 80px);
+	position: relative;
+	left: -40px;
+	top: 0;
+	border-radius: 4px 4px 0 0;
+	display: inline-block;
+	background-color: #f6f6f6;
+	padding: 35px 40px;
+	margin-bottom: 40px;
+}
+
+
 .small-dialog-header h3 {
 	padding: 0;
 	margin: 0;
@@ -10324,6 +10385,13 @@ button.mfp-close {
 	margin: 0;
 	font-size: 24px;
 }
+
+.request-form-header h4 {
+	padding: 0;
+	margin: 0;
+	font-size: 24px;
+}
+
 
 .mfp-counter {
 	position: absolute;
@@ -10423,6 +10491,18 @@ button.mfp-close {
 	border-radius: 4px;
 }
 
+#request-form {
+	background: #fff;
+	padding: 40px;
+	padding-top: 0;
+	text-align: left;
+	max-width: 610px;
+	margin: 40px auto;
+	position: relative;
+	box-sizing:border-box;
+	border-radius: 4px;
+
+}
 
 #sign-in-dialog {
 	max-width: 500px;
@@ -10433,6 +10513,8 @@ button.mfp-close {
 #small-dialog span.line,
 #review-dialog span.line,
 #super-dialog span.line {padding-top: 0;}
+
+#request-form span.line {padding-top:0;}
 
 .my-mfp-zoom-in .zoom-anim-dialog {
 	opacity: 0;
@@ -12091,11 +12173,24 @@ img.mfp-img {
 		padding: 30px;
 	}
 
+	.request-form-header {
+		width: calc(100% + 60px);
+		left: -30px;
+		padding: 30px;
+	}
+
 	#sign-in-dialog, #small-dialog, #review-dialog, #super-dialog {
 		background: #fff;
 		padding: 30px;
 		padding-top: 0;
     }
+
+	#request-form {
+		background: #fff;
+		padding: 30px;
+		padding-top: 0;
+	}
+
 
 	#sign-in-dialog .mfp-close, #small-dialog .mfp-close , #review-dialog .mfp-close, #super-dialog .mfp-close {
 	    top: 24px;
@@ -12103,6 +12198,15 @@ img.mfp-img {
 	    width: 40px;
 	    height: 40px;
 	}
+
+	#request-form .mfp-close {
+		top: 24px;
+		right: 30px;
+		width: 40px;
+		height: 40px;
+	}
+
+
 
 	.list-box-listing { display: block;}
 
@@ -12177,9 +12281,22 @@ img.mfp-img {
 		line-height: 30Px;
 	}
 
+	.request-form-header h4 {
+		padding: 0;
+		margin: 0;
+		font-size: 22px;
+		padding-right: 80px;
+		line-height: 30Px;
+	}
+
 	#sign-in-dialog, #small-dialog, #review-dialog, #super-dialog {
 	    max-width: 75vw;
 	}
+
+	#request-form {
+		max-width: 75vw;
+	}
+
 
 	.listing-nav li a {
 	    border-bottom: 1px solid #e0e0e0;
