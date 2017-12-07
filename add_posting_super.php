@@ -139,10 +139,10 @@ $superkeywords_array = explode(',', $superkeywords);
 
                         }
                         ?>
-
-
-
                     </div>
+
+                    <a href="posting_view.php?pid=<?php echo $pid?>" class="button" i>Complete <i class="fa fa-arrow-circle-right"></i></a>
+
                 </div>
 
                 <!-- Copyrights -->
