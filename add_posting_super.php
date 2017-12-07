@@ -126,15 +126,14 @@ $superkeywords_array = explode(',', $superkeywords);
                             <!-- Description -->
                             <div class=\"form\">
                                 <h5>Description</h5>
-                                <textarea class=\"WYSIWYG\" name=\"summary\" cols=\"35\" rows=\"3\" id=\"summary\" spellcheck=\"true\"></textarea>
+                                <textarea class=\"WYSIWYG\" name='summary' cols=\"35\" rows=\"3\" id='".$super."summary' spellcheck=\"true\"></textarea>
                             </div>
                             
-                            <a href=\"#\" class=\"button preview\" id='".$super."button'>Upload <i class=\"fa fa-arrow-circle-right\"></i></a>
+                            <a href=\"#\" class=\"button preview\" id='".$super."'>Upload <i class=\"fa fa-arrow-circle-right\"></i></a>
 
                         </div>
                         <!-- Section / End -->
-
-                        
+                 
                             
                             ");
 
@@ -215,7 +214,32 @@ $superkeywords_array = explode(',', $superkeywords);
 
 <!-- DropZone | Documentation: http://dropzonejs.com -->
 <script type="text/javascript" src="scripts/dropzone.js"></script>
-
-
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+
+        $(".preview").click(function (e) {
+            e.preventDefault();
+            var superkeyword = $(this).attr('id');
+            var datas =
+                {
+                keyword : superkeyword,
+                super_info: $("#" + superkeyword +"summary").val()
+                };
+            $.ajax({
+                url: './insert_super.php',
+                type: 'POST',
+                data: datas,
+                dataType: "json",
+                success : function(data, status, xhr) {
+                    alert(data);
+                },
+                error:function(request,status,error){
+                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                }
+            });
+        });
+    })
+
+</script>
