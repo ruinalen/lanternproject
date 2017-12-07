@@ -1,26 +1,56 @@
 <?php
 
 $conn = mysqli_connect('localhost','lantern','lantern','lantern');
-$keyword = $_GET['search'];
-$kidquery = "SELECT * FROM `keyword` WHERE `keyword` LIKE '".$keyword."'; ";//kid찾기
-$result = mysqli_query($conn, $kidquery);
-$row = mysqli_fetch_assoc($result);
-print ("<script>alert(".$row['kid'].");</script>");
-if($row['kid']==null){
-    print ("<script>alert('검색결과가 없습니다');</script>");
-}else{
-    $pidquery="SELECT * FROM `pkrelation` WHERE `kid` = ".$row['kid'];//pid 찾기
-    $result = mysqli_query($conn, $pidquery);
-    $row = mysqli_fetch_assoc($result);
-    print ("<script>alert(".$row['pid'].");</script>");
-    $sidquery="SELECT * FROM `posting` WHERE `pid` = ".$row['pid'];//pid 찾기
-    $sidresult = mysqli_query($conn, $sidquery);
-    $sidrow = mysqli_fetch_assoc($sidresult);
-    print ("<script>alert(".$sidrow['lantern_sid'].");</script>");
-    $resultquery = "SELECT * FROM `member` WHERE `sid` = ".$sidrow['lantern_sid'];
-    $resultresult = mysqli_query($conn, $resultquery);
-    $resultrow = mysqli_fetch_assoc($resultresult);
+$search = $_GET['keyword'];
+$search_list = array();
+
+$kidquery = "SELECT * FROM `keyword` WHERE `keyword` LIKE '%$search%'";//kid찾기
+$result1 = mysqli_query($conn, $kidquery);
+$i=0;
+while ($row1 = mysqli_fetch_assoc($result1)){
+    $i++;
+    echo ("  kid: ".$row1['kid']);
+    $pidquery="SELECT * FROM `pkrelation` WHERE `kid` = ".$row1['kid']." ORDER BY `super_offset` DESC";//pid 찾기
+    $result2 = mysqli_query($conn, $pidquery);
+    echo "  pid들: ";
+    while($row2 = mysqli_fetch_assoc($result2)){
+        echo (" ".$row2['pid']." ");
+        $sidquery="SELECT * FROM `posting` WHERE `pid` = ".$row2['pid'];//sid 찾기
+        $result3 = mysqli_query($conn, $sidquery);
+        $row3 = mysqli_fetch_assoc($result3);
+
+        $memquery = "SELECT * FROM `member` WHERE `sid` = ".$row3['lantern_sid'];
+        $result4 = mysqli_query($conn, $memquery);
+        $row4 = mysqli_fetch_assoc($result4);
+
+        $requery = "SELECT * FROM `review` WHERE `receiver_sid` = ".$row3['lantern_sid'];
+        $reresult = mysqli_query($conn, $requery);
+        $reresult2 = mysqli_query($conn, $requery);
+        $reviewscounter = mysqli_num_rows($reresult);
+        if($reviewscounter!=0){
+            $total = 0;
+            while ($row5 = mysqli_fetch_assoc($reresult2)) {
+                $total = $total + $row5['rate'];
+            }
+            $averagescore = $total / $reviewscounter;
+            $averagescore = round($averagescore);
+        }
+
+        array_push($search_list,array(
+            "pid" => $row2['pid'],
+            "sid" => $row3['lantern_sid'],
+            "name" => $row4['name_first']." ".$row4['name_last'],
+            "reviewscounter" => $reviewscounter,
+            "rate" => $averagescore,
+            "keyword" => $row1['keyword']
+        ));
+    }
+    echo "  /////  ";
 }
+if($i==0){
+    echo ("<script>alert('검색결과가 없습니다'); location.href='./index.php';</script>");
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -70,7 +100,7 @@ if($row['kid']==null){
 
                         <div class="col-md-6">
                             <!-- Showing Results -->
-                            <p class="showing-results"><?php echo $row['pid'];?> Results Found </p>
+                            <p class="showing-results"><?php echo count($search_list);?> Results Found </p>
                         </div>
 
                     </div>
@@ -79,64 +109,37 @@ if($row['kid']==null){
                     <!-- Listings -->
                     <div class="row fs-listings">
 
-                        <!-- Listing Item -->
-                        <div class="col-lg-12 col-md-12">
-                            <div class="listing-item-container list-layout" data-marker-id="1">
-                                <a href="posting_view.php?pid=<?php echo $row['pid'];?>" class="listing-item">
+                        <?php
+                        foreach ($search_list as $item){
+                            print "
+                            <!-- Listing Item -->
+                        <div class=\"col-lg-12 col-md-12\">
+                            <div class=\"listing-item-container list-layout\" data-marker-id=\"1\" style='height: 250px;'>
+                                <a href=\"posting_view.php?pid=".$item['pid']."\" class=\"listing-item\">
 
                                     <!-- Image -->
-                                    <div class="listing-item-image">
-                                        <img src="./profile_img/<?php echo $sidrow['lantern_sid'];?>.png" alt="">
+                                    <div class=\"listing-item-image\">
+                                        <img src=\"./profile_img/".$item['sid'].".png\" alt=\"\">
                                     </div>
 
                                     <!-- Content -->
-                                    <div class="listing-item-content">
-                                        <div class="listing-item-inner">
-                                            <h3><?php print($resultrow['name_last']);
-                                                print($resultrow['name_first']);?></h3>
-                                            <span></span>
-                                            <div class="star-rating" data-rating="4.5">
-                                                <div class="rating-counter">(5 reviews)</div>
+                                    <div class=\"listing-item-content\">
+                                        <div class=\"listing-item-inner\">
+                                            <h3>".$item['name']."</h3>
+                                            <span>Keyword '".$item['keyword']."' </span>
+                                            <div class=\"star-rating\" data-rating=\"".$item['rate']."\">
+                                                <div class=\"rating-counter\">(".$item['reviewscounter']." reviews)</div>
                                             </div>
                                         </div>
 
-                                        <span class="like-icon"></span>
+                                        <span class=\"like-icon\"></span>
                                     </div>
                                 </a>
                             </div>
                         </div>
-                        <!-- Listing Item / End -->
-
-<!--                        <!-- Listing Item -->
-<!--                        <div class="col-lg-12 col-md-12">-->
-<!--                            <div class="listing-item-container list-layout" data-marker-id="3">-->
-<!--                                <a href="posting_view.php?pid=1" class="listing-item">-->
-<!---
-<!--                                    <!-- Image -->
-<!--                                    <div class="listing-item-image">-->
-<!--                                        <img src="./profile_img/21.png" alt="">-->
-<!--                                    </div>-->
-<!---->
-<!--                                    <!-- Content -->
-<!--                                    <div class="listing-item-content">-->
-<!---->
-<!--                                        <div class="listing-item-inner">-->
-<!--                                            <h3>서경 배</h3>-->
-<!--                                            <span></span>-->
-<!--                                            <div class="star-rating" data-rating="0">-->
-<!--                                                <div class="rating-counter">(0 reviews)</div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!---->
-<!--                                        <span class="like-icon"></span>--
-<!---->
-<!--                                    </div>-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <!-- Listing Item / End -->
-
-
+                            ";
+                        }
+                        ?>
                     </div>
                     <!-- Listings Container / End -->
 

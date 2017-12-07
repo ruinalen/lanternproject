@@ -47,23 +47,23 @@ session_start();
                     <div class="col-md-12">
                         <h2>Find Your Lantern</h2>
                         <h4>Light your own way</h4>
-
+                        <form action="search_result.php"  method="get">
                         <div class="main-search-input">
-                            <form action="search_result.php"  method="get">
+
                             <div class="main-search-input-item">
                                 <input type="text" name="keyword" placeholder="What are you looking for?" value=""/>
                             </div>
                             <div class="main-search-input-item location">
 
-                                    <input id="date" type="date" value="<?php echo date("Y-m-d");?>" min="<?php echo date("Y-m-d");?>"
+                                    <input name="date" id="date" type="date" value="<?php echo date("Y-m-d");?>" min="<?php echo date("Y-m-d");?>"
                                            max="<?php echo date("Y-m-d",strtotime("+12 week"));?>" style="width: 80%"/>
                                     <a href="#"><i class="fa fa-calendar"></i></a>
 
                                 <!-- 달력 아이콘 누르면 달력 나오게 안되나요-->
                             </div>
                             <button class="button" type="submit">Search</button>
-                            </form>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>

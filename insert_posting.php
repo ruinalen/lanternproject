@@ -60,6 +60,18 @@ if(isset( $_SESSION['user_sid'])) {
 }
 
 $keywords = $_POST['keywords_array'];
+$keywords2 = $_POST['super_array'];
+
+$superkeywords = "";
+
+for($i=0; $i<sizeof($keywords); $i++){
+    if($keywords2[$i]==1) {
+        // array_push($superkeywords,$keywords[$i]);
+        $superkeywords = $superkeywords.$keywords[$i].",";
+
+    }
+}
+
 
 
 $sql1 = "UPDATE `lantern`.`member` SET lantern_offset=1, intro = '$intro', lang1 = '$lang1', lang_f1 = $lang_f1, lang2 = '$lang2', lang_f2 = $lang_f2, lang3 = '$lang3', lang_f3 = '$lang_f3' WHERE `sid` = $sid";
@@ -74,16 +86,28 @@ if ($conn->query($sql1) === TRUE) {
     $pid = $row['pid'];
 
 
-    foreach ($keywords as $val){
-        $sql4 = "INSERT INTO `lantern`.`pkrelation` (`kid`,`pid`) VALUES ((SELECT `kid` FROM `keyword` WHERE `keyword` ='$val'),$pid)";
+    for ($i=0; $i<sizeof($keywords);$i++){
+        $val = $keywords[$i];
+        $val2 = $keywords2[$i];
+        $sql4 = "INSERT INTO `lantern`.`pkrelation` (`kid`,`pid`,`super_offset`) VALUES ((SELECT `kid` FROM `keyword` WHERE `keyword` ='$val'),$pid,$val2)";
         $data = mysqli_query($conn, $sql4);
-        echo "$sql4";
+//        echo "$sql4";
     }
 
+    $_SESSION['pid']=$pid;
+    $_SESSION['superkeywords']=$superkeywords;
 
-    $_SESSION['pid'] = $pid;
-    $_SESSION['keywords'] = array();
-    $_SESSION['keywords'] =  $keywords;
+//    $url = "http://223.195.109.38/lanternproject/add_posting_super.php";
+//    $post_data["pid"] = $pid;
+//    $curlsession = curl_init();
+//    curl_setopt ($curlsession, CURLOPT_URL, $url);
+//    curl_setopt ($curlsession, CURLOPT_POST, 1);
+//    curl_setopt ($curlsession, CURLOPT_POSTFIELDS, $post_data);
+//    $resultcurl = curl_exec ($curlsession);
+//    curl_close($curlsession);
+
+
+
 
     echo "
         <script type='text/javascript'>
@@ -93,10 +117,10 @@ if ($conn->query($sql1) === TRUE) {
 } else {
     echo "Error updating record: " . $conn->error;
     echo "
-//        <script type='text/javascript'>
-//            alert('다시 시도 하세요');
-//            location.href='http://223.195.109.38/lanternproject/index.php';
-//        </script>
+        <script type='text/javascript'>
+            alert('다시 시도 하세요');
+            location.href='http://223.195.109.38/lanternproject/index.php';
+        </script>
         ";
 
 }

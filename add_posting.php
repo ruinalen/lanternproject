@@ -512,6 +512,8 @@ $user = mysqli_fetch_assoc($result);
                                             <div class="checkboxes in-row margin-bottom-20" style="margin-top: 20px;">
                                                 <input id="check-a" type="checkbox" name="placecheck" class="geocheck">
                                                 <label for="check-a" style="display: block !important; margin-top: 0px!important;">location Keyword?</label>
+                                                <input id="check-b" type="checkbox" name="placecheck" class="supercheck">
+                                                <label for="check-b" style="display: block !important; margin-top: 0px!important;">Super Keyword?</label>
                                             </div>
 
                                             <div id="general-input">
@@ -738,10 +740,17 @@ $user = mysqli_fetch_assoc($result);
             var innerhtml = "";
             for(var i=0; i<keyword_array.length;i++){
                 innerhtml+="<button class='button' disabled>";
-                innerhtml+=keyword_array[i];
+                innerhtml+=keyword_array[i]['keyword'];
                 innerhtml+="</button>";
             }
             $("#keywords_boxed").html(innerhtml);
+        }
+
+        function is_super(){
+            if($(".supercheck").is(":checked")){
+                return 1;
+            }
+            return 0;
         }
 
         $("#general_keyword_submit").click(function (e) {
@@ -758,7 +767,10 @@ $user = mysqli_fetch_assoc($result);
                 dataType: "json",
                 success : function(data, status, xhr) {
                     console.log(data);
-                    keyword_array.push(data["keyword"]);
+                    keyword_array.push({
+                        keyword: data["keyword"],
+                        super_offset: is_super()
+                    });
                     view_keywrods();
                     $("#keyword_g").val("");
 
@@ -785,7 +797,10 @@ $user = mysqli_fetch_assoc($result);
                 dataType: "json",
                 success : function(data, status, xhr) {
                     console.log(data);
-                    keyword_array.push(data["keyword"]);
+                    keyword_array.push({
+                        keyword: data["keyword"],
+                        super_offset: is_super()
+                    });
                     view_keywrods();
                     $("#pac-input").val("");
                     google.maps.event.trigger(map, 'resize');
@@ -796,12 +811,14 @@ $user = mysqli_fetch_assoc($result);
         $("#nextpage").click(function () {
             var inner= "";
             for(var i=0; i<keyword_array.length;i++){
-                inner += "<input type='hidden' name='keywords_array[]' value='"+keyword_array[i]+"'>";
+                inner += "<input type='hidden' name='keywords_array[]' value='"+keyword_array[i]['keyword']+"'>";
+                inner += "<input type='hidden' name='super_array[]' value='"+keyword_array[i]['super_offset']+"'>";
+                console.log(keyword_array[i]);
             }
             $("#hiddens").html(inner);
             $("#add-posting-form").submit();
 
-        })
+        });
     });
 </script>
 
