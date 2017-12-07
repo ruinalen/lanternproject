@@ -11,6 +11,21 @@ $user = mysqli_fetch_assoc($result);
 <!DOCTYPE html>
 <head>
     <style>
+
+        body {
+            margin: 40px 10px;
+            padding: 0;
+            font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+            font-size: 14px;
+        }
+
+        #calendar {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .fc-content{
+            height: 60px;
+        }
         /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
         #map {
@@ -637,13 +652,30 @@ $user = mysqli_fetch_assoc($result);
                             </div>
                             <!-- Section / End -->
 
-                        </div>
+                            <!-- Section -->
+                            <div class="add-listing-section margin-top-45">
+
+                            <!-- Headline -->
+                            <div class="add-listing-headline">
+                                <h3><i class="fa fa-calendar"></i> Availabel Dates</h3>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id='calendar'></div>
+                                </div>
+
+                            </div>
+
+                            </div>
 
 <!--                        <a href="#" class="button preview" onclick="document.getElementById('add-posting-form').submit()" >Next <i class="fa fa-arrow-circle-right"></i></a>-->
                         <a href="#" class="button preview" id="nextpage">Next <i class="fa fa-arrow-circle-right"></i></a>
 
                 </div>
                 </form>
+            </div>
             </div>
             <!-- Section / End -->
             <!-- Copyrights -->
@@ -682,19 +714,24 @@ $user = mysqli_fetch_assoc($result);
 <!-- DropZone | Documentation: http://dropzonejs.com -->
 <script type="text/javascript" src="scripts/dropzone.js"></script>
 
-
+<link href='fullcalendar-3.7.0/fullcalendar.min.css' rel='stylesheet' />
+<link href='fullcalendar-3.7.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+<script src='fullcalendar-3.7.0/lib/moment.min.js'></script>
+<script src='fullcalendar-3.7.0/lib/jquery.min.js'></script>
+<script src='fullcalendar-3.7.0/fullcalendar.min.js'></script>
 
 <!-- Opening hours added via JS (this is only for demo purpose) -->
 <script>
     $(document).ready(function() {
         var keyword_array = [];
+
         $("#lang1Select").val("<?php echo $user['lang1']?>").attr("selected", "selected");
         $("#langf1Select").val("<?php echo $user['lang_f1']?>").attr("selected", "selected");
         $("#lang2Select").val("<?php echo $user['lang2']?>").attr("selected", "selected");
         $("#langf2Select").val("<?php echo $user['lang_f2']?>").attr("selected", "selected");
         $("#lang3Select").val("<?php echo $user['lang3']?>").attr("selected", "selected");
         $("#langf3Select").val("<?php echo $user['lang_f3']?>").attr("selected", "selected");
-        $(".aachosen-select-no-single").chosen();
+//        $(".aachosen-select-no-single").chosen();
         $(".opening-day.js-demo-hours .chosen-select").each(function () {
             $(this).append('' +
                 '<option></option>' +
@@ -808,17 +845,63 @@ $user = mysqli_fetch_assoc($result);
             });
         });
 
+        var available_dates="";
+
         $("#nextpage").click(function () {
+            var arr = $('#calendar').fullCalendar( 'clientEvents' );
+            for(var i=0; i<arr.length; i++){
+                var days = (arr[i]['end']-arr[i]['start'])/(1000*60*60*24);
+                for(var j=0; j<days; j++){
+                    var d = new Date(arr[i]['start']+(j*1000*60*60*24));
+                    available_dates+=(moment(d).format('YYYY-MM-DD')+",");
+                }
+            }
+            alert(available_dates);
             var inner= "";
             for(var i=0; i<keyword_array.length;i++){
                 inner += "<input type='hidden' name='keywords_array[]' value='"+keyword_array[i]['keyword']+"'>";
                 inner += "<input type='hidden' name='super_array[]' value='"+keyword_array[i]['super_offset']+"'>";
                 console.log(keyword_array[i]);
             }
+            inner += "<input type='hidden' name='available_dates' value='"+available_dates+"'>";
+
             $("#hiddens").html(inner);
             $("#add-posting-form").submit();
 
         });
+
+        var available_dates=[];
+        var ii=0;
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: ''
+            },
+            selectable: true,
+            selectHelper: true,
+            select: function(start, end) {
+                var eventData;
+//                if (title) {
+                    eventData = {
+                        start: start.format(),
+                        end: end.format(),
+                        color: 'blue',
+                        index: ii
+                    };
+                    $('#calendar').fullCalendar('renderEvent', eventData, false); // stick? = true
+//                }
+                $('#calendar').fullCalendar('unselect');
+            },
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: [],
+            eventClick: function(event, element) {
+                $('#calendar').fullCalendar( 'removeEvents',event._id);
+            }
+        });
+
     });
 </script>
 

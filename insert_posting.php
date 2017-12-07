@@ -72,6 +72,8 @@ for($i=0; $i<sizeof($keywords); $i++){
     }
 }
 
+$available_dates = $_POST['available_dates'];
+
 
 
 $sql1 = "UPDATE `lantern`.`member` SET lantern_offset=1, intro = '$intro', lang1 = '$lang1', lang_f1 = $lang_f1, lang2 = '$lang2', lang_f2 = $lang_f2, lang3 = '$lang3', lang_f3 = '$lang_f3' WHERE `sid` = $sid";
@@ -85,7 +87,6 @@ if ($conn->query($sql1) === TRUE) {
     $row = mysqli_fetch_assoc($result);
     $pid = $row['pid'];
 
-
     for ($i=0; $i<sizeof($keywords);$i++){
         $val = $keywords[$i];
         $val2 = $keywords2[$i];
@@ -97,14 +98,9 @@ if ($conn->query($sql1) === TRUE) {
     $_SESSION['pid']=$pid;
     $_SESSION['superkeywords']=$superkeywords;
 
-//    $url = "http://223.195.109.38/lanternproject/add_posting_super.php";
-//    $post_data["pid"] = $pid;
-//    $curlsession = curl_init();
-//    curl_setopt ($curlsession, CURLOPT_URL, $url);
-//    curl_setopt ($curlsession, CURLOPT_POST, 1);
-//    curl_setopt ($curlsession, CURLOPT_POSTFIELDS, $post_data);
-//    $resultcurl = curl_exec ($curlsession);
-//    curl_close($curlsession);
+    $sql5 = "INSERT INTO `lantern`.`pcalendar` (`pid`, `available_dates`, `reserved_dates`)
+              VALUES ($pid,'$available_dates', NULL)";
+    $data = mysqli_query($conn, $sql5);
 
 
 
