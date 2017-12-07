@@ -8,8 +8,6 @@ if(isset($_POST['super_info'])) {
 }else{
     $super_info = null;
 }
-
-
 $pid = $_SESSION['pid'];
 
 $query = "UPDATE pkrelation SET super_info = '$super_info' WHERE  `pid` = $pid AND `kid` = (SELECT `kid` FROM `keyword` WHERE `keyword` ='$keyword')";
