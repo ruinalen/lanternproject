@@ -60,7 +60,9 @@ foreach ($reserved_dates as $val){
     array_push($eventdates,array(start=> $val, overlap=> false, rendering=> 'background', color=> 'black'));
 }
 
-/////////////////////////////////////////////
+///////////////////////////////////////////////////////
+
+
 if($_SESSION['user_sid'] == NULL){
     echo("<script> document.location.href='http://223.195.109.38/lanternproject/index.php';</script>");
 }
@@ -82,10 +84,13 @@ while ($reviewtemp = mysqli_fetch_assoc($re_result2)) {
     $total = $total + $reviewtemp['rate'];
 
 }
+if($reviewscounter==0){
+    $averagescore=0;
+}else {
+    $averagescore = $total / $reviewscounter;
+    $averagescore = round($averagescore);
+}
 
-$averagescore = $total / $reviewscounter;
-$averagescore = round($averagescore);
-//////////////////////////////////////////////////////////////////////
 
 ?>
 
@@ -459,204 +464,111 @@ $averagescore = round($averagescore);
                 </div>
 			</div>
 
-<!--			<!-- Reviews -->
-<!--			<div id="listing-reviews" class="listing-section">-->
-<!--				<h3 class="listing-desc-headline margin-top-75 margin-bottom-20">Reviews <span>(12)</span></h3>-->
-<!---->
-<!--				<div class="clearfix"></div>-->
-<!---->
-<!--				<!-- Reviews -->
-<!--				<section class="comments listing-reviews">-->
-<!---->
-<!--					<ul>-->
-<!--						<li>-->
-<!--							<div class="avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /></div>-->
-<!--							<div class="comment-content"><div class="arrow-comment"></div>-->
-<!--								<div class="comment-by">Kathy Brown<span class="date">June 2017</span>-->
-<!--									<div class="star-rating" data-rating="5"></div>-->
-<!--								</div>-->
-<!--								<p>Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor imperdiet vitae. Curabitur lacinia neque non metus</p>-->
-<!---->
-<!--								<div class="review-images mfp-gallery-container">-->
-<!--									<a href="images/review-image-01.jpg" class="mfp-gallery"><img src="images/review-image-01.jpg" alt=""></a>-->
-<!--								</div>-->
-<!--								<a href="#" class="rate-review"><i class="sl sl-icon-like"></i> Helpful Review <span>12</span></a>-->
-<!--							</div>-->
-<!--						</li>-->
-<!---->
-<!--						<li>-->
-<!--							<div class="avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /> </div>-->
-<!--							<div class="comment-content"><div class="arrow-comment"></div>-->
-<!--								<div class="comment-by">John Doe<span class="date">May 2017</span>-->
-<!--									<div class="star-rating" data-rating="4"></div>-->
-<!--								</div>-->
-<!--								<p>Commodo est luctus eget. Proin in nunc laoreet justo volutpat blandit enim. Sem felis, ullamcorper vel aliquam non, varius eget justo. Duis quis nunc tellus sollicitudin mauris.</p>-->
-<!--								<a href="#" class="rate-review"><i class="sl sl-icon-like"></i> Helpful Review <span>2</span></a>-->
-<!--							</div>-->
-<!--						</li>-->
-<!---->
-<!--						<li>-->
-<!--							<div class="avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /></div>-->
-<!--							<div class="comment-content"><div class="arrow-comment"></div>-->
-<!--								<div class="comment-by">Kathy Brown<span class="date">June 2017</span>-->
-<!--									<div class="star-rating" data-rating="5"></div>-->
-<!--								</div>-->
-<!--								<p>Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor imperdiet vitae. Curabitur lacinia neque non metus</p>-->
-<!---->
-<!--								<div class="review-images mfp-gallery-container">-->
-<!--									<a href="images/review-image-02.jpg" class="mfp-gallery"><img src="images/review-image-02.jpg" alt=""></a>-->
-<!--									<a href="images/review-image-03.jpg" class="mfp-gallery"><img src="images/review-image-03.jpg" alt=""></a>-->
-<!--								</div>-->
-<!--								<a href="#" class="rate-review"><i class="sl sl-icon-like"></i> Helpful Review <span>4</span></a>-->
-<!--							</div>-->
-<!--						</li>-->
-<!---->
-<!--						<li>-->
-<!--							<div class="avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /> </div>-->
-<!--							<div class="comment-content"><div class="arrow-comment"></div>-->
-<!--								<div class="comment-by">John Doe<span class="date">May 2017</span>-->
-<!--									<div class="star-rating" data-rating="5"></div>-->
-<!--								</div>-->
-<!--								<p>Commodo est luctus eget. Proin in nunc laoreet justo volutpat blandit enim. Sem felis, ullamcorper vel aliquam non, varius eget justo. Duis quis nunc tellus sollicitudin mauris.</p>-->
-<!--								<a href="#" class="rate-review"><i class="sl sl-icon-like"></i> Helpful Review</a>-->
-<!--							</div>-->
-<!---->
-<!--						</li>-->
-<!--					 </ul>-->
-<!--				</section>-->
-<!---->
-<!--				<!-- Pagination -->
-<!--				<div class="clearfix"></div>-->
-<!--				<div class="row">-->
-<!--					<div class="col-md-12">-->
-<!--						<!-- Pagination -->
-<!--						<div class="pagination-container margin-top-30">-->
-<!--							<nav class="pagination">-->
-<!--								<ul>-->
-<!--									<li><a href="#" class="current-page">1</a></li>-->
-<!--									<li><a href="#">2</a></li>-->
-<!--									<li><a href="#"><i class="sl sl-icon-arrow-right"></i></a></li>-->
-<!--								</ul>-->
-<!--							</nav>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				<div class="clearfix"></div>-->
-<!--				<!-- Pagination / End -->
-<!--			</div>-->
+            <!--  Review  -->
 
-            			<!-- Reviews -->
+            <div id="listing-reviews" class="listing-section">
+                <h3 class="listing-desc-headline margin-top-75 margin-bottom-20">Reviews <span>(<?php print($reviewscounter); ?>)</span> <span></span></h3>
 
+                <div class="clearfix"></div>
 
+                <!-- Reviews -->
+                <section class="comments listing-reviews">
 
-            			<div id="listing-reviews" class="listing-section">
-                            <h3 class="listing-desc-headline margin-top-75 margin-bottom-20">Reviews <span>(<?php print($reviewscounter); ?>)</span> <span></span></h3>
+                    <ul>
+                        <?php
+                            while ($reviews = mysqli_fetch_assoc($re_result)) {
+                                print ("
+                                            <li>
+                                                <div class=\"avatar\"><img src=\"./profile_img/".$reviews['writer_sid'].".png\" alt=\"\" /></div>
+                                                <div class=\"comment-content\"><div class=\"arrow-comment\"></div>
+                                                    <div class=\"comment-by\">".$reviews['writer_name'].
+                                                    "<span class=\"date\">".$reviews['write_date']."</span>
+                                                        <div class=\"star-rating\" data-rating=\"".$reviews['rate']."\"></div>
+                                                    </div>
+                                                    <p>".$reviews['comment']."</p>
+        
+                                                </div>
+                                            </li>
+                                        ");
+                            }
+                        ?>
+                     </ul>
+                </section>
 
-            				<div class="clearfix"></div>
+                <!-- Reviews Posting-->
+                    <div id="review-dialog" class="zoom-anim-dialog mfp-hide">
+                        <form method = "post" action="./write_review.php" id = "form1">
+                        <div class="review-dialog-header" style="margin-bottom: 0px">
+                            <h4>Review</h4>
+                        </div>
 
-            				<!-- Reviews -->
-            				<section class="comments listing-reviews">
+                            <!-- Rating Section-->
+                        <span class="leave-rating-title" style="margin-top: 5px">Your rating for the Lantern</span>
 
-            					<ul>
-                                    <?php
-                                        while ($reviews = mysqli_fetch_assoc($re_result)) {
-                                            print ("
-                                                        <li>
-                                                            <div class=\"avatar\"><img src=\"./profile_img/".$reviews['writer_sid'].".png\" alt=\"\" /></div>
-                                                            <div class=\"comment-content\"><div class=\"arrow-comment\"></div>
-                                                                <div class=\"comment-by\">".$reviews['writer_name'].
-                                                                "<span class=\"date\">".$reviews['write_date']."</span>
-                                                                    <div class=\"star-rating\" data-rating=\"".$reviews['rate']."\"></div>
-                                                                </div>
-                                                                <p>".$reviews['comment']."</p>
-                    
-                                                            </div>
-                                                        </li>
-                                                    ");
-                                        }
-                                    ?>
-            					 </ul>
-            				</section>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- Leave Rating -->
+                                <div class="clearfix"></div>
+                                <div class="leave-rating margin-bottom-30">
+                                    <input type="radio" name="rating" id="rating-1" value="5"/>
+                                    <label for="rating-1" class="fa fa-star"></label>
+                                    <input type="radio" name="rating" id="rating-2" value="4"/>
+                                    <label for="rating-2" class="fa fa-star"></label>
+                                    <input type="radio" name="rating" id="rating-3" value="3"/>
+                                    <label for="rating-3" class="fa fa-star"></label>
+                                    <input type="radio" name="rating" id="rating-4" value="2"/>
+                                    <label for="rating-4" class="fa fa-star"></label>
+                                    <input type="radio" name="rating" id="rating-5" value="1"/>
+                                    <label for="rating-5" class="fa fa-star"></label>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                            <!-- Demographcis-->
+                        <div id="add-comment" class="add-comment">
+                            <fieldset>
 
-                            <!-- Reviews Posting-->
-                                <div id="review-dialog" class="zoom-anim-dialog mfp-hide">
-                                    <form method = "post" action="./write_review.php" id = "form1">
-                                    <div class="review-dialog-header" style="margin-bottom: 0px">
-                                        <h4>Review</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Name:</label>
+                                        <input name = "writer_name" value="<?php echo $u_user['name_first']." ".$u_user['name_last']?>" type="text" readonly>
                                     </div>
 
-                                        <!-- Rating Section-->
-                                    <span class="leave-rating-title" style="margin-top: 5px">Your rating for the Lantern</span>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <!-- Leave Rating -->
-                                            <div class="clearfix"></div>
-                                            <div class="leave-rating margin-bottom-30">
-                                                <input type="radio" name="rating" id="rating-1" value="5"/>
-                                                <label for="rating-1" class="fa fa-star"></label>
-                                                <input type="radio" name="rating" id="rating-2" value="4"/>
-                                                <label for="rating-2" class="fa fa-star"></label>
-                                                <input type="radio" name="rating" id="rating-3" value="3"/>
-                                                <label for="rating-3" class="fa fa-star"></label>
-                                                <input type="radio" name="rating" id="rating-4" value="2"/>
-                                                <label for="rating-4" class="fa fa-star"></label>
-                                                <input type="radio" name="rating" id="rating-5" value="1"/>
-                                                <label for="rating-5" class="fa fa-star"></label>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </div>
-                                        <!-- Demographcis-->
-                                    <div id="add-comment" class="add-comment">
-                                        <fieldset>
-
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>Name:</label>
-                                                    <input name = "writer_name" value="<?php echo $u_user['name_first']." ".$u_user['name_last']?>" type="text" readonly>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <label>Email:</label>
-                                                    <input value="<?php echo $u_user['email']?>" type="text" readonly>
-                                                </div>
-
-                                                <div class="col-md-6" style="display: none">
-                                                    <label>LanternID:</label>
-                                                    <input name = "Lantern_sid" value="<?php echo $lantern_sid?>" type="text" readonly>
-                                                </div>
-
-                                                <div class="col-md-6" style="display: none">
-                                                    <label>TravelerID:</label>
-                                                    <input name = "Traveler_sid" value="<?php echo $u_user['sid']?>" type="text" readonly>
-                                                </div>
-                                            </div>
-
-                                        </fieldset>
+                                    <div class="col-md-6">
+                                        <label>Email:</label>
+                                        <input value="<?php echo $u_user['email']?>" type="text" readonly>
                                     </div>
 
-                                    <div class="message-reply margin-top-0">
-                                        <!-- Add Comment-->
-                                        <textarea name = "comment" cols="40" rows="3" placeholder="Your message to the Lantern"></textarea>
+                                    <div class="col-md-6" style="display: none">
+                                        <label>LanternID:</label>
+                                        <input name = "Lantern_sid" value="<?php echo $lantern_sid?>" type="text" readonly>
                                     </div>
 
-
-                            </form>
-
-                                    <button type = "submit" form = "form1" class="button" value = "Post Review">Post Review</button>
-
+                                    <div class="col-md-6" style="display: none">
+                                        <label>TravelerID:</label>
+                                        <input name = "Traveler_sid" value="<?php echo $u_user['sid']?>" type="text" readonly>
+                                    </div>
                                 </div>
 
-                            <a href="#review-dialog" class="send-message-to-owner button popup-with-zoom-anim"> Write Review</a>
+                            </fieldset>
+                        </div>
+
+                        <div class="message-reply margin-top-0">
+                            <!-- Add Comment-->
+                            <textarea name = "comment" cols="40" rows="3" placeholder="Your message to the Lantern"></textarea>
+                        </div>
 
 
+                </form>
+
+                        <button type = "submit" form = "form1" class="button" value = "Post Review">Post Review</button>
+
+                    </div>
+
+                <a href="#review-dialog" class="send-message-to-owner button popup-with-zoom-anim"> Write Review</a>
 
 
-
-
-            			</div>
-
+            </div>
 
 		</div>
 
@@ -687,11 +599,44 @@ $averagescore = round($averagescore);
                         <div class="request-form-header" style="margin-bottom: 0px">
                             <h4>Request Form</h4>
                         </div>
-                        <h5 style="margin-bottom: 10px;">Super Keywords</h5>
+                        <h4 style="margin-bottom: 20px;margin-top: 20px;">Request Time</h4>
+                        <div id="request-days-time">
+                            <div class="row with-forms  margin-top-0">
+                                <div class="col-lg-4 col-md-12">
+                                                           <input name="rday-" type="text" readonly value="">
+                                                        </div>
+                                                    <div class="col-lg-4 col-md-12">
+                                                        <input name="rtime-start-" type="text" id="booking-time" value="9:00 am">
+                                                    </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <input name="rtime-end-" type="text" id="booking-time2" value="9:00 am">
+                                            </div>
+                                    </div>
+                            <div class="row with-forms  margin-top-0">
+                                <div class="col-lg-4 col-md-12">
+                                    <input name="rday-" type="text" readonly value="">
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <input name="rtime-start-" type="text" id="booking-time" value="9:00 am">
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <input name="rtime-end-" type="text" id="booking-time2" value="9:00 am">
+                                </div>
+                            </div>
 
-                        <div id="request-days-time"></div>
+                        </div>
+                        <h4 style="margin-bottom: 20px;margin-top: 20px;">Select Interest Keywords</h4>
+                        <div id="request-keywords" style="background-color: #f9f9f9">
+                            <?php
+                            foreach ($supers as $val)
+                                echo "<button class='like-button'><span class='like-icon'></span>".$val."</button>";
+                            foreach ($others as $val)
+                                echo "<button class='like-button'><span class='like-icon'></span>".$val."</button>";
+                            ?>
+                        </div>
+
                     </form>
-                    <button type = "submit" form = "form2" class="button" value = "Post Request">Request</button>
+                    <button type = "" form = "form2" class="button" value = "Post Request">Request</button>
 
                 </div>
 
@@ -888,59 +833,27 @@ $averagescore = round($averagescore);
 
            var day = new Date();
            for(var i=0; i<=diffDays; i++) {
-
                 day.setDate(start.getDate() + i);
-               alert(start.getDate());
                 inner+="  <div class=\"row with-forms  margin-top-0\">\n" +
                     "                            <div class=\"col-lg-4 col-md-12\">\n" +
-                    "                                <input class=\"rday-"+i+"\" type=\"text\" readonly value='"+day+"'>\n" +
+                    "                                <input name=\"rday-"+i+"\" type=\"text\" readonly value='"+moment(day).format('YYYY-MM-DD')+"'>\n" +
                     "                            </div>\n" +
                     "                            <div class=\"col-lg-4 col-md-12\">\n" +
-                    "                                <input class=\"rtime-start-"+i+"\" type=\"text\" id=\"booking-time\" value=\"9:00 am\">\n" +
+                    "                                <input name=\"rtime-start-"+i+"\" type=\"text\" id=\"booking-time\" value=\"9:00 am\" readonly class='td-input'>\n" +
                     "                            </div>\n" +
                     "                            <div class=\"col-lg-4 col-md-12\">\n" +
-                    "                                <input class=\"rtime-end-"+i+"\" type=\"text\" id=\"booking-time2\" value=\"9:00 am\">\n" +
+                    "                                <input name=\"rtime-end-"+i+"\" type=\"text\" id=\"booking-time2\" value=\"9:00 am\"  readonly class='td-input'>\n" +
                     "                            </div>\n" +
                     "                        </div>";
             }
-
-            $("#request-days-time").html(inner);
+            inner+="<input type='hidden' name='request-dates-count' value="+(diffDays+1)+">";
+           // $("#request-days-time").html(inner);
 
         });
-
-
 
     });
 
 </script>
-
-<!--<div class="setDiv">-->
-<!--    <div class="mask"></div>-->
-<!--    <div class="window">-->
-<!--        <input type="button" href="#" class="close" value="Raw_Octopus"/>-->
-<!--        <h4>Try Raw Octopus!!</h4>-->
-<!--        <img style="width: 500px" src="images/raw_octopus.jpg"><br>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--<div class="setDiv">-->
-<!--    <div class="mask"></div>-->
-<!--    <div class="window">-->
-<!--        <input type="button" href="#" class="close" value="Night_culture"/>-->
-<!--        <h4>Want to go crazy with music and alcohol?-->
-<!--            Choose me and we will enjoy the night safely</h4>-->
-<!--        <img style="width: 500px" src="images/bbq.jpg"><br>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--<div class="setDiv">-->
-<!--    <div class="mask"></div>-->
-<!--    <div class="window">-->
-<!--        <input type="button" href="#" class="close" value="Itaewon"/>-->
-<!--        <h4>If you want to experience the night life vibe in Itaewon,I am the one to talk to. I also know many restaurants in here.</h4>-->
-<!--        <img style="width: 500px" src="images/itaewon.jpg"><br>-->
-<!--    </div>-->
-<!--</div>-->
 
 <div class="setDiv">
     <div class="mask"></div>
