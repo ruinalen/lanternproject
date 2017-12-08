@@ -108,6 +108,7 @@ $superkeywords_array = explode(',', $superkeywords);
                             {
                                 break;
                             }
+                            $splitjoin = str_replace(" ", "", $super);
                             print("
                             
                             <!-- Section -->
@@ -126,7 +127,7 @@ $superkeywords_array = explode(',', $superkeywords);
                             <!-- Description -->
                             <div class=\"form\">
                                 <h5>Description</h5>
-                                <textarea class=\"WYSIWYG\" name='summary' cols=\"35\" rows=\"3\" id='".$super."summary' spellcheck=\"true\"></textarea>
+                                <textarea class=\"WYSIWYG\" name='summary' cols=\"35\" rows=\"3\" id='summary".$splitjoin."' spellcheck=\"true\"></textarea>
                             </div>
                             
                             <a href=\"#\" class=\"button preview\" id='".$super."'>Upload <i class=\"fa fa-arrow-circle-right\"></i></a>
@@ -222,10 +223,11 @@ $superkeywords_array = explode(',', $superkeywords);
         $(".preview").click(function (e) {
             e.preventDefault();
             var superkeyword = $(this).attr('id');
+            var split = superkeyword.split(' ').join('');
             var datas =
                 {
                 keyword : superkeyword,
-                super_info: $("#" + superkeyword +"summary").val()
+                super_info: $("#summary" +split).val()
                 };
             $.ajax({
                 url: './insert_super.php',
@@ -234,10 +236,8 @@ $superkeywords_array = explode(',', $superkeywords);
                 dataType: "json",
                 success : function(data, status, xhr) {
                     alert(data);
-                },
-                error:function(request,status,error){
-                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                 }
+
             });
         });
     })

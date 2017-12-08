@@ -35,10 +35,10 @@ while($row = mysqli_fetch_assoc($result3)){
 
     if($row[super_offset]==1){
         array_push($supers, $keyword['keyword']);
-        array_push($supersinfo, $row[super_info]);
-        array_push($superphoto1, $row[photo1]);
-        array_push($superphoto2, $row[photo2]);
-        array_push($superphoto3, $row[photo3]);
+        array_push($supersinfo, $row['super_info']);
+        array_push($superphoto1, $row['photo1']);
+        array_push($superphoto2, $row['photo2']);
+        array_push($superphoto3, $row['photo3']);
     }
     else{
         array_push($others, $keyword['keyword']);
@@ -343,8 +343,9 @@ $averagescore = round($averagescore);
                             <?php
 
                             for ($x = 0; $x < sizeof($supers); $x++) {
+                                $supertrim= str_replace(' ','',$supers[$x]);
                                 print("
-                                <div id=\"super-dialog\" class=\"zoom-anim-dialog mfp-hide ".$supers[$x]."\">
+                                <div id=\"super-dialog\" class=\"zoom-anim-dialog mfp-hide ".$supertrim."\">
 
                                     <div class=\"super-dialog-header\" style=\"margin-bottom: 0px\">
                                         <h4>".$supers[$x]."</h4>
@@ -389,7 +390,7 @@ $averagescore = round($averagescore);
 
                                 </div>
 
-                            <a href=\".".$supers[$x]."\" class=\"keyword showing button popup-with-zoom-anim\"></i>".$supers[$x]."</a>
+                            <a href=\".".$supertrim."\" class=\"keyword showing button popup-with-zoom-anim\"></i>".$supers[$x]."</a>
                                 
                                 
                                 
