@@ -60,21 +60,14 @@ foreach ($reserved_dates as $val){
     array_push($eventdates,array(start=> $val, overlap=> false, rendering=> 'background', color=> 'black'));
 }
 
-
-
-?>
-
-<?php
-session_start();
+/////////////////////////////////////////////
 if($_SESSION['user_sid'] == NULL){
     echo("<script> document.location.href='http://223.195.109.38/lanternproject/index.php';</script>");
 }
 $u_query1 = "SELECT * FROM `member` WHERE `sid` ='$_SESSION[user_sid]'";
 $u_result = mysqli_query($conn, $u_query1);
 $u_user = mysqli_fetch_assoc($u_result);
-?>
 
-<?php
 $reviews_list = array();
 
 $re_query1 = "SELECT * FROM `review` WHERE `receiver_sid` ='$lantern_sid'";
@@ -92,6 +85,8 @@ while ($reviewtemp = mysqli_fetch_assoc($re_result2)) {
 
 $averagescore = $total / $reviewscounter;
 $averagescore = round($averagescore);
+//////////////////////////////////////////////////////////////////////
+
 ?>
 
 <!DOCTYPE html>
@@ -339,7 +334,7 @@ $averagescore = round($averagescore);
                     <div class="pricing-list-container">
 
                         <div class="boxed-widget" >
-                            <h5>Super Keywords</h5>
+                            <h5 style="margin-bottom: 10px;">Super Keywords</h5>
                             <?php
 
                             for ($x = 0; $x < sizeof($supers); $x++) {
@@ -692,37 +687,9 @@ $averagescore = round($averagescore);
                         <div class="request-form-header" style="margin-bottom: 0px">
                             <h4>Request Form</h4>
                         </div>
-                        <span>
+                        <h5 style="margin-bottom: 10px;">Super Keywords</h5>
 
-                            <div id="start-date"></div>
-                            <div id="end-date"></div>
-                            <div id="diffDays"></div>
-
-                        </span>
-
-                        <div class="row with-forms  margin-top-0">
-
-                            <!-- Date Picker - docs: http://www.vasterad.com/docs/listeo/#!/date_picker -->
-                            <div class="col-lg-6 col-md-12">
-                                <input type="text" id="booking-date" data-lang="en" data-large-mode="true" data-min-year="2017" data-max-year="2020">
-                            </div>
-
-                            <!-- Time Picker - docs: http://www.vasterad.com/docs/listeo/#!/time_picker -->
-                            <div class="col-lg-6 col-md-12">
-                                <input type="text" id="booking-time" value="9:00 am">
-                            </div>
-
-                            <!-- Time Picker - docs: http://www.vasterad.com/docs/listeo/#!/time_picker -->
-                            <div class="col-lg-6 col-md-12">
-                                <input type="text" id="booking-time2" value="9:00 am">
-                            </div>
-
-                        </div>
-
-
-
-
-
+                        <div id="request-days-time"></div>
                     </form>
                     <button type = "submit" form = "form2" class="button" value = "Post Request">Request</button>
 
@@ -917,13 +884,27 @@ $averagescore = round($averagescore);
             var timeDiff = Math.abs(start - end);
             var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-            $("#start-date").html(start);
-            $("#end-date").html(end);
-            $("#diffDays").html(diffDays);
+            var inner="";
 
+           var day = new Date();
+           for(var i=0; i<=diffDays; i++) {
 
+                day.setDate(start.getDate() + i);
+               alert(start.getDate());
+                inner+="  <div class=\"row with-forms  margin-top-0\">\n" +
+                    "                            <div class=\"col-lg-4 col-md-12\">\n" +
+                    "                                <input class=\"rday-"+i+"\" type=\"text\" readonly value='"+day+"'>\n" +
+                    "                            </div>\n" +
+                    "                            <div class=\"col-lg-4 col-md-12\">\n" +
+                    "                                <input class=\"rtime-start-"+i+"\" type=\"text\" id=\"booking-time\" value=\"9:00 am\">\n" +
+                    "                            </div>\n" +
+                    "                            <div class=\"col-lg-4 col-md-12\">\n" +
+                    "                                <input class=\"rtime-end-"+i+"\" type=\"text\" id=\"booking-time2\" value=\"9:00 am\">\n" +
+                    "                            </div>\n" +
+                    "                        </div>";
+            }
 
-
+            $("#request-days-time").html(inner);
 
         });
 

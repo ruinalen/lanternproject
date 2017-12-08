@@ -1,7 +1,8 @@
 
 /* Inputs for droppper */
 input#booking-date,
-input#booking-time {
+input#booking-time,
+input#booking-time2{
     border: none;
     cursor: pointer;
     border-radius: 5px;
@@ -20,7 +21,8 @@ input#booking-time {
 }
 
 input#booking-date:hover,
-input#booking-time:hover {
+input#booking-time:hover,
+input#booking-time2:hover {
     color: #444;
 }
 
