@@ -573,8 +573,7 @@ if($reviewscounter==0){
 		</div>
 
 
-		<!-- Sidebar
-		================================================== -->
+		<!-- Sidebar ================================================= -->
 		<div class="col-lg-4 col-md-4 margin-top-75 sticky">
 
 			<!-- Book Now -->
@@ -600,44 +599,23 @@ if($reviewscounter==0){
                             <h4>Request Form</h4>
                         </div>
                         <h4 style="margin-bottom: 20px;margin-top: 20px;">Request Time</h4>
-                        <div id="request-days-time">
-                            <div class="row with-forms  margin-top-0">
-                                <div class="col-lg-4 col-md-12">
-                                                           <input name="rday-" type="text" readonly value="">
-                                                        </div>
-                                                    <div class="col-lg-4 col-md-12">
-                                                        <input name="rtime-start-" type="text" id="booking-time" value="9:00 am">
-                                                    </div>
-                                            <div class="col-lg-4 col-md-12">
-                                                <input name="rtime-end-" type="text" id="booking-time2" value="9:00 am">
-                                            </div>
-                                    </div>
-                            <div class="row with-forms  margin-top-0">
-                                <div class="col-lg-4 col-md-12">
-                                    <input name="rday-" type="text" readonly value="">
-                                </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <input name="rtime-start-" type="text" id="booking-time" value="9:00 am">
-                                </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <input name="rtime-end-" type="text" id="booking-time2" value="9:00 am">
-                                </div>
-                            </div>
-
-                        </div>
-                        <h4 style="margin-bottom: 20px;margin-top: 20px;">Select Interest Keywords</h4>
+                        <div id="request-days-time"></div>
+                        <h4 style="margin-bottom: 20px;margin-top: 50px;">Select Interest Keywords</h4>
                         <div id="request-keywords" style="background-color: #f9f9f9">
                             <?php
                             foreach ($supers as $val)
-                                echo "<button class='like-button'><span class='like-icon'></span>".$val."</button>";
+                                echo "<button class='like-button'><span class='like-icon' id='".$val."'></span>".$val."</button>";
                             foreach ($others as $val)
-                                echo "<button class='like-button'><span class='like-icon'></span>".$val."</button>";
+                                echo "<button class='like-button'><span class='like-icon' id='".$val."'></span>".$val."</button>";
                             ?>
+                        </div>
+                        <h4 style="margin-bottom: 20px;margin-top: 50px;">Comments to <?php echo $lantern['name_first'];?></h4>
+                        <div id="request-comments">
+                            <textarea name = "comment" cols="40" rows="3" placeholder="Your message to the Lantern"></textarea>
                         </div>
 
                     </form>
-                    <button type = "" form = "form2" class="button" value = "Post Request">Request</button>
-
+                    <button id="rebutton" form = "form2" class="button" value = "Post Request"> Send Request </button>
                 </div>
 
 				<a href = "#request-form" class="send-message-to-owner button popup-with-zoom-anim fullwidth margin-top-5" id="booknowbutton"><span>Book Now</span></a>
@@ -659,18 +637,6 @@ if($reviewscounter==0){
 					<!-- <li><a href="#" class="gplus-profile"><i class="fa fa-google-plus"></i> Google Plus</a></li> -->
 				</ul>
 
-				<!-- Reply to review popup -->
-				<div id="small-dialog" class="zoom-anim-dialog mfp-hide">
-					<div class="small-dialog-header">
-						<h3>Send Message</h3>
-					</div>
-					<div class="message-reply margin-top-0">
-						<textarea cols="40" rows="3" placeholder="Your message to Burger House"></textarea>
-						<button class="button">Send Message</button>
-					</div>
-				</div>
-
-				<a href="#small-dialog" class="send-message-to-owner button popup-with-zoom-anim"><i class="sl sl-icon-envelope-open"></i> Send Message</a>
 			</div>
 			<!-- Contact / End-->
 
@@ -728,36 +694,6 @@ if($reviewscounter==0){
 <script src="scripts/datedropper.js"></script>
 <script>$('#booking-date').dateDropper();</script>
 <script>$('#booking-date2').dateDropper();</script>
-
-<!-- Time Picker - docs: http://www.vasterad.com/docs/listeo/#!/time_picker -->
-<script src="scripts/timedropper.js"></script>
-<link rel="stylesheet" type="text/css" href="css/plugins/timedropper.css">
-<script>
-    this.$('#booking-time').timeDropper({
-        setCurrentTime: false,
-        meridians: true,
-        primaryColor: "#f91942",
-        borderColor: "#f91942",
-        minutesInterval: '15'
-    });
-
-    this.$('#booking-time2').timeDropper({
-        setCurrentTime: false,
-        meridians: true,
-        primaryColor: "#f91942",
-        borderColor: "#f91942",
-        minutesInterval: '15'
-    });
-
-    var $clocks = $('.td-input');
-    _.each($clocks, function(clock){
-        clock.value = null;
-    });
-</script>
-
-
-
-
 
 </body>
 </html>
@@ -834,24 +770,95 @@ if($reviewscounter==0){
            var day = new Date();
            for(var i=0; i<=diffDays; i++) {
                 day.setDate(start.getDate() + i);
-                inner+="  <div class=\"row with-forms  margin-top-0\">\n" +
-                    "                            <div class=\"col-lg-4 col-md-12\">\n" +
-                    "                                <input name=\"rday-"+i+"\" type=\"text\" readonly value='"+moment(day).format('YYYY-MM-DD')+"'>\n" +
-                    "                            </div>\n" +
-                    "                            <div class=\"col-lg-4 col-md-12\">\n" +
-                    "                                <input name=\"rtime-start-"+i+"\" type=\"text\" id=\"booking-time\" value=\"9:00 am\" readonly class='td-input'>\n" +
-                    "                            </div>\n" +
-                    "                            <div class=\"col-lg-4 col-md-12\">\n" +
-                    "                                <input name=\"rtime-end-"+i+"\" type=\"text\" id=\"booking-time2\" value=\"9:00 am\"  readonly class='td-input'>\n" +
-                    "                            </div>\n" +
-                    "                        </div>";
+               inner+="<div class=\"row with-forms  margin-top-0\">\n" +
+                   "                                <div class=\"col-lg-4 col-md-12\">\n" +
+                   "                                <input name=\"rday-"+i+"\" type=\"text\" readonly value=\""+moment(day).format('YYYY-MM-DD')+"\">\n" +
+                   "                                </div>\n" +
+                   "                                <div class=\"col-lg-4 col-md-12\">\n" +
+                   "                                <select name ='rtime-start-"+i+"' class=\"chosen-select\" data-placeholder=\"Opening Time\">\n" +
+                   "                                    <option label=\"Opening Time\"></option>\n" +
+                   "                                    <option>1 AM</option>\n" +
+                   "                                    <option>2 AM</option>\n" +
+                   "                                    <option>3 AM</option>\n" +
+                   "                                    <option>4 AM</option>\n" +
+                   "                                    <option>5 AM</option>\n" +
+                   "                                    <option>6 AM</option>\n" +
+                   "                                    <option>7 AM</option>\n" +
+                   "                                    <option>8 AM</option>\n" +
+                   "                                    <option>9 AM</option>\n" +
+                   "                                    <option>10 AM</option>\n" +
+                   "                                    <option>11 AM</option>\n" +
+                   "                                    <option>12 AM</option>\n" +
+                   "                                    <option>1 PM</option>\n" +
+                   "                                    <option>2 PM</option>\n" +
+                   "                                    <option>3 PM</option>\n" +
+                   "                                    <option>4 PM</option>\n" +
+                   "                                    <option>5 PM</option>\n" +
+                   "                                    <option>6 PM</option>\n" +
+                   "                                    <option>7 PM</option>\n" +
+                   "                                    <option>8 PM</option>\n" +
+                   "                                    <option>9 PM</option>\n" +
+                   "                                    <option>10 PM</option>\n" +
+                   "                                    <option>11 PM</option>\n" +
+                   "                                    <option>12 PM</option>\n" +
+                   "                                </select>\n" +
+                   "                                </div>\n" +
+                   "                                <div class=\"col-lg-4 col-md-12\">\n" +
+                   "                                    <select name ='rtime-end-"+i+"' class=\"chosen-select\" data-placeholder=\"Closing Time\">\n" +
+                   "                                        <option label=\"Closing Time\"></option>\n" +
+                   "                                        <option>1 AM</option>\n" +
+                   "                                        <option>2 AM</option>\n" +
+                   "                                        <option>3 AM</option>\n" +
+                   "                                        <option>4 AM</option>\n" +
+                   "                                        <option>5 AM</option>\n" +
+                   "                                        <option>6 AM</option>\n" +
+                   "                                        <option>7 AM</option>\n" +
+                   "                                        <option>8 AM</option>\n" +
+                   "                                        <option>9 AM</option>\n" +
+                   "                                        <option>10 AM</option>\n" +
+                   "                                        <option>11 AM</option>\n" +
+                   "                                        <option>12 AM</option>\n" +
+                   "                                        <option>1 PM</option>\n" +
+                   "                                        <option>2 PM</option>\n" +
+                   "                                        <option>3 PM</option>\n" +
+                   "                                        <option>4 PM</option>\n" +
+                   "                                        <option>5 PM</option>\n" +
+                   "                                        <option>6 PM</option>\n" +
+                   "                                        <option>7 PM</option>\n" +
+                   "                                        <option>8 PM</option>\n" +
+                   "                                        <option>9 PM</option>\n" +
+                   "                                        <option>10 PM</option>\n" +
+                   "                                        <option>11 PM</option>\n" +
+                   "                                        <option>12 PM</option>\n" +
+                   "                                    </select>\n" +
+                   "                                </div>\n" +
+                   "                            </div>";
             }
             inner+="<input type='hidden' name='request-dates-count' value="+(diffDays+1)+">";
-           // $("#request-days-time").html(inner);
-
+            $("#request-days-time").html(inner);
         });
 
+        var interests="";
+
+        $(".like-button").click(function () {
+            var key = $(this).children().attr('id')+",";
+            if($(this).children().attr('class')=="like-icon liked"){
+               interests+=(key);
+            }else{
+               interests = interests.replace(key,"");
+            }
+        });
+
+
+        $("#rebutton").click( function req_check(){
+            alert(interests);
+            $("#request-days-time").append("<input type='hidden' name='interests' value='"+interests+"'>");
+            $("#request-days-time").append("<input type='hidden' name='pid' value='<?php echo $pid?>'>");
+            $("#request-days-time").append("<input type='hidden' name='lantern_sid' value='<?php echo $lantern_sid?>'>");
+        });
     });
+    
+
 
 </script>
 

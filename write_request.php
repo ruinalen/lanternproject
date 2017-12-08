@@ -1,20 +1,32 @@
 <?php
+session_start();
 $conn = mysqli_connect('localhost','lantern','lantern','lantern');
-$rating = $_POST['rating'];
-$comment = $_POST['comment'];
-$lantern_sid = $_POST['Lantern_sid'];
-$traveler_sid = $_POST['Traveler_sid'];
-$writer_name = $_POST['writer_name'];
+
+$traveler_sid = $_SESSION['user_sid'];
+$pid =  $_POST['pid'];
+$lantern_sid = $_POST['lantern_sid'];
+$count = $_POST['request-dates-count'];
+$interests = $_POST['interests'];
+$comment  = $_POST['comment'];
+
+$datestimes = "";
+for($i=0; $i<$count; $i++){
+    $rday = $_POST['rday-'.$i];
+    $rstart = $_POST['rtime-start-'.$i];
+    $rend = $_POST['rtime-end-'.$i];
+    $datestimes = $datestimes.$rday.",".$rstart.",".$rend.";";
+}
 
 
-$query = "INSERT INTO `lantern`.`review` (`rvid`,`receiver_sid`, `writer_sid`, `receiver_type`, `rate`, `comment`, `write_date`, `writer_name`) VALUES (NULL, $lantern_sid,$traveler_sid,0,$rating, '$comment', NOW(), '$writer_name')";
-echo $query;
+$query = "INSERT INTO `lantern`.`request` (`rqid`,`pid`, `lantern_sid`, `traveler_sid`, `request_dates`, `comment`, `interests`, `time_stamp`) 
+VALUES (NULL, $pid,$lantern_sid,$traveler_sid,'$datestimes','$comment', '$interests', NOW())";
+
 $data = mysqli_query($conn, $query);
 
 echo "
             <script type='text/javascript'>
-                alert('리뷰 등록 완료');
-                location.href='http://223.195.109.38/lanternproject/posting_view.php';
+                alert('신청 완료');
+                location.href='http://223.195.109.38/lanternproject/posting_view.php?pid=".$pid."';
             </script>
             ";
 ?>

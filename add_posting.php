@@ -731,36 +731,6 @@ $user = mysqli_fetch_assoc($result);
         $("#langf2Select").val("<?php echo $user['lang_f2']?>").attr("selected", "selected");
         $("#lang3Select").val("<?php echo $user['lang3']?>").attr("selected", "selected");
         $("#langf3Select").val("<?php echo $user['lang_f3']?>").attr("selected", "selected");
-//        $(".aachosen-select-no-single").chosen();
-        $(".opening-day.js-demo-hours .chosen-select").each(function () {
-            $(this).append('' +
-                '<option></option>' +
-                '<option>Closed</option>' +
-                '<option>1 AM</option>' +
-                '<option>2 AM</option>' +
-                '<option>3 AM</option>' +
-                '<option>4 AM</option>' +
-                '<option>5 AM</option>' +
-                '<option>6 AM</option>' +
-                '<option>7 AM</option>' +
-                '<option>8 AM</option>' +
-                '<option>9 AM</option>' +
-                '<option>10 AM</option>' +
-                '<option>11 AM</option>' +
-                '<option>12 AM</option>' +
-                '<option>1 PM</option>' +
-                '<option>2 PM</option>' +
-                '<option>3 PM</option>' +
-                '<option>4 PM</option>' +
-                '<option>5 PM</option>' +
-                '<option>6 PM</option>' +
-                '<option>7 PM</option>' +
-                '<option>8 PM</option>' +
-                '<option>9 PM</option>' +
-                '<option>10 PM</option>' +
-                '<option>11 PM</option>' +
-                '<option>12 PM</option>');
-        });
 
         $(".geocheck").change(function () {
             if($(".geocheck").is(":checked")){
@@ -870,7 +840,6 @@ $user = mysqli_fetch_assoc($result);
 
         });
 
-        var available_dates=[];
         var ii=0;
 
         $('#calendar').fullCalendar({
