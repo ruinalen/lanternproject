@@ -13,7 +13,7 @@ $user = mysqli_fetch_assoc($result);
 
     <!-- Basic Page Needs
     ================================================== -->
-    <title>Listeo</title>
+    <title>Lantern</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -839,7 +839,7 @@ $user = mysqli_fetch_assoc($result);
 
                 <!-- Copyrights -->
                 <div class="col-md-12">
-                    <div class="copyrights">© 2017 Listeo. All Rights Reserved.</div>
+                    <div class="copyrights">© 2017 Lantern. All Rights Reserved.</div>
                 </div>
 
             </div>

@@ -232,7 +232,7 @@ if($reviewscounter==0){
 
 <!-- Basic Page Needs
 ================================================== -->
-<title>Listeo</title>
+<title>Lantern</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -408,7 +408,7 @@ if($reviewscounter==0){
                             <div id="other" style="margin-top: 10px">
                                 <?php
                                 foreach ($others as $val)
-                                    echo "<button class='button'style='background-color: #aaaaaa'>".$val."</button>";
+                                    print "<button class='button'style='background-color: #aaaaaa'>".$val."</button>";
                                 ?>
 
                             </div>
@@ -851,7 +851,6 @@ if($reviewscounter==0){
 
 
         $("#rebutton").click( function req_check(){
-            alert(interests);
             $("#request-days-time").append("<input type='hidden' name='interests' value='"+interests+"'>");
             $("#request-days-time").append("<input type='hidden' name='pid' value='<?php echo $pid?>'>");
             $("#request-days-time").append("<input type='hidden' name='lantern_sid' value='<?php echo $lantern_sid?>'>");

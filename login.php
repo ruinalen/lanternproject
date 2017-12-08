@@ -25,8 +25,7 @@ alert('비밀번호가 일치하지 않습니다.');
             $_SESSION['user_sid'] = $row['sid'];
             $_SESSION['user_email'] = $row['email'];
             $_SESSION['user_name_first'] = $row['name_first'];
-            $_SESSION['user_name'] = $row['name_first'].$row['name_last'];
-            $_SESSION['user_photo'] = $row['photo'];
+            $_SESSION['user_name'] = $row['name_first']." ".$row['name_last'];
         }
 }
 
