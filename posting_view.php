@@ -281,7 +281,14 @@ if($reviewscounter==0){
                 <img src="./profile_img/<?php echo $lantern_sid;?>.png" width="50%">
                 <br><br>
 				<div class="listing-titlebar-title">
-					<h2><?php echo $lantern['name_first'].' '.$lantern['name_last'];?> <span class="listing-tag" style="color: lawngreen; border-color: lawngreen;">Verified</span></h2>
+                    <?php
+                        if($lantern['auth_offset']==1){
+                            $authhtml = "<span class=\"listing-tag\" style=\"color: lawngreen; border-color: lawngreen;\">Verified</span>";
+                        }else{
+                            $authhtml = "<span class=\"listing-tag\" style=\"color: red; border-color: red;\">Verified Not</span>";
+                        }
+                    ?>
+					<h2><?php echo $lantern['name_first'].' '.$lantern['name_last']." ".$authhtml;?></h2>
 					<span>
 						<a href="#listing-location" class="listing-address">
 							<i class="im im-icon-Global-Position"></i><?php echo $lantern['region']?>

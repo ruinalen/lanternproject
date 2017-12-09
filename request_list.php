@@ -3,6 +3,9 @@ session_start();
 
 $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 $sid = $_SESSION['user_sid'];
+if($sid==null){
+    Header("Location: ./index.php");
+}
 
 $received_list = array();
 $sent_list = array();
