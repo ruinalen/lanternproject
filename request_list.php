@@ -20,6 +20,11 @@ while ($row1 = mysqli_fetch_assoc($result1)) {
 $query2 = "SELECT * FROM `request` WHERE `traveler_sid`=$sid ORDER BY `time_stamp` DESC ";
 $result2 = mysqli_query($conn, $query2);
 while ($row2 = mysqli_fetch_assoc($result2)) {
+    $query4 = "SELECT * FROM `member` WHERE `sid`=".$row2['lantern_sid'];
+    $result4 = mysqli_query($conn, $query4);
+    $row4 = mysqli_fetch_assoc($result4);
+    $row2['nation'] = $row4['region'];
+    $row2['lantern_name'] = $row4['name_first']." ".$row4['name_last'];
     array_push($sent_list,$row2);
 }
 
@@ -185,9 +190,9 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
                                 <a href='.rq".$value['rqid']."' class=\"popup-with-zoom-anim\">                                
                                     <ul>
                                         <li>
-                                            <div class='profile_img_circle2' style='background-image: url(\"./profile_img/".$value['traveler_sid'].".png\"); float:left;'></div>
+                                            <div class='profile_img_circle2' style=\"background-image: url('./profile_img/".$value['traveler_sid'].".png'); float:left;\"></div>
                                             <div style='margin-left: 5%;' class=\"comment-content\"><div class=\"arrow-comment\"></div>
-                                                <div class=\"comment-by\">".$value['traveler_name']."<div class=\"comment-by-listing\">&emsp;<i class='fa fa-globe'></i>&nbsp;".$value['nation']."</div> <span class=\"date\">".$value['time_stamp']."</span>
+                                                <div class=\"comment-by\"><img style='width: 20px;' src='images/travelerlogo.png'>&nbsp;&nbsp;".$value['traveler_name']."<div class=\"comment-by-listing\">&emsp;<i class='fa fa-globe'></i>&nbsp;".$value['nation']."</div> <span class=\"date\">".$value['time_stamp']."</span>
                                                 </div>
                                                 <p>".substr($value['comment'],0,20)." ....</p>
                                             </div>
@@ -208,43 +213,76 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
                 <div class="col-lg-6 col-md-12">
                     <div class="dashboard-list-box margin-top-0">
                         <h4>Request Sent</h4>
+                        <?php
+                        foreach ($sent_list as $value){
+                            $interests = explode(',',$value['interests']);
+                            $interesthtml="";
+                            $dates = explode(';',$value['request_dates']);
+                            $dateshtml="";
+                            foreach ($interests as $val){
+                                if($val==""){
+                                    break;
+                                }
+                                $interesthtml = $interesthtml."<button class='button'>".$val."</button>";
+                            }
+                            foreach ($dates as $val){
+                                if($val==""){
+                                    break;
+                                }
+                                $sibal = explode(",", $val);
+                                $dateshtml  = $dateshtml."
+                                    <div class=\"row margin-top-0\">
+                                        <div class=\"col-lg-6 col-md-12\">
+                                            <input type=\"date\" data-large-mode=\"true\" readonly value='".$sibal[0]."'>
+                                        </div>
+                                        <div class=\"col-lg-6 col-md-12\">
+                                            <input data-large-mode=\"true\" readonly value='".$sibal[1]." - ".$sibal[2]."'>
+                                        </div>
+                                     </div>";
+                            }
+
+                            print"
+                                    <div id=\"small-dialog\" class=\"zoom-anim-dialog mfp-hide rqt".$value['rqid']."\">
+                                        <div class=\"small-dialog-header\">
+                                            <h3>Request to ".$value['lantern_name']."</h3>
+                                        </div>
+                                        <div class=\"message-reply margin-top-0\">
+                                        <div class='profile_img_circle2' style='background-image: url(\"./profile_img/".$value['lantern_sid'].".png\"); float:left;'></div>
+                                        <div style=\"margin-left: 140px;\"><h4>".$value['lantern_name']."&emsp;<i class='fa fa-globe'></i>&nbsp;".$value['nation']."</h4><span class=\"date\">".$value['time_stamp']."</span></div>
+                                        <br><br><br>
+                                        <h4 style=\"margin-bottom: 20px;\">Request Time</h4>
+                                        ".$dateshtml."
+                                        <h4 style=\"margin-bottom: 20px;margin-top: 20px;\">Interest Keywords</h4>
+                                            ".$interesthtml."
+                                         <h4 style=\"margin-bottom: 20px;margin-top: 20px;\">Comment</h4>
+                                          <p>".$value['comment']."</p>  
+                                        </div>
+                                    </div>
+                                   ";
+                        }
+                        ?>
+
                         <ul>
-
-                            <li>
-                                <div class="comments listing-reviews">
+                            <?php
+                            foreach ($sent_list as $value){
+                                print"<li>
+                                <div class=\"comments listing-reviews\">
+                                <a href='.rqt".$value['rqid']."' class=\"popup-with-zoom-anim\">                                
                                     <ul>
                                         <li>
-                                            <div class="avatar"><img src="images/reviews-avatar.jpg" alt="" /> </div>
-                                            <div class="comment-content"><div class="arrow-comment"></div>
-                                                <div class="comment-by">Your review <div class="comment-by-listing own-comment">on <a href="#">Tom's Restaurant</a></div> <span class="date">May 2017</span>
-                                                    <div class="star-rating" data-rating="4.5"></div>
+                                            <div class='profile_img_circle2' style=\"background-image: url('./profile_img/".$value['lantern_sid'].".png'); float:left;\"></div>
+                                            <div style='margin-left: 5%;' class=\"comment-content\"><div class=\"arrow-comment\"></div>
+                                                <div class=\"comment-by\"><img style='width: 20px;' src='images/lanternloo.png'>&nbsp;&nbsp;".$value['lantern_name']."<div class=\"comment-by-listing\">&emsp;<i class='fa fa-globe'></i>&nbsp;".$value['nation']."</div> <span class=\"date\">".$value['time_stamp']."</span>
                                                 </div>
-                                                <p>Commodo est luctus eget. Proin in nunc laoreet justo volutpat blandit enim. Sem felis, ullamcorper vel aliquam non, varius eget justo. Duis quis nunc tellus sollicitudin mauris.</p>
-                                                <a href="#" class="rate-review"><i class="sl sl-icon-note"></i> Edit</a>
+                                                <p>".substr($value['comment'],0,20)." ....</p>
                                             </div>
-
                                         </li>
                                     </ul>
+                                </a>
                                 </div>
-                            </li>
-
-                            <li>
-                                <div class="comments listing-reviews">
-                                    <ul>
-                                        <li>
-                                            <div class="avatar"><img src="images/reviews-avatar.jpg" alt="" /> </div>
-                                            <div class="comment-content"><div class="arrow-comment"></div>
-                                                <div class="comment-by">Your review <div class="comment-by-listing own-comment">on <a href="#">Think Coffee</a></div> <span class="date">May 2017</span>
-                                                    <div class="star-rating" data-rating="5"></div>
-                                                </div>
-                                                <p>Commodo est luctus eget. Proin in nunc laoreet justo volutpat blandit enim. Sem felis, ullamcorper vel aliquam non, varius eget justo. Duis quis nunc tellus sollicitudin mauris.</p>
-                                                <a href="#" class="rate-review"><i class="sl sl-icon-note"></i> Edit</a>
-                                            </div>
-
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
+                            </li>";
+                            }
+                            ?>
 
                         </ul>
                     </div>
