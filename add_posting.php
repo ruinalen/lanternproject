@@ -657,7 +657,7 @@ $user = mysqli_fetch_assoc($result);
 
                             <!-- Headline -->
                             <div class="add-listing-headline">
-                                <h3><i class="fa fa-calendar"></i> Availabel Dates</h3>
+                                <h3><i class="fa fa-calendar"></i> Available Dates</h3>
 
                             </div>
 

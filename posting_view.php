@@ -772,7 +772,7 @@ if($reviewscounter==0){
            for(var i=0; i<=diffDays; i++) {
                day.setDate(start.getDate() + i);
                if(!ava.includes(moment(day).format('YYYY-MM-DD'))){
-                    alert("불가능 날짜 포함");
+                    alert("There is unavailable date in your request!");
                     window.location.reload();
                }
                inner+="<div class=\"row with-forms  margin-top-0\">\n" +

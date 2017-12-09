@@ -7,7 +7,7 @@ $sid = $_SESSION['user_sid'];
 $received_list = array();
 $sent_list = array();
 
-$query1 = "SELECT * FROM `request` WHERE `lantern_sid`=$sid";
+$query1 = "SELECT * FROM `request` WHERE `lantern_sid`=$sid ORDER BY `time_stamp` DESC ";
 $result1 = mysqli_query($conn, $query1);
 while ($row1 = mysqli_fetch_assoc($result1)) {
     $query3 = "SELECT * FROM `member` WHERE `sid`=".$row1['traveler_sid'];
@@ -17,7 +17,7 @@ while ($row1 = mysqli_fetch_assoc($result1)) {
     array_push($received_list,$row1);
 }
 
-$query2 = "SELECT * FROM `request` WHERE `traveler_sid`=$sid";
+$query2 = "SELECT * FROM `request` WHERE `traveler_sid`=$sid ORDER BY `time_stamp` DESC ";
 $result2 = mysqli_query($conn, $query2);
 while ($row2 = mysqli_fetch_assoc($result2)) {
     array_push($sent_list,$row2);
@@ -128,38 +128,48 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
 
                         <h4>Received Request</h4>
 
-                        <!-- Reply to review popup -->
-                        <div id="small-dialog" class="zoom-anim-dialog mfp-hide">
-                            <div class="small-dialog-header">
-                                <h3>Reply to review</h3>
-                            </div>
-                            <div class="message-reply margin-top-0">
-                                <textarea cols="40" rows="3"></textarea>
-                                <button class="button">Reply</button>
-                            </div>
-                        </div>
+                        <?php
+                        foreach ($received_list as $value){
+                            $interests = explode(',',$value['interests']);
+                            $interesthtml="";
+                            foreach ($interests as $val){
+                                if($val==""){
+                                    break;
+                                }
+                                $interesthtml = $interesthtml."<button class='button'>".$val."</button>";
+                            }
+
+                            print"
+                                    <div id=\"small-dialog\" class=\"zoom-anim-dialog mfp-hide rq".$value['rqid']."\">
+                                        <div class=\"small-dialog-header\">
+                                            <h3>".$value['rqid']."Reply to review</h3>
+                                        </div>
+                                        <div class=\"message-reply margin-top-0\">
+                                            ".$interesthtml."
+                                            <textarea cols=\"40\" rows=\"3\"></textarea>
+                                        </div>
+                                    </div>
+                                   ";
+                        }
+                        ?>
 
                         <ul>
-
                             <?php
                                 foreach ($received_list as $value){
                                     print"<li>
                                 <div class=\"comments listing-reviews\">
+                                <a href='.rq".$value['rqid']."' class=\"popup-with-zoom-anim\">                                
                                     <ul>
                                         <li>
                                             <div class=\"avatar\"><img src=\"./profile_img/".$value['traveler_sid'].".png\" alt=\"\"></div>
                                             <div class=\"comment-content\"><div class=\"arrow-comment\"></div>
-                                                <div class=\"comment-by\">".$value['traveler_name']." <div class=\"comment-by-listing\">".$value['nation']."</div> <span class=\"date\">".$value['time_stamp']."</span>
+                                                <div class=\"comment-by\">".$value['traveler_name']."<div class=\"comment-by-listing\">&emsp;<i class='fa fa-globe'></i>&nbsp;".$value['nation']."</div> <span class=\"date\">".$value['time_stamp']."</span>
                                                 </div>
-                                                <p>Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor imperdiet vitae. Curabitur lacinia neque non metus</p>
-
-                                                <div class=\"review-images mfp-gallery-container\">
-                                                    <a href=\"images/review-image-01.jpg\" class=\"mfp-gallery\"><img src=\"images/review-image-01.jpg\" alt=\"\"></a>
-                                                </div>
-                                                <a href=\"#small-dialog\" class=\"rate-review popup-with-zoom-anim\"><i class=\"sl sl-icon-action-undo\"></i> Reply to this review</a>
+                                                <p>".$value['comment']."</p>
                                             </div>
                                         </li>
                                     </ul>
+                                </a>
                                 </div>
                             </li>";
                                 }
