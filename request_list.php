@@ -10,6 +10,10 @@ $sent_list = array();
 $query1 = "SELECT * FROM `request` WHERE `lantern_sid`=$sid";
 $result1 = mysqli_query($conn, $query1);
 while ($row1 = mysqli_fetch_assoc($result1)) {
+    $query3 = "SELECT * FROM `member` WHERE `sid`=".$row1['traveler_sid'];
+    $result3 = mysqli_query($conn, $query3);
+    $row3 = mysqli_fetch_assoc($result3);
+    $row1['nation'] = $row3['region'];
     array_push($received_list,$row1);
 }
 
@@ -145,8 +149,7 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
                                         <li>
                                             <div class=\"avatar\"><img src=\"./profile_img/".$value['traveler_sid'].".png\" alt=\"\"></div>
                                             <div class=\"comment-content\"><div class=\"arrow-comment\"></div>
-                                                <div class=\"comment-by\">".$value['traveler_name']." <div class=\"comment-by-listing\">on <a href=\"#\">Burger House</a></div> <span class=\"date\">June 2017</span>
-                                                    <div class=\"star-rating\" data-rating=\"5\"></div>
+                                                <div class=\"comment-by\">".$value['traveler_name']." <div class=\"comment-by-listing\">".$value['nation']."</div> <span class=\"date\">".$value['time_stamp']."</span>
                                                 </div>
                                                 <p>Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor imperdiet vitae. Curabitur lacinia neque non metus</p>
 

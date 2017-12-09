@@ -760,6 +760,7 @@ if($reviewscounter==0){
         });
 
         $("#booknowbutton").click(function () {
+            var ava = <?php echo json_encode($ava_dates) ;?>;
             var start = new Date( $("#booking-date").val());
             var end =new Date( $("#booking-date2").val());
             var timeDiff = Math.abs(start - end);
@@ -769,14 +770,18 @@ if($reviewscounter==0){
 
            var day = new Date();
            for(var i=0; i<=diffDays; i++) {
-                day.setDate(start.getDate() + i);
+               day.setDate(start.getDate() + i);
+               if(!ava.includes(moment(day).format('YYYY-MM-DD'))){
+                    alert("불가능 날짜 포함");
+                    window.location.reload();
+               }
                inner+="<div class=\"row with-forms  margin-top-0\">\n" +
                    "                                <div class=\"col-lg-4 col-md-12\">\n" +
                    "                                <input name=\"rday-"+i+"\" type=\"text\" readonly value=\""+moment(day).format('YYYY-MM-DD')+"\">\n" +
                    "                                </div>\n" +
                    "                                <div class=\"col-lg-4 col-md-12\">\n" +
                    "                                <select name ='rtime-start-"+i+"' class=\"chosen-select\" data-placeholder=\"Opening Time\">\n" +
-                   "                                    <option label=\"Opening Time\"></option>\n" +
+                   "                                    <option label=\"Start Time\"></option>\n" +
                    "                                    <option>1 AM</option>\n" +
                    "                                    <option>2 AM</option>\n" +
                    "                                    <option>3 AM</option>\n" +
@@ -805,7 +810,7 @@ if($reviewscounter==0){
                    "                                </div>\n" +
                    "                                <div class=\"col-lg-4 col-md-12\">\n" +
                    "                                    <select name ='rtime-end-"+i+"' class=\"chosen-select\" data-placeholder=\"Closing Time\">\n" +
-                   "                                        <option label=\"Closing Time\"></option>\n" +
+                   "                                        <option label=\"End Time\"></option>\n" +
                    "                                        <option>1 AM</option>\n" +
                    "                                        <option>2 AM</option>\n" +
                    "                                        <option>3 AM</option>\n" +
