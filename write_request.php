@@ -1,4 +1,5 @@
 <?php
+include  "Sendmail.php";
 session_start();
 $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 
@@ -21,8 +22,21 @@ for($i=0; $i<$count; $i++){
 
 $query = "INSERT INTO `lantern`.`request` (`rqid`,`pid`, `lantern_sid`, `traveler_sid`, `traveler_name`, `request_dates`, `comment`, `interests`, `time_stamp`) 
 VALUES (NULL, $pid,$lantern_sid,$traveler_sid,'$traveler_name','$datestimes','$comment', '$interests', NOW())";
+mysqli_query($conn, $query);
 
-$data = mysqli_query($conn, $query);
+$query1 = "SELECT * FROM `member` WHERE `sid` =$lantern_sid";
+$result = mysqli_query($conn, $query1);
+$row = mysqli_fetch_assoc($result);
+
+$sendmail = new Sendmail();
+$to = $row['email'];
+$from = "Lantern";
+$subject = "Lantern 새로운 신청 알림입니다.";
+$body = "새로운 신청이 도착했습니다. 지금 바로 확인해 보세요.
+http://223.195.109.38/lanternproject/request_list.php
+";
+
+$sendmail->send_mail($to, $from, $subject, $body);
 
 echo "
             <script type='text/javascript'>

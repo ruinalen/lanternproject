@@ -36,7 +36,6 @@
         echo $query;
         $data = mysqli_query($conn, $query);
 
-
         $to = "$email";
         $from = "Lantern";
         $subject = "Lantern 이메일 인증입니다.";
