@@ -581,15 +581,12 @@ if($reviewscounter==0){
 				<h3><i class="fa fa-calendar-check-o "></i> Book a Lantern</h3>
                 <div id='calendar'></div>
 				<div class="row with-forms  margin-top-0">
-
-					<!-- Date Picker - docs: http://www.vasterad.com/docs/listeo/#!/date_picker -->
 					<div class="col-lg-6 col-md-12">
 						<input type="date" id="booking-date" data-lang="en" data-large-mode="true" data-min-year="2017" data-max-year="2020">
 					</div>
                     <div class="col-lg-6 col-md-12">
                         <input type="date" id="booking-date2" data-lang="en" data-large-mode="true" data-min-year="2017" data-max-year="2020">
                     </div>
-
 				</div>
 
 				<!-- progress button animation handled via custom.js -->

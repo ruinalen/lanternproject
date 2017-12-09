@@ -255,6 +255,15 @@ img.footer-logo { max-height: 38px; width: auto; }
 	background-size: cover;
 	background-position: 50% 50%;
 }
+
+.profile_img_circle2{
+	width: 100px;
+	height: 100px;
+	border: solid 3px transparent;
+	border-radius: 80px;
+	background-size: cover;
+	background-position: 50% 50%;
+}
 .header-widget .button,
 .header-widget .button.border {
 	margin-right: 0;

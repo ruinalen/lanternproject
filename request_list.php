@@ -132,21 +132,45 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
                         foreach ($received_list as $value){
                             $interests = explode(',',$value['interests']);
                             $interesthtml="";
+                            $dates = explode(';',$value['request_dates']);
+                            $dateshtml="";
                             foreach ($interests as $val){
                                 if($val==""){
                                     break;
                                 }
                                 $interesthtml = $interesthtml."<button class='button'>".$val."</button>";
                             }
+                            foreach ($dates as $val){
+                                if($val==""){
+                                    break;
+                                }
+                                $sibal = explode(",", $val);
+                                $dateshtml  = $dateshtml."
+                                    <div class=\"row margin-top-0\">
+                                        <div class=\"col-lg-6 col-md-12\">
+                                            <input type=\"date\" data-large-mode=\"true\" readonly value='".$sibal[0]."'>
+                                        </div>
+                                        <div class=\"col-lg-6 col-md-12\">
+                                            <input data-large-mode=\"true\" readonly value='".$sibal[1]." - ".$sibal[2]."'>
+                                        </div>
+                                     </div>";
+                            }
 
                             print"
                                     <div id=\"small-dialog\" class=\"zoom-anim-dialog mfp-hide rq".$value['rqid']."\">
                                         <div class=\"small-dialog-header\">
-                                            <h3>".$value['rqid']."Reply to review</h3>
+                                            <h3>Request from ".$value['traveler_name']."</h3>
                                         </div>
                                         <div class=\"message-reply margin-top-0\">
+                                        <div class='profile_img_circle2' style='background-image: url(\"./profile_img/".$value['traveler_sid'].".png\"); float:left;'></div>
+                                        <div style=\"margin-left: 140px;\"><h4>".$value['traveler_name']."&emsp;<i class='fa fa-globe'></i>&nbsp;".$value['nation']."</h4><span class=\"date\">".$value['time_stamp']."</span></div>
+                                        <br><br><br>
+                                        <h4 style=\"margin-bottom: 20px;\">Request Time</h4>
+                                        ".$dateshtml."
+                                        <h4 style=\"margin-bottom: 20px;margin-top: 20px;\">Interest Keywords</h4>
                                             ".$interesthtml."
-                                            <textarea cols=\"40\" rows=\"3\"></textarea>
+                                         <h4 style=\"margin-bottom: 20px;margin-top: 20px;\">Comment</h4>
+                                          <p>".$value['comment']."</p>  
                                         </div>
                                     </div>
                                    ";
@@ -161,11 +185,11 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
                                 <a href='.rq".$value['rqid']."' class=\"popup-with-zoom-anim\">                                
                                     <ul>
                                         <li>
-                                            <div class=\"avatar\"><img src=\"./profile_img/".$value['traveler_sid'].".png\" alt=\"\"></div>
-                                            <div class=\"comment-content\"><div class=\"arrow-comment\"></div>
+                                            <div class='profile_img_circle2' style='background-image: url(\"./profile_img/".$value['traveler_sid'].".png\"); float:left;'></div>
+                                            <div style='margin-left: 5%;' class=\"comment-content\"><div class=\"arrow-comment\"></div>
                                                 <div class=\"comment-by\">".$value['traveler_name']."<div class=\"comment-by-listing\">&emsp;<i class='fa fa-globe'></i>&nbsp;".$value['nation']."</div> <span class=\"date\">".$value['time_stamp']."</span>
                                                 </div>
-                                                <p>".$value['comment']."</p>
+                                                <p>".substr($value['comment'],0,20)." ....</p>
                                             </div>
                                         </li>
                                     </ul>
