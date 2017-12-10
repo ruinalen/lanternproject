@@ -21,8 +21,7 @@ while ($row1 = mysqli_fetch_assoc($result1)) {
     array_push($received_list,$row1);
 }
 
-$query2 = "SELECT * FROM `request` WHERE `traveler_sid`=$sid ORDER BY `time_stamp` DESC "; //수락된 신청
-$query1 = "SELECT * FROM `request` WHERE `traveler_sid`=$sid AND `state`= 0 ORDER BY `time_stamp` DESC "; //거절된 신청
+$query2 = "SELECT * FROM `request` WHERE `traveler_sid`=$sid ORDER BY `time_stamp` DESC ";
 $result2 = mysqli_query($conn, $query2);
 while ($row2 = mysqli_fetch_assoc($result2)) {
     $query4 = "SELECT * FROM `member` WHERE `sid`=".$row2['lantern_sid'];
@@ -282,6 +281,10 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
                         <ul>
                             <?php
                             foreach ($sent_list as $value){
+                                $stateinner="";
+                                if($value['state']==2){
+                                    $stateinner = "<div style='float: right;'><button radonly style='background-color: limegreen' class='button'>Accepted<br>Start Chatting</button></div>";
+                                }
                                 print"<li>
                                 <div class=\"comments listing-reviews\">
                                 <a href='.rqt".$value['rqid']."' class=\"popup-with-zoom-anim\">                                
@@ -290,7 +293,7 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
                                             <div class='profile_img_circle2' style=\"background-image: url('./profile_img/".$value['lantern_sid'].".png'); float:left;\"></div>
                                             <div style='margin-left: 5%;' class=\"comment-content\"><div class=\"arrow-comment\"></div>
                                                 <div class=\"comment-by\"><img style='width: 20px;' src='images/lanternloo.png'>&nbsp;&nbsp;".$value['lantern_name']."<div class=\"comment-by-listing\">&emsp;<i class='fa fa-globe'></i>&nbsp;".$value['nation']."</div> <span class=\"date\">".$value['time_stamp']."</span>
-                                                </div>
+                                                </div>".$stateinner."
                                                 <p>".substr($value['comment'],0,20)." ....</p>
                                             </div>
                                         </li>
