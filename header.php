@@ -23,71 +23,74 @@ session_start();
             <!-- Main Navigation -->
             <nav id="navigation" class="style-1">
                 <ul id="responsive">
-
-                    <li><a class="current" href="#">Home</a>
-                        <ul>
-                            <li><a href="index.php">Home 1</a></li>
-                            <li><a href="index-2.html">Home 2</a></li>
-                            <li><a href="index-3.html">Home 3</a></li>
-                            <li><a href="index-4.html">Home 4</a></li>
-                        </ul>
-                    </li>
-
-                    <li><a href="#">Listings</a>
-                        <ul>
-                            <li><a href="#">List Layout</a>
-                                <ul>
-                                    <li><a href="listings-list-with-sidebar.html">With Sidebar</a></li>
-                                    <li><a href="listings-list-full-width.html">Full Width</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Grid Layout</a>
-                                <ul>
-                                    <li><a href="listings-grid-with-sidebar-1.html">With Sidebar 1</a></li>
-                                    <li><a href="listings-grid-with-sidebar-2.html">With Sidebar 2</a></li>
-                                    <li><a href="listings-grid-full-width.html">Full Width</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Half Screen Map</a>
-                                <ul>
-                                    <li><a href="listings-half-screen-map-list.html">List Layout</a></li>
-                                    <li><a href="listings-half-screen-map-grid-1.html">Grid Layout 1</a></li>
-                                    <li><a href="listings-half-screen-map-grid-2.html">Grid Layout 2</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="listings-single-page.html">Single Listing</a></li>
-                        </ul>
-                    </li>
-
-                    <li><a href="#">User Panel</a>
-                        <ul>
-                            <li><a href="dashboard.html">Dashboard</a></li>
-                            <li><a href="dashboard-messages.html">Messages</a></li>
-                            <li><a href="dashboard-my-listings.html">My Listings</a></li>
-                            <li><a href="dashboard-reviews.html">Reviews</a></li>
-                            <li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
-                            <li><a href="add_posting.php">Add Listing</a></li>
-                            <li><a href="profile.php">My Profile</a></li>
-                            <li><a href="dashboard-invoice.html">Invoice</a></li>
-                        </ul>
-                    </li>
-
-                    <li><a href="#">Pages</a>
-                        <ul>
-                            <li><a href="pages-blog.html">Blog</a>
-                                <ul>
-                                    <li><a href="pages-blog.html">Blog</a></li>
-                                    <li><a href="pages-blog-post.html">Blog Post</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="pages-contact.html">Contact</a></li>
-                            <li><a href="pages-elements.html">Elements</a></li>
-                            <li><a href="pages-pricing-tables.html">Pricing Tables</a></li>
-                            <li><a href="pages-typography.html">Typography</a></li>
-                            <li><a href="pages-404.html">404 Page</a></li>
-                            <li><a href="pages-icons.html">Icons</a></li>
-                        </ul>
-                    </li>
+                    <li><a  href = "profile.php"</li>My Profile</a>
+                    <li><a  href = "posting_view.php"</li>My Posting</a>
+                    <li><a  href = "request_list.php"</li>Request List</a>
+                    <li><a  href = "#"</li>Messages</a>
+<!--                    <li><a class="current" href="#">Home</a>-->
+<!--                        <ul>-->
+<!--                            <li><a href="index.php">Home 1</a></li>-->
+<!--                            <li><a href="index-2.html">Home 2</a></li>-->
+<!--                            <li><a href="index-3.html">Home 3</a></li>-->
+<!--                            <li><a href="index-4.html">Home 4</a></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+<!---->
+<!--                    <li><a href="#">Listings</a>-->
+<!--                        <ul>-->
+<!--                            <li><a href="#">List Layout</a>-->
+<!--                                <ul>-->
+<!--                                    <li><a href="listings-list-with-sidebar.html">With Sidebar</a></li>-->
+<!--                                    <li><a href="listings-list-full-width.html">Full Width</a></li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
+<!--                            <li><a href="#">Grid Layout</a>-->
+<!--                                <ul>-->
+<!--                                    <li><a href="listings-grid-with-sidebar-1.html">With Sidebar 1</a></li>-->
+<!--                                    <li><a href="listings-grid-with-sidebar-2.html">With Sidebar 2</a></li>-->
+<!--                                    <li><a href="listings-grid-full-width.html">Full Width</a></li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
+<!--                            <li><a href="#">Half Screen Map</a>-->
+<!--                                <ul>-->
+<!--                                    <li><a href="listings-half-screen-map-list.html">List Layout</a></li>-->
+<!--                                    <li><a href="listings-half-screen-map-grid-1.html">Grid Layout 1</a></li>-->
+<!--                                    <li><a href="listings-half-screen-map-grid-2.html">Grid Layout 2</a></li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
+<!--                            <li><a href="listings-single-page.html">Single Listing</a></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+<!---->
+<!--                    <li><a href="#">User Panel</a>-->
+<!--                        <ul>-->
+<!--                            <li><a href="dashboard.html">Dashboard</a></li>-->
+<!--                            <li><a href="dashboard-messages.html">Messages</a></li>-->
+<!--                            <li><a href="dashboard-my-listings.html">My Listings</a></li>-->
+<!--                            <li><a href="dashboard-reviews.html">Reviews</a></li>-->
+<!--                            <li><a href="dashboard-bookmarks.html">Bookmarks</a></li>-->
+<!--                            <li><a href="add_posting.php">Add Listing</a></li>-->
+<!--                            <li><a href="profile.php">My Profile</a></li>-->
+<!--                            <li><a href="dashboard-invoice.html">Invoice</a></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+<!---->
+<!--                    <li><a href="#">Pages</a>-->
+<!--                        <ul>-->
+<!--                            <li><a href="pages-blog.html">Blog</a>-->
+<!--                                <ul>-->
+<!--                                    <li><a href="pages-blog.html">Blog</a></li>-->
+<!--                                    <li><a href="pages-blog-post.html">Blog Post</a></li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
+<!--                            <li><a href="pages-contact.html">Contact</a></li>-->
+<!--                            <li><a href="pages-elements.html">Elements</a></li>-->
+<!--                            <li><a href="pages-pricing-tables.html">Pricing Tables</a></li>-->
+<!--                            <li><a href="pages-typography.html">Typography</a></li>-->
+<!--                            <li><a href="pages-404.html">404 Page</a></li>-->
+<!--                            <li><a href="pages-icons.html">Icons</a></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
 
                 </ul>
             </nav>
@@ -123,9 +126,12 @@ session_start();
 
                         </span></div>
                     <ul>
-                        <li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
-                        <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages</a></li>
-                        <li><a href="profile.php"><i class="sl sl-icon-user"></i> My Profile</a></li>
+<!--                        <li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li>-->
+<!--                        <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages</a></li>-->
+
+                        <li><a href="profile.php"><i class="im im-icon-Profile"></i> My Profile</a></li>
+                        <li><a href="posting_view.php"><i class="im im-icon-Home-Window"></i> My Posting</a></li>
+                        <li><a href="request_list.php"><i class="im im-icon-Bulleted-List"></i> Request List</a></li>
                         <li><a href="logout.php"><i class="sl sl-icon-power"></i> Logout</a></li>
                     </ul>
                 </div>

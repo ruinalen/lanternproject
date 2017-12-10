@@ -3,6 +3,11 @@ session_start();
 $pid = $_SESSION['pid'];
 $superkeywords = $_SESSION['superkeywords'];
 $superkeywords_array = explode(',', $superkeywords);
+
+$conn = mysqli_connect('localhost','lantern','lantern','lantern');
+$query = "SELECT * FROM `pkrelation` WHERE `pid` =\".$pid.\" ";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
 ?>
 
 <!DOCTYPE html>
@@ -91,6 +96,57 @@ $superkeywords_array = explode(',', $superkeywords);
             </div>
 
             <div class="row">
+                <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+                <script type="text/javascript">
+                    $(function() {
+                        $("#service_image").on('change', function(){
+                            readURL(this);
+                        });
+                    });
+
+                    function readURL(input) {
+                        if (input.files && input.files[0]) {
+                            var reader = new FileReader();
+
+                            reader.onload = function (e) {
+                                $('#profile_img_area').attr('src', e.target.result);
+                            }
+
+                            reader.readAsDataURL(input.files[0]);
+                        }
+                    }
+
+
+                </script>
+
+                <script type="text/javascript">
+                    $(document).ready(function() {
+
+                        $("#profilephoto").submit( function(e){
+                            e.preventDefault();
+
+                            var datas, xhr;
+
+                            datas = new FormData();
+                            datas.append( 'service_image', $( '#service_image' )[0].files[0] );
+
+                            $.ajax({
+                                url: './superphoto.php', //업로드할 url
+                                contentType: 'multipart/form-data',
+                                type: 'POST',
+                                data: datas,
+                                dataType: 'json',
+                                mimeType: 'multipart/form-data',
+
+                                cache: false,
+                                contentType: false,
+                                processData: false
+                            });
+                        });
+
+                    });
+
+                </script>
                 <div class="col-lg-12">
 
                     <div id="add-listing">

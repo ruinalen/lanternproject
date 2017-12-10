@@ -83,8 +83,8 @@ session_start();
 
             <div class="col-md-12">
                 <h3 class="headline centered margin-top-75">
-                    Popular Categories
-                    <span>Browse <i>the most desirable</i> categories</span>
+                    Popular Keywords
+                    <span>Browse <i>the most desirable</i> keywords</span>
                 </h3>
             </div>
 
