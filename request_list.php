@@ -34,6 +34,20 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
 ?>
 <!DOCTYPE html>
 <head>
+    <style>
+        #accept{
+            background-color: white;
+            color: green;
+            border: 1px green solid;
+        }
+        #delete{
+            background-color: white;
+            color: red;
+            border: 1px red solid;
+        }
+
+
+    </style>
 
     <!-- Basic Page Needs
     ================================================== -->
@@ -49,6 +63,8 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
 </head>
 
 <body>
+
+
 
 <!-- Wrapper -->
 <div id="wrapper">
@@ -79,26 +95,19 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
             <div class="dashboard-nav-inner">
 
                 <ul data-submenu-title="Main">
-                    <li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
-                    <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages <span class="nav-tag messages">2</span></a></li>
+                    <li><a href="./profile.php"><i class="sl sl-icon-settings"></i> My Profile</a></li>
+<!--                    <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages <span class="nav-tag messages">2</span></a></li>-->
+                    <li><a href="./request_list.php"><i class="sl sl-icon-star"></i> Request List</a></li>
+                    <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages </span></a>
                 </ul>
 
-                <ul data-submenu-title="Listings">
-                    <li><a><i class="sl sl-icon-layers"></i> My Listings</a>
-                        <ul>
-                            <li><a href="dashboard-my-listings.html">Active <span class="nav-tag green">6</span></a></li>
-                            <li><a href="dashboard-my-listings.html">Pending <span class="nav-tag yellow">1</span></a></li>
-                            <li><a href="dashboard-my-listings.html">Expired <span class="nav-tag red">2</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="active"><a href="dashboard-reviews.html"><i class="sl sl-icon-star"></i> Reviews</a></li>
-                    <li><a href="dashboard-bookmarks.html"><i class="sl sl-icon-heart"></i> Bookmarks</a></li>
-                    <li><a href="dashboard-add-listing.html"><i class="sl sl-icon-plus"></i> Add Listing</a></li>
+                <ul data-submenu-title="Posting">
+                    <li><a href="./posting_view.php"><i class="sl sl-icon-layers"></i> My Posting</a></li>
+                    <li><a href="dashboard-add-listing.html"><i class="sl sl-icon-plus"></i> Add Posting</a></li>
                 </ul>
 
                 <ul data-submenu-title="Account">
-                    <li><a href="dashboard-my-profile.html"><i class="sl sl-icon-user"></i> My Profile</a></li>
-                    <li><a href="index.html"><i class="sl sl-icon-power"></i> Logout</a></li>
+                    <li><a href="./logout.php"><i class="sl sl-icon-power"></i> Logout</a></li>
                 </ul>
 
             </div>
@@ -180,6 +189,9 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
                                          <h4 style=\"margin-bottom: 20px;margin-top: 20px;\">Comment</h4>
                                           <p>".$value['comment']."</p>  
                                         </div>
+                                        <div style='text-align: center'>
+                                        <button class='button' id='accept'>Accept Request</button> <button class='button' id='delete'>Delete Request</button>
+                                      </div>
                                     </div>
                                    ";
                         }

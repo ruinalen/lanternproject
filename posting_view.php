@@ -1,7 +1,13 @@
 <?php
 session_start();
-$pid = $_GET['pid'];
 $conn = mysqli_connect('localhost','lantern','lantern','lantern');
+$pid = $_GET['pid'];
+if($pid==null){
+    $query = "SELECT * FROM `posting` WHERE `lantern_sid` =".$_SESSION['user_sid'];
+    $result = mysqli_query($conn, $query);
+    $pid = mysqli_fetch_assoc($result)['pid'];
+}
+
 
 $query1 = "SELECT * FROM `posting` WHERE `pid` ='$pid'";
 $result1 = mysqli_query($conn, $query1);
