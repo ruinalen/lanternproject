@@ -7594,11 +7594,13 @@ span.like-icon {
 /* Navigation Scrolling */
 .dashboard-nav-inner {
 	height: 100%;
-	width: 277px;
-	overflow-y: scroll;
+	max-width: 260px;
+	width: 260px;
+	overflow-y: hidden;
 	position: relative;
 	display: block;
 	padding: 10px 0 25px 0;
+
 }
 
 .messages-container-inner .messages-inbox ul::-webkit-scrollbar { width: 17px; }
@@ -7606,7 +7608,7 @@ span.like-icon {
 .dashboard-nav-inner {
     max-height: 900px;
     width: calc(100% + 17px);
-    overflow-y: scroll;
+    overflow-y: hidden;
     position: relative;
     display: block;
     padding: 10px 0 25px 0;

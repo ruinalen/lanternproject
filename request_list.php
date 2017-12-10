@@ -10,7 +10,7 @@ if($sid==null){
 $received_list = array();
 $sent_list = array();
 
-$query1 = "SELECT * FROM `request` WHERE `lantern_sid`=$sid ORDER BY `time_stamp` DESC ";
+$query1 = "SELECT * FROM `request` WHERE `lantern_sid`=$sid AND `state`= 0 ORDER BY `time_stamp` DESC ";
 $result1 = mysqli_query($conn, $query1);
 while ($row1 = mysqli_fetch_assoc($result1)) {
     $query3 = "SELECT * FROM `member` WHERE `sid`=".$row1['traveler_sid'];
@@ -190,7 +190,7 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
                                           <p>".$value['comment']."</p>  
                                         </div>
                                         <div style='text-align: center'>
-                                        <button class='button' id='accept'>Accept Request</button> <button class='button' id='delete'>Delete Request</button>
+                                        <button class='button ac".$value['rqid']."' id='accept'>Accept Request</button> <button class='button de".$value['rqid']."' id='delete'>Delete Request</button>
                                       </div>
                                     </div>
                                    ";
@@ -339,3 +339,26 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
 
 </body>
 </html>
+
+<script>
+    $(document).ready(function () {
+       $("button[id=accept]").click(function () {
+           var datas =
+               {
+                   rqid : $(this).attr('class').split("ac")[1]
+               };
+           $.ajax({
+               url: './request_accept.php',
+               type: 'POST',
+               data: datas,
+               dataType: "json",
+               success : function(data, status, xhr) {
+                   console.log(data);
+                   window.location.reload();
+               }
+           });
+
+       })
+    });
+
+</script>
