@@ -10,7 +10,8 @@ if($sid==null){
 $received_list = array();
 $sent_list = array();
 
-$query1 = "SELECT * FROM `request` WHERE `lantern_sid`=$sid AND `state`= 0 ORDER BY `time_stamp` DESC ";
+$query1 = "SELECT * FROM `request` WHERE `lantern_sid`=$sid AND `state`= 0 ORDER BY `time_stamp` DESC "; //신청
+
 $result1 = mysqli_query($conn, $query1);
 while ($row1 = mysqli_fetch_assoc($result1)) {
     $query3 = "SELECT * FROM `member` WHERE `sid`=".$row1['traveler_sid'];
@@ -20,7 +21,8 @@ while ($row1 = mysqli_fetch_assoc($result1)) {
     array_push($received_list,$row1);
 }
 
-$query2 = "SELECT * FROM `request` WHERE `traveler_sid`=$sid ORDER BY `time_stamp` DESC ";
+$query2 = "SELECT * FROM `request` WHERE `traveler_sid`=$sid ORDER BY `time_stamp` DESC "; //수락된 신청
+$query1 = "SELECT * FROM `request` WHERE `traveler_sid`=$sid AND `state`= 0 ORDER BY `time_stamp` DESC "; //거절된 신청
 $result2 = mysqli_query($conn, $query2);
 while ($row2 = mysqli_fetch_assoc($result2)) {
     $query4 = "SELECT * FROM `member` WHERE `sid`=".$row2['lantern_sid'];
@@ -343,22 +345,49 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
 <script>
     $(document).ready(function () {
        $("button[id=accept]").click(function () {
-           var datas =
-               {
-                   rqid : $(this).attr('class').split("ac")[1]
-               };
-           $.ajax({
-               url: './request_accept.php',
-               type: 'POST',
-               data: datas,
-               dataType: "json",
-               success : function(data, status, xhr) {
-                   console.log(data);
-                   window.location.reload();
-               }
-           });
+           if (confirm("accept?") != true) {
+           }else {
+               var datas =
+                   {
+                       rqid: $(this).attr('class').split("ac")[1],
+                       update_state: 2
+                   };
+               $.ajax({
+                   url: './request_accept.php',
+                   type: 'POST',
+                   data: datas,
+                   dataType: "json",
+                   success: function (data, status, xhr) {
+                       console.log(data);
+                       window.location.reload();
+                   }
+               });
+           }
+       });
+        $("button[id=delete]").click(function () {
+            if (confirm("delete?") != true) {
 
-       })
+            }else {
+
+
+                var datas =
+                    {
+                        rqid: $(this).attr('class').split("de")[1],
+                        update_state: 3
+                    };
+                $.ajax({
+                    url: './request_accept.php',
+                    type: 'POST',
+                    data: datas,
+                    dataType: "json",
+                    success: function (data, status, xhr) {
+                        console.log(data);
+                        window.location.reload();
+                    }
+                });
+            }
+
+        })
     });
 
 </script>

@@ -2,9 +2,15 @@
 $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 
 $rqid = $_POST['rqid'];
-$query = "UPDATE request SET state = 2 WHERE  `rqid` = ".$rqid;
+$update_state = $_POST['update_state'];
+$query = "UPDATE request SET state =".$update_state." WHERE  `rqid` = ".$rqid;
 if ($conn->query($query) === TRUE) {
-    echo $rqid;
+    if($update_state==2){
+    //수락
+
+    }elseif ($update_state==3){
+    //거절
+    }
 }
 else {
 }
