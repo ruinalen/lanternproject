@@ -96,57 +96,6 @@ $row = mysqli_fetch_assoc($result);
             </div>
 
             <div class="row">
-                <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-                <script type="text/javascript">
-                    $(function() {
-                        $("#service_image").on('change', function(){
-                            readURL(this);
-                        });
-                    });
-
-                    function readURL(input) {
-                        if (input.files && input.files[0]) {
-                            var reader = new FileReader();
-
-                            reader.onload = function (e) {
-                                $('#profile_img_area').attr('src', e.target.result);
-                            }
-
-                            reader.readAsDataURL(input.files[0]);
-                        }
-                    }
-
-
-                </script>
-
-                <script type="text/javascript">
-                    $(document).ready(function() {
-
-                        $("#profilephoto").submit( function(e){
-                            e.preventDefault();
-
-                            var datas, xhr;
-
-                            datas = new FormData();
-                            datas.append( 'service_image', $( '#service_image' )[0].files[0] );
-
-                            $.ajax({
-                                url: './superphoto.php', //업로드할 url
-                                contentType: 'multipart/form-data',
-                                type: 'POST',
-                                data: datas,
-                                dataType: 'json',
-                                mimeType: 'multipart/form-data',
-
-                                cache: false,
-                                contentType: false,
-                                processData: false
-                            });
-                        });
-
-                    });
-
-                </script>
                 <div class="col-lg-12">
 
                     <div id="add-listing">
@@ -170,7 +119,8 @@ $row = mysqli_fetch_assoc($result);
 
                             <!-- Dropzone -->
                             <div class=\"submit-section\">
-                                <form action=\"/file-upload\" class=\"dropzone\" ></form>
+                            <form action=\"/superphoto.php\" class=\"dropzone\" id='drop_".$splitjoin."'></form>
+
                             </div>
 
                             <!-- Description -->
@@ -267,12 +217,14 @@ $row = mysqli_fetch_assoc($result);
 </body>
 </html>
 <script>
-    $(document).ready(function () {
+     $(document).ready(function () {
 
         $(".preview").click(function (e) {
             e.preventDefault();
+
             var superkeyword = $(this).attr('id');
             var split = superkeyword.split(' ').join('');
+
             var datas =
                 {
                 keyword : superkeyword,
@@ -284,10 +236,34 @@ $row = mysqli_fetch_assoc($result);
                 data: datas,
                 dataType: "json",
                 success : function(data, status, xhr) {
-                    alert(data);
+//                    alert(data);
                 }
 
             });
+
+            var datas2;
+
+            datas2 = new FormData();
+//            datas2.append( 'service_image', $('#drop_'+split) );
+
+            var myDropzone = new Dropzone ($("#drop_"+split));
+            var filess = myDropzone.files.getAcceptedFiles();
+
+            alert(filess[0]);
+
+//            $.ajax({
+//                url: './profilephoto.php', //업로드할 url
+//                contentType: 'multipart/form-data',
+//                type: 'POST',
+//                data: datas2,
+//                dataType: 'json',
+//                mimeType: 'multipart/form-data',
+//
+//                cache: false,
+//                contentType: false,
+//                processData: false
+//            });
+
         });
     })
 
