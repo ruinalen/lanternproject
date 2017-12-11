@@ -77,7 +77,7 @@ $available_dates = $_POST['available_dates'];
 
 
 $sql1 = "UPDATE `lantern`.`member` SET lantern_offset=1, intro = '$intro', lang1 = '$lang1', lang_f1 = $lang_f1, lang2 = '$lang2', lang_f2 = $lang_f2, lang3 = '$lang3', lang_f3 = '$lang_f3' WHERE `sid` = $sid";
-if ($conn->query($sql1) === TRUE) {
+$conn->query($sql1);
     $sql2 = "INSERT INTO `lantern`.`posting` (`pid`, `lantern_sid`, `registration_date`, `accommodation`, `kid`, `disabled`, `owncar`)
               VALUES (NULL,'$sid', NOW(),'$accommodation',$kid,$disabled,$ownacar)";
     $data = mysqli_query($conn, $sql2);
@@ -110,15 +110,5 @@ if ($conn->query($sql1) === TRUE) {
             location.href='http://223.195.109.38/lanternproject/add_posting_super.php';
         </script>
         ";
-} else {
-    echo "Error updating record: " . $conn->error;
-    echo "
-        <script type='text/javascript'>
-            alert('다시 시도 하세요');
-            location.href='http://223.195.109.38/lanternproject/index.php';
-        </script>
-        ";
-
-}
 
 
