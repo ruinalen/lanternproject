@@ -827,7 +827,6 @@ $user = mysqli_fetch_assoc($result);
                     available_dates+=(moment(d).format('YYYY-MM-DD')+",");
                 }
             }
-            alert(available_dates);
             var inner= "";
             for(var i=0; i<keyword_array.length;i++){
                 inner += "<input type='hidden' name='keywords_array[]' value='"+keyword_array[i]['keyword']+"'>";
