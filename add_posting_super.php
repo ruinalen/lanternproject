@@ -107,7 +107,7 @@ $row = mysqli_fetch_assoc($result);
                         var reader = new FileReader();
 
                         reader.onload = function (e) {
-                            $('#profile_img_area').attr('src', e.target.result);
+                            $('#super_img_area').attr('src', e.target.result);
                         }
 
                         reader.readAsDataURL(input.files[0]);
@@ -120,7 +120,7 @@ $row = mysqli_fetch_assoc($result);
             <script type="text/javascript">
                 $(document).ready(function() {
 
-                    $("#profilephoto").submit( function(e){
+                    $("#superphoto").submit( function(e){
                         e.preventDefault();
 
                         var datas, xhr;
@@ -129,7 +129,7 @@ $row = mysqli_fetch_assoc($result);
                         datas.append( 'service_image', $( '#service_image' )[0].files[0] );
 
                         $.ajax({
-                            url: './profilephoto.php', //업로드할 url
+                            url: './superphoto.php', //업로드할 url
                             contentType: 'multipart/form-data',
                             type: 'POST',
                             data: datas,
@@ -168,11 +168,9 @@ $row = mysqli_fetch_assoc($result);
                                 <h3><i class=\"sl sl-icon-picture\"></i> ".$super."</h3>
                             </div>");
 
-                            $default = "default";
-                            echo '<img id="profile_img_area" src="/lanternproject/super_img/'.$default.'.png" alt="">';
-
 
                             print("
+
 
                             <!-- Dropzone -->
                             <form id=\"superphoto\" method=\"post\" class=\"profile\" enctype=\"multipart/form-data\" action=\"./superphoto.php\">
@@ -184,13 +182,18 @@ $row = mysqli_fetch_assoc($result);
                                         <div class=\"photoUpload\">
                                             <span><i class=\"fa fa-upload\"></i> SELECT PHOTO</span>
                                             <input id=\"service_image\" name=\"service_image\"  type=\"file\" class=\"upload\" />
-                                        </div>
+                                        </div>       
                                     </div>
                                 </div>
-                
+
                                 <button onclick=\"document.getElementById('superphoto').submit()\" class=\"button margin-top-15\">PROFILE PHOTO UPLOAD</button>
-                
+                                <div class=\"col-md-0\">
+                                     
+                                     <input name = 'superkeywordname' value='".$splitjoin."' type=\"text\" style = \"opacity: 0\" readonly>
+                                </div>
                             </form>
+                            
+                            
 
                             <!-- Description -->
                             <div class=\"form\">

@@ -22,10 +22,11 @@ $query = "SELECT * FROM `pkrelation` WHERE `pid` =\".$pid.\" ";
 $result = mysqli_query($conn, $query);
 $row = mysqli_fetch_assoc($result);
 
+$superkeywordname = $_POST['superkeywordname'];
+
 if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
 {
     $name = $_FILES['service_image']['name'];
-    print("$name");
     $size = $_FILES['service_image']['size'];
 
 
@@ -36,7 +37,7 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
         {
             if($size<(1024*1024)) // Image size max 1 MB
             {
-                $actual_image_name = $_SESSION[user_sid].".png";
+                $actual_image_name = $pid."_".$superkeywordname.".png";
                 $tmp = $_FILES['service_image']['tmp_name'];
                 if(move_uploaded_file($tmp, $path.$actual_image_name))
                 {
