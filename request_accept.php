@@ -3,10 +3,9 @@ $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 
 $rqid = $_POST['rqid'];
 $update_state = $_POST['update_state'];
-$query = "UPDATE request SET state =".$update_state." WHERE  `rqid` = ".$rqid;
-if ($conn->query($query) === TRUE) {
+
     if($update_state==2){
-    //수락
+    //수락클릭
         $query2 = "SELECT * FROM request  WHERE  `rqid` = ".$rqid;
         $result2 = mysqli_query($conn, $query2);
         $row2 = mysqli_fetch_assoc($result2);
@@ -24,6 +23,9 @@ if ($conn->query($query) === TRUE) {
             if($request==""){
                 break;
             }
+            if(strpos($avadates, $request)==false){
+                return json_encode("error");
+            }
             $req = explode(",", $request);
             $avadates = str_replace($req[0].",","",$avadates);
             $reserdates = $reserdates.$req[0].",";
@@ -33,10 +35,11 @@ if ($conn->query($query) === TRUE) {
         $conn->query($query);
 
     }elseif ($update_state==3){
-    //거절
+    //거절클릭
     }
-}
-else {
-}
+
+$query = "UPDATE request SET state =".$update_state." WHERE  `rqid` = ".$rqid;
+$conn->query($query);
+
 
 ?>

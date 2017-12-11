@@ -377,7 +377,7 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
                    data: datas,
                    dataType: "json",
                    success: function (data, status, xhr) {
-                       console.log(data);
+                       alert(data);
                        location.href = './request_list.php';
                    }
                });
