@@ -739,9 +739,17 @@ $user = mysqli_fetch_assoc($result);
         function view_keywrods(){
             var innerhtml = "";
             for(var i=0; i<keyword_array.length;i++){
-                innerhtml+="<button class='button' disabled>";
-                innerhtml+=keyword_array[i]['keyword'];
-                innerhtml+="</button>";
+                if(keyword_array[i]['super_offset']==1){
+                    innerhtml+="<button class='button' disabled>";
+                    innerhtml+=keyword_array[i]['keyword'];
+                    innerhtml+="</button>";
+                }
+                else{
+                    innerhtml+="<button class='button' style='background-color: #aaaaaa' disabled>";
+                    innerhtml+=keyword_array[i]['keyword'];
+                    innerhtml+="</button>";
+                }
+
             }
             $("#keywords_boxed").html(innerhtml);
         }
