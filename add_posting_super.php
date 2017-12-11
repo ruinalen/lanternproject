@@ -153,11 +153,22 @@ $row = mysqli_fetch_assoc($result);
 
                         <?php
                         foreach ($superkeywords_array as $super) {
+
+
                             if($super==null)
                             {
                                 break;
                             }
                             $splitjoin = str_replace(" ", "", $super);
+                        $inner="";
+                                if(@file('http://223.195.109.38/lanternproject/super_img/'.$pid.'_'.$splitjoin.'.png')){
+                                  $inner=   '<img id="super_img_area" src="./super_img/'.$pid.'_'.$splitjoin.'.png" alt="">';
+                                }
+                                else{
+                                    $default = "default";
+                                    $inner='<img id="super_img_area" src="/lanternproject/profile_img/'.$default.'.png" alt="">';
+                                }
+
                             print("
                             
                             <!-- Section -->
@@ -174,12 +185,13 @@ $row = mysqli_fetch_assoc($result);
 
                             <!-- Dropzone -->
                             <form id=\"superphoto\" method=\"post\" class=\"profile\" enctype=\"multipart/form-data\" action=\"./superphoto.php\">
-                
+                  ".$inner."
                                 <!-- Avatar -->
                                 <div class=\"edit-profile-photo\">
                 
                                     <div class=\"change-photo-btn\">
                                         <div class=\"photoUpload\">
+                                      
                                             <span><i class=\"fa fa-upload\"></i> SELECT PHOTO</span>
                                             <input id=\"service_image\" name=\"service_image\"  type=\"file\" class=\"upload\" />
                                         </div>       

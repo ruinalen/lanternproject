@@ -10,7 +10,6 @@ $data['success'] = false;
 if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
 {
     $name = $_FILES['service_image']['name'];
-    print("$name");
     $size = $_FILES['service_image']['size'];
 
 

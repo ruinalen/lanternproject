@@ -64,8 +64,8 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
 }
 
 echo json_encode($data);
-//echo "
-//        <script type='text/javascript'>
-//            location.href='http://223.195.109.38/lanternproject/profile.php';
-//        </script>
-//        ";
+echo "
+        <script type='text/javascript'>
+            location.href='http://223.195.109.38/lanternproject/add_posting_super.php';
+        </script>
+        ";

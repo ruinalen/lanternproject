@@ -345,6 +345,60 @@ if($reviewscounter==0){
 				</ul>
 			</div>
 
+            <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+            <script type="text/javascript">
+                $(function() {
+                    $("#service_image").on('change', function(){
+                        readURL(this);
+                    });
+                });
+
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#super_img_area').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+
+            </script>
+
+            <script type="text/javascript">
+                $(document).ready(function() {
+
+                    $("#superphoto").submit( function(e){
+                        e.preventDefault();
+
+                        var datas, xhr;
+
+                        datas = new FormData();
+                        datas.append( 'service_image', $( '#service_image' )[0].files[0] );
+
+                        $.ajax({
+                            url: './superphoto.php', //업로드할 url
+                            contentType: 'multipart/form-data',
+                            type: 'POST',
+                            data: datas,
+                            dataType: 'json',
+                            mimeType: 'multipart/form-data',
+
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        });
+                    });
+
+                });
+
+            </script>
+
+
+
 
 			<!-- Food Menu -->
 			<div id="listing-pricing-list" class="listing-section">
@@ -355,8 +409,10 @@ if($reviewscounter==0){
                             <h5 style="margin-bottom: 10px;">Super Keywords</h5>
                             <?php
 
+
                             for ($x = 0; $x < sizeof($supers); $x++) {
                                 $supertrim= str_replace(' ','',$supers[$x]);
+
                                 print("
                                 <div id=\"super-dialog\" class=\"zoom-anim-dialog mfp-hide ".$supertrim."\">
 
@@ -364,36 +420,7 @@ if($reviewscounter==0){
                                         <h4>".$supers[$x]."</h4>
                                     </div>
 
-                                    <div class=\"slideshow-container\">
-                                        <div class=\"mySlides fade\">
-                                            <div class=\"numbertext\">1 / 3</div>
-                                            <img src=\"images/raw_octopus.jpg\" style=\"width:100%\">
-                                            <div class=\"text\"></div>
-                                        </div>
-
-                                        <div class=\"mySlides fade\">
-                                            <div class=\"numbertext\">2 / 3</div>
-                                            <img src=\"images/raw_octopus.jpg\" style=\"width:100%\">
-                                            <div class=\"text\"></div>
-                                        </div>
-
-                                        <div class=\"mySlides fade\">
-                                            <div class=\"numbertext\">3 / 3</div>
-                                            <img src=\"images/raw_octopus.jpg\" style=\"width:100%\">
-                                            <div class=\"text\"></div>
-                                        </div>
-
-                                        <a class=\"prev\" onclick=\"plusSlides(-1)\">&#10094;</a>
-                                        <a class=\"next\" onclick=\"plusSlides(1)\">&#10095;</a>
-                                    </div>
-                                    <br>
-                                    
-                                    <div style=\"text-align:center\">
-                                      <span class=\"dot\" onclick=\"currentSlide(1)\"></span> 
-                                      <span class=\"dot\" onclick=\"currentSlide(2)\"></span> 
-                                      <span class=\"dot\" onclick=\"currentSlide(3)\"></span> 
-                                    </div>
-
+                                    <img src=\"super_img/".$pid."_".$supertrim.".png\" style=\"width:100%\">
 
 
                                     <div class=\"message-reply margin-top-10px\">
@@ -409,6 +436,37 @@ if($reviewscounter==0){
                                 
                                 
                                 ");
+
+//                                <div class="slideshow-container">
+//                                        <div class="mySlides fade">
+//                                            <div class="numbertext">1 / 3</div>
+//                                            <img src="super_img/34_death.png" style="width:100%">
+//                                            <div class="text"></div>
+//                                        </div>
+//
+//                                        <div class="mySlides fade">
+//                                            <div class="numbertext">2 / 3</div>
+//                                            <img src="images/raw_octopus.jpg" style="width:100%">
+//                                            <div class="text"></div>
+//                                        </div>
+//
+//                                        <div class="mySlides fade">
+//                                            <div class="numbertext">3 / 3</div>
+//                                            <img src="images/raw_octopus.jpg" style="width:100%">
+//                                            <div class="text"></div>
+//                                        </div>
+//
+//                                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+//                                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+//                                    </div>
+//                                    <br>
+//
+//                                    <div style="text-align:center">
+//                                      <span class="dot" onclick="currentSlide(1)"></span>
+//                                      <span class="dot" onclick="currentSlide(2)"></span>
+//                                      <span class="dot" onclick="currentSlide(3)"></span>
+//                                    </div>
+
 
                             }
 
