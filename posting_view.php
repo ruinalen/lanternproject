@@ -268,12 +268,16 @@ if($reviewscounter==0){
 
 <!-- Slider
 ================================================== -->
-<div class="listing-slider mfp-gallery-container margin-bottom-0">
-	<a href="images/single-listing-01.jpg" data-background-image="images/raw_octopus.jpg" class="item mfp-gallery" title="Title 1"></a>
-	<a href="images/single-listing-02.jpg" data-background-image="images/itaewon.jpg" class="item mfp-gallery" title="Title 3"></a>
-	<a href="images/single-listing-03.jpg" data-background-image="images/workout.jpg" class="item mfp-gallery" title="Title 2"></a>
-	<a href="images/single-listing-04.jpg" data-background-image="images/bbq.jpg" class="item mfp-gallery" title="Title 4"></a>
-</div>
+    <div class="listing-slider mfp-gallery-container margin-bottom-0">
+        <?php
+        for ($y = 0; $y < 4; $y++){
+            $supersplitjoin= str_replace(' ','',$supers[$y]);
+            print(" 
+            <a href=\"images/single-listing-01.jpg\" data-background-image=\"super_img/".$pid."_".$supersplitjoin.".png\" class=\"item mfp-gallery\" title=\"Title 1\"></a>"
+            );
+        };
+        ?>
+    </div>
 
 
 <!-- Content

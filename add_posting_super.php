@@ -317,7 +317,7 @@ $row = mysqli_fetch_assoc($result);
                 data: datas,
                 dataType: "json",
                 success : function(data, status, xhr) {
-//                    alert(data);
+                    alert(data+" edit complete");
                 }
 
             });
@@ -330,20 +330,6 @@ $row = mysqli_fetch_assoc($result);
             var myDropzone = new Dropzone ($("#drop_"+split));
             var filess = myDropzone.files.getAcceptedFiles();
 
-            alert(filess[0]);
-
-//            $.ajax({
-//                url: './profilephoto.php', //???? url
-//                contentType: 'multipart/form-data',
-//                type: 'POST',
-//                data: datas2,
-//                dataType: 'json',
-//                mimeType: 'multipart/form-data',
-//
-//                cache: false,
-//                contentType: false,
-//                processData: false
-//            });
 
         });
     })
