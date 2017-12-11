@@ -94,6 +94,57 @@ $row = mysqli_fetch_assoc($result);
                     </div>
                 </div>
             </div>
+            <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+            <script type="text/javascript">
+                $(function() {
+                    $("#service_image").on('change', function(){
+                        readURL(this);
+                    });
+                });
+
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#profile_img_area').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+
+            </script>
+
+            <script type="text/javascript">
+                $(document).ready(function() {
+
+                    $("#profilephoto").submit( function(e){
+                        e.preventDefault();
+
+                        var datas, xhr;
+
+                        datas = new FormData();
+                        datas.append( 'service_image', $( '#service_image' )[0].files[0] );
+
+                        $.ajax({
+                            url: './profilephoto.php', //업로드할 url
+                            contentType: 'multipart/form-data',
+                            type: 'POST',
+                            data: datas,
+                            dataType: 'json',
+                            mimeType: 'multipart/form-data',
+
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        });
+                    });
+
+                });
+
+            </script>
 
             <div class="row">
                 <div class="col-lg-12">
@@ -115,13 +166,31 @@ $row = mysqli_fetch_assoc($result);
                             <!-- Headline -->
                             <div class=\"add-listing-headline\">
                                 <h3><i class=\"sl sl-icon-picture\"></i> ".$super."</h3>
-                            </div>
+                            </div>");
+
+                            $default = "default";
+                            echo '<img id="profile_img_area" src="/lanternproject/super_img/'.$default.'.png" alt="">';
+
+
+                            print("
 
                             <!-- Dropzone -->
-                            <div class=\"submit-section\">
-                            <form action=\"/superphoto.php\" class=\"dropzone\" id='drop_".$splitjoin."'></form>
-
-                            </div>
+                            <form id=\"superphoto\" method=\"post\" class=\"profile\" enctype=\"multipart/form-data\" action=\"./superphoto.php\">
+                
+                                <!-- Avatar -->
+                                <div class=\"edit-profile-photo\">
+                
+                                    <div class=\"change-photo-btn\">
+                                        <div class=\"photoUpload\">
+                                            <span><i class=\"fa fa-upload\"></i> SELECT PHOTO</span>
+                                            <input id=\"service_image\" name=\"service_image\"  type=\"file\" class=\"upload\" />
+                                        </div>
+                                    </div>
+                                </div>
+                
+                                <button onclick=\"document.getElementById('superphoto').submit()\" class=\"button margin-top-15\">PROFILE PHOTO UPLOAD</button>
+                
+                            </form>
 
                             <!-- Description -->
                             <div class=\"form\">
@@ -139,11 +208,8 @@ $row = mysqli_fetch_assoc($result);
 
                         }
                         ?>
-                    </div>
 
-                    <a href="posting_view.php?pid=<?php echo $pid?>" class="button" i>Complete <i class="fa fa-arrow-circle-right"></i></a>
 
-                </div>
 
                 <!-- Copyrights -->
                 <div class="col-md-12">

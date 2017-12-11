@@ -794,7 +794,7 @@ $user = mysqli_fetch_assoc($result);
 
                     $text  = "<?php echo nl2br($user['intro']);?>";
 
-                    alert($text);
+//                    alert($text);
                     document.getElementById('phone_num').value = nullCheck("<?php echo $user['phone_num']?>");
 
                     document.getElementById('career').value = nullCheck("<?php echo $user['career']?>");

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: SuhKyung
- * Date: 2017-11-02
- * Time: 오후 4:40
- */
-
 session_start();
 $_SESSION[user_sid];
 $path = "/var/profile_img/";
@@ -17,6 +10,7 @@ $data['success'] = false;
 if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
 {
     $name = $_FILES['service_image']['name'];
+    print("$name");
     $size = $_FILES['service_image']['size'];
 
 
@@ -54,8 +48,8 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
 }
 
 echo json_encode($data);
-echo "
-        <script type='text/javascript'>
-            location.href='http://223.195.109.38/lanternproject/profile.php';
-        </script>
-        ";
+//echo "
+//        <script type='text/javascript'>
+//            location.href='http://223.195.109.38/lanternproject/profile.php';
+//        </script>
+//        ";

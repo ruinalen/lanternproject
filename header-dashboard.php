@@ -133,9 +133,9 @@ session_start();
 <!--                        <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages</a></li>-->
 <!--                        <li><a href="profile.php"><i class="sl sl-icon-user"></i> My Profile</a></li>-->
 <!--                        <li><a href="logout.php"><i class="sl sl-icon-power"></i> Logout</a></li>-->
-                        <li><a href="profile.php"><i class="sl im-icon-Profile"></i> My Profile</a></li>
-                        <li><a href="posting_view.php"><i class="im-icon-Home-Window"></i> My Posting</a></li>
-                        <li><a href="request_list.php"><i class="im-icon-Bulleted-List"></i> Request List</a></li>
+                        <li><a href="profile.php"><i class="im im-icon-Profile"></i> My Profile</a></li>
+                        <li><a href="posting_view.php"><i class="im im-icon-Home-Window"></i> My Posting</a></li>
+                        <li><a href="request_list.php"><i class="im im-icon-Bulleted-List"></i> Request List</a></li>
                         <li><a href="logout.php"><i class="sl sl-icon-power"></i> Logout</a></li>
                     </ul>
                 </div>

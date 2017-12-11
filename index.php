@@ -101,9 +101,9 @@ session_start();
 
                 <!-- this (first) box will be hidden under 1680px resolution -->
                 <div class="category-box-container half">
-                    <a href="listings-half-screen-map-grid-1.html" class="category-box" data-background-image="images/category-box-01.jpg">
+                    <a href="listings-half-screen-map-grid-1.html" class="category-box" data-background-image="images/itaewon-seoul-lounge-club.jpg">
                         <div class="category-box-content">
-                            <h3>Hotels</h3>
+                            <h3>Night Life</h3>
                             <span>64 listings</span>
                         </div>
                         <span class="category-box-btn">Browse</span>
@@ -111,7 +111,7 @@ session_start();
                 </div>
 
                 <div class="category-box-container half">
-                    <a href="listings-half-screen-map-grid-1.html" class="category-box" data-background-image="images/category-box-02.jpg">
+                    <a href="listings-half-screen-map-grid-1.html" class="category-box" data-background-image="images/shoppinginkorea.jpg">
                         <div class="category-box-content">
                             <h3>Shops</h3>
                             <span>14 listings</span>
@@ -124,9 +124,9 @@ session_start();
             <!-- Item -->
             <div class="fw-carousel-item">
                 <div class="category-box-container">
-                    <a href="listings-half-screen-map-grid-1.html" class="category-box" data-background-image="images/category-box-03.jpg">
+                    <a href="listings-half-screen-map-grid-1.html" class="category-box" data-background-image="images/NightView.jpg">
                         <div class="category-box-content">
-                            <h3>Events</h3>
+                            <h3>Night View</h3>
                             <span>67 listings</span>
                         </div>
                         <span class="category-box-btn">Browse</span>
@@ -137,9 +137,9 @@ session_start();
             <!-- Item -->
             <div class="fw-carousel-item">
                 <div class="category-box-container">
-                    <a href="listings-half-screen-map-grid-1.html" class="category-box" data-background-image="images/category-box-04.jpg">
+                    <a href="listings-half-screen-map-grid-1.html" class="category-box" data-background-image="images/KoreanTraditionalFood2.jpg">
                         <div class="category-box-content">
-                            <h3>Fitness</h3>
+                            <h3>Food</h3>
                             <span>27 listings</span>
                         </div>
                         <span class="category-box-btn">Browse</span>
@@ -150,9 +150,9 @@ session_start();
             <!-- Item -->
             <div class="fw-carousel-item">
                 <div class="category-box-container">
-                    <a href="listings-half-screen-map-list.html" class="category-box" data-background-image="images/category-box-05.jpg">
+                    <a href="listings-half-screen-map-list.html" class="category-box" data-background-image="images/pcroom3.jpg">
                         <div class="category-box-content">
-                            <h3>Nightlife</h3>
+                            <h3>PC ROOM</h3>
                             <span>22 listings</span>
                         </div>
                         <span class="category-box-btn">Browse</span>
@@ -163,9 +163,9 @@ session_start();
             <!-- Item -->
             <div class="fw-carousel-item">
                 <div class="category-box-container">
-                    <a href="listings-half-screen-map-list.html" class="category-box" data-background-image="images/category-box-06.jpg">
+                    <a href="listings-half-screen-map-list.html" class="category-box" data-background-image="images/koreandesserts.jpg">
                         <div class="category-box-content">
-                            <h3>Eat & Drink</h3>
+                            <h3>Desserts</h3>
                             <span>130 listings</span>
                         </div>
                         <span class="category-box-btn">Browse</span>
