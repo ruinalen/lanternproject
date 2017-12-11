@@ -189,7 +189,15 @@ $user = mysqli_fetch_assoc($result);
 
                             <form method="post" class="profile" action="./profileupdate.php">
                             <!-- Details -->
+                                <?php
+                                if($user['auth_offset']==1){
+                                    echo "<div id=\"titlebar\" class=\"listing-titlebar\"><div class=\"listing-titlebar-title\"><span class=\"listing-tag\" style=\"color: lawngreen; border-color: lawngreen;\">Verified</span></div></div>";
+                                }else{
+                                    echo "<div id=\"titlebar\" class=\"listing-titlebar\"><div class=\"listing-titlebar-title\"><span class=\"listing-tag\" style=\"color: red; border-color: red;\">Verified Not</span></div></div>";
+                                }
+                                ?>
                             <div class="my-profile">
+
 
                                 <label>Your Name</label>
                                 <input value="<?php echo $user['name_first']." ".$user['name_last']?>" type="text" readonly>
@@ -771,7 +779,7 @@ $user = mysqli_fetch_assoc($result);
                                                 $("#langf2Select").val("<?php echo $user['lang_f2']?>").attr("selected", "selected");
                                                 $("#lang3Select").val("<?php echo $user['lang3']?>").attr("selected", "selected");
                                                 $("#langf3Select").val("<?php echo $user['lang_f3']?>").attr("selected", "selected");
-                                                $(".aachosen-select-no-single").chosen();
+//                                                $(".aachosen-select-no-single").chosen();
                                             </script>
                                         </div>
                                     </div>
@@ -788,7 +796,9 @@ $user = mysqli_fetch_assoc($result);
 
                 <script>
                     function nullCheck(info){
-
+                        if(info=='NULL'||info=="null"){
+                            return "";
+                        }
                             return info;
                     }
 
