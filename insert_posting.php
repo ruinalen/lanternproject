@@ -5,7 +5,8 @@ $conn = mysqli_connect('localhost','lantern','lantern','lantern');
 
 $intro = $_POST['intro'];
 
-if(isset($_POST['accommodation'])) {
+
+if(isset($_POST['accommodation']) && $_POST['accommodation']!="") {
     $accommodation = $_POST['accommodation'];
 }else{
     $accommodation = 8;
@@ -78,9 +79,17 @@ $available_dates = $_POST['available_dates'];
 
 $sql1 = "UPDATE `lantern`.`member` SET lantern_offset=1, intro = '$intro', lang1 = '$lang1', lang_f1 = $lang_f1, lang2 = '$lang2', lang_f2 = $lang_f2, lang3 = '$lang3', lang_f3 = '$lang_f3' WHERE `sid` = $sid";
 $conn->query($sql1);
-    $sql2 = "INSERT INTO `lantern`.`posting` (`pid`, `lantern_sid`, `registration_date`, `accommodation`, `kid`, `disabled`, `owncar`)
+//    $sql2 = "INSERT INTO `lantern`.`posting` (`pid`, `lantern_sid`, `registration_date`, `accommodation`, `kid`, `disabled`, `owncar`)
+//              VALUES (NULL,'$sid', NOW(),$accommodation,$kid,$disabled,$ownacar)";
+$sql = "INSERT INTO `lantern`.`posting` (`pid`, `lantern_sid`, `registration_date`, `accommodation`, `kid`, `disabled`, `owncar`)
               VALUES (NULL,'$sid', NOW(),$accommodation,$kid,$disabled,$ownacar)";
-    $data = mysqli_query($conn, $sql2);
+
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+//    $data = mysqli_query($conn, $sql2);
 
     $sql3 = "SELECT * FROM `posting` WHERE `lantern_sid` ='$sid' ORDER BY  `pid` DESC";
     $result = mysqli_query($conn, $sql3);
