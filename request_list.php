@@ -283,17 +283,15 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
                             foreach ($sent_list as $value){
                                 $stateinner="";
                                 if($value['state']==2){
-                                    $stateinner = "<div style='float: right;'><button radonly style='background-color: limegreen' class='button'>Accepted<br>Start Chatting</button></div>";
-                                }
-                                print"<li>
+                                    print"<li>
                                 <div class=\"comments listing-reviews\">
-                                <a href='.rqt".$value['rqid']."' class=\"popup-with-zoom-anim\">                                
+                                <a href='http://223.195.109.38/lanternproject/chat.php'>                                
                                     <ul>
                                         <li>
                                             <div class='profile_img_circle2' style=\"background-image: url('./profile_img/".$value['lantern_sid'].".png'); float:left;\"></div>
                                             <div style='margin-left: 5%;' class=\"comment-content\"><div class=\"arrow-comment\"></div>
                                                 <div class=\"comment-by\"><img style='width: 20px;' src='images/lanternloo.png'>&nbsp;&nbsp;".$value['lantern_name']."<div class=\"comment-by-listing\">&emsp;<i class='fa fa-globe'></i>&nbsp;".$value['nation']."</div> <span class=\"date\">".$value['time_stamp']."</span>
-                                                </div>".$stateinner."
+                                                </div><div style='float: right;'><button radonly style='background-color: limegreen' class='button'>Accepted<br>Start Chatting</button></div>
                                                 <p>".substr($value['comment'],0,20)." ....</p>
                                             </div>
                                         </li>
@@ -301,6 +299,24 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
                                 </a>
                                 </div>
                             </li>";
+                                }else {
+                                    print"<li>
+                                <div class=\"comments listing-reviews\">
+                                <a href='.rqt" . $value['rqid'] . "' class=\"popup-with-zoom-anim\">                                
+                                    <ul>
+                                        <li>
+                                            <div class='profile_img_circle2' style=\"background-image: url('./profile_img/" . $value['lantern_sid'] . ".png'); float:left;\"></div>
+                                            <div style='margin-left: 5%;' class=\"comment-content\"><div class=\"arrow-comment\"></div>
+                                                <div class=\"comment-by\"><img style='width: 20px;' src='images/lanternloo.png'>&nbsp;&nbsp;" . $value['lantern_name'] . "<div class=\"comment-by-listing\">&emsp;<i class='fa fa-globe'></i>&nbsp;" . $value['nation'] . "</div> <span class=\"date\">" . $value['time_stamp'] . "</span>
+                                                </div>
+                                                <p>" . substr($value['comment'], 0, 20) . " ....</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </a>
+                                </div>
+                            </li>";
+                                }
                             }
                             ?>
 
@@ -362,7 +378,7 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
                    dataType: "json",
                    success: function (data, status, xhr) {
                        console.log(data);
-                       window.location.reload();
+                       location.href = './request_list.php';
                    }
                });
            }
@@ -385,7 +401,7 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
                     dataType: "json",
                     success: function (data, status, xhr) {
                         console.log(data);
-                        window.location.reload();
+                        location.href = './request_list.php';
                     }
                 });
             }
